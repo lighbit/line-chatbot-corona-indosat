@@ -1,7 +1,6 @@
 package com.zulkarnaen.bot.service;
 
 import com.linecorp.bot.model.action.MessageAction;
-import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
@@ -34,8 +33,8 @@ public class CoronaBotTemplate {
 	}
 
 	public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
-		String message = "Hi %s! Ayo ikut dicoding event, aku bisa cariin kamu teman.";
-		String action = "Lihat daftar event";
+		String message = "Hai %s! Mari Pantau Perkembangan Corona di Indonesia.";
+		String action = "Lihat Perkembangan";
 
 		if (source instanceof GroupSource) {
 			message = String.format(message, "Group");
@@ -44,7 +43,9 @@ public class CoronaBotTemplate {
 		} else if (source instanceof UserSource) {
 			message = String.format(message, sender.getDisplayName());
 		} else {
-			message = "Unknown Message Source!";
+			message = "Eh maaf {AccountName} ga denger kamu ngomong apa?\r\n"
+					+ "aku sedang tidak fokus karena pandemic ini(crying)\r\n"
+					+ "kamu mau liat status terkini virus corona di indonesia?";
 		}
 
 		return createButton(message, action, action);
@@ -52,20 +53,17 @@ public class CoronaBotTemplate {
 
 	public TemplateMessage carouselEvents(CoronaBotEvents dicodingEvents) {
 		int i;
-		String image, owner, name, id, link;
+		String country, death, confirm;
 		CarouselColumn column;
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
 		for (i = 0; i < dicodingEvents.getData().size(); i++) {
-			image = dicodingEvents.getData().get(i).getImagePath();
-			owner = dicodingEvents.getData().get(i).getOwnerDisplayName();
-			name = dicodingEvents.getData().get(i).getName();
-			id = String.valueOf(dicodingEvents.getData().get(i).getId());
-			link = dicodingEvents.getData().get(i).getLink();
+			death = Integer.toString(dicodingEvents.getData().get(i).getToday().getDeaths());
+			confirm = Integer.toString(dicodingEvents.getData().get(i).getToday().getConfirmed());
+			country = dicodingEvents.getData().get(i).getName();
 
-			column = new CarouselColumn(image, name.substring(0, (name.length() < 40) ? name.length() : 40), owner,
-					Arrays.asList(
-							new MessageAction("Summary", "[" + String.valueOf(i + 1) + "]" + " Summary : " + name),
-							new URIAction("View Page", link), new MessageAction("Join Event", "join event #" + id)));
+			column = new CarouselColumn(death, country.substring(0, (country.length() < 40) ? country.length() : 40),
+					confirm,
+					Arrays.asList(new MessageAction("Meninggal", death), new MessageAction("Terkonfirmasi", confirm)));
 
 			carouselColumn.add(column);
 		}

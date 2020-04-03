@@ -67,8 +67,9 @@ public class CoronaBotController {
 	private CoronaBotDBService dbService;
 
 	private UserProfileResponse sender = null;
-	private CoronaBotEvents dicodingEvents = null;
+	private CoronaBotEvents coronaBotEvents = null;
 
+	/* WEBHOOK DEFAULT */
 	@RequestMapping(value = "/webhook", method = RequestMethod.POST)
 	public ResponseEntity<String> callback(@RequestHeader("X-Line-Signature") String xLineSignature,
 			@RequestBody String eventsPayload) {
@@ -80,7 +81,8 @@ public class CoronaBotController {
 
 			System.out.println(eventsPayload);
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-			CoronaBotLineEventsModel eventsModel = objectMapper.readValue(eventsPayload, CoronaBotLineEventsModel.class);
+			CoronaBotLineEventsModel eventsModel = objectMapper.readValue(eventsPayload,
+					CoronaBotLineEventsModel.class);
 
 			eventsModel.getEvents().forEach((event) -> {
 				if (event instanceof JoinEvent || event instanceof FollowEvent) {
@@ -149,14 +151,16 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("bot leave")) {
 			if (sender == null) {
-				botService.replyText(replyToken, "Hi, tambahkan dulu bot Dicoding Event sebagai teman!");
+				botService.replyText(replyToken, "Hi, Mari Pantau Bersama Dengan jadikan Aku Sebagai Teman!");
 			} else {
 				botService.leaveGroup(groupId);
 			}
+
+			/* PROCESSING MESSAGE DARI USER */
 		} else if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
 				|| msgText.contains("teman")) {
 			processText(replyToken, textMessage);
-		} else if (msgText.contains("lihat daftar event")) {
+		} else if (msgText.contains("Perkembangan") || msgText.contains("Status") || msgText.contains("Kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
@@ -200,8 +204,8 @@ public class CoronaBotController {
 	}
 
 	private void handleFallbackMessage(String replyToken, Source source) {
-		greetingMessage(replyToken, source,
-				"Hi " + sender.getDisplayName() + ", aku belum  mengerti maksud kamu. Silahkan ikuti petunjuk ya :)");
+		greetingMessage(replyToken, source, "Hi " + sender.getDisplayName()
+				+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 	}
 
 	private void processText(String replyToken, String messageText) {
@@ -222,22 +226,20 @@ public class CoronaBotController {
 
 		if (target.length() <= 3) {
 		} else {
-			String lineId = target.substring(target.indexOf("@") + 1);
+			String lineId = target.substring(target.indexOf(":") + 2);
 			if (sender != null) {
 				if (!sender.getDisplayName().isEmpty() && (lineId.length() > 0)) {
 					if (dbService.regLineID(sender.getUserId(), lineId, sender.getDisplayName()) != 0) {
-						showCarouselEvents(replyToken,
-								"Pendaftaran user berhasil. Berikut daftar event yang bisa kamu ikuti:");
+						showCarouselEvents(replyToken, "Terimakasih Banyak ya. berikut status corona di indonesia");
 					} else {
 						userNotFoundFallback(replyToken,
-								"Gagal melakukan pendaftaran user! Ikuti petunjuk berikut ini:");
+								"Sepertinya namamu salah bisa di ketik lagi seperti contoh ini:");
 					}
 				} else {
-					userNotFoundFallback(replyToken,
-							"User tidak terdeteksi. Tambahkan dulu bot Dicoding Event sebagai teman!");
+					userNotFoundFallback(replyToken, "Tambahin Aku sebagai Teman dulu ya, lalu ikuti lagi cara ini:");
 				}
 			} else {
-				userNotFoundFallback(replyToken, "Hi, tambahkan dulu bot Dicoding Event sebagai teman!");
+				userNotFoundFallback(replyToken, "Maaf, Tambahkan Aku sebagai temanmu ya!");
 			}
 		}
 	}
@@ -277,7 +279,7 @@ public class CoronaBotController {
 
 		if (jointEvents.size() > 0) {
 			List<String> friendList = jointEvents
-					.stream().map((jointEvent) -> String.format("Display Name: %s\nLINE ID: %s\n",
+					.stream().map((jointEvent) -> String.format("Namamu: %s\nLINE ID: %s\n",
 							jointEvent.display_name, "http://line.me/ti/p/~" + jointEvent.line_id))
 					.collect(Collectors.toList());
 
@@ -294,14 +296,14 @@ public class CoronaBotController {
 		userNotFoundFallback(replyToken, null);
 	}
 
+	/* Jika User tidak terdeteksi */
 	private void userNotFoundFallback(String replyToken, String additionalInfo) {
 		List<String> messages = new ArrayList<String>();
 
 		if (additionalInfo != null)
 			messages.add(additionalInfo);
-		messages.add(
-				"Aku akan mencarikan event aktif di dicoding! Tapi, kasih tahu dulu LINE ID kamu (pake \'id @\' ya)");
-		messages.add("Contoh: id @dicoding");
+		messages.add("Aku ingin Mengenalmu. bisa sebutkan namamu (pake \'nama: ?\' ya)");
+		messages.add("Contoh: nama: Zulkarnaen");
 
 		botService.replyText(replyToken, messages.toArray(new String[messages.size()]));
 		return;
@@ -318,11 +320,12 @@ public class CoronaBotController {
 			userNotFoundFallback(replyToken);
 		}
 
-		if ((dicodingEvents == null) || (dicodingEvents.getData().size() < 1)) {
+		if ((coronaBotEvents == null) || (coronaBotEvents.getData().size() < 1)) {
 			getDicodingEventsData();
 		}
 
-		TemplateMessage carouselEvents = botTemplate.carouselEvents(dicodingEvents);
+		/* TAMPILKAN HASIl */
+		TemplateMessage carouselEvents = botTemplate.carouselEvents(coronaBotEvents);
 
 		if (additionalInfo == null) {
 			botService.reply(replyToken, carouselEvents);
@@ -337,7 +340,7 @@ public class CoronaBotController {
 
 	private void getDicodingEventsData() {
 		// Act as client with GET method
-		String URI = "https://www.dicoding.com/public/api/events?limit=10&active=-1";
+		String URI = "http://corona-api.com/countries/id";
 		System.out.println("URI: " + URI);
 
 		try (CloseableHttpAsyncClient client = HttpAsyncClients.createDefault()) {
@@ -359,7 +362,7 @@ public class CoronaBotController {
 			System.out.println(jsonResponse);
 
 			ObjectMapper objectMapper = new ObjectMapper();
-			dicodingEvents = objectMapper.readValue(jsonResponse, CoronaBotEvents.class);
+			coronaBotEvents = objectMapper.readValue(jsonResponse, CoronaBotEvents.class);
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -380,27 +383,32 @@ public class CoronaBotController {
 
 	private void showEventSummary(String replyToken, String userTxt) {
 		try {
-			if (dicodingEvents == null) {
+			if (coronaBotEvents == null) {
 				getDicodingEventsData();
 			}
 
 			int eventIndex = Integer.parseInt(String.valueOf(userTxt.charAt(1))) - 1;
-			CoronaBotDatum eventData = dicodingEvents.getData().get(eventIndex);
+			CoronaBotDatum eventData = coronaBotEvents.getData().get(eventIndex);
 
 			ClassLoader classLoader = getClass().getClassLoader();
 			String encoding = StandardCharsets.UTF_8.name();
 			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_event.json"), encoding);
 
-			flexTemplate = String.format(flexTemplate, botTemplate.escape(eventData.getImagePath()),
-					botTemplate.escape(eventData.getName()), botTemplate.escape(eventData.getOwnerName()),
-					botTemplate.br2nl(eventData.getDescription()), eventData.getQuota(),
-					botTemplate.escape(eventData.getBeginTime()), botTemplate.escape(eventData.getEndTime()),
-					botTemplate.escape(eventData.getCityName()), botTemplate.br2nl(eventData.getAddress()),
-					botTemplate.escape(eventData.getLink()), eventData.getId());
+//			flexTemplate = String.format(flexTemplate, botTemplate.escape(eventData.getImagePath()),
+//					botTemplate.escape(eventData.getName()), botTemplate.escape(eventData.getOwnerName()),
+//					botTemplate.br2nl(eventData.getDescription()), eventData.getQuota(),
+//					botTemplate.escape(eventData.getBeginTime()), botTemplate.escape(eventData.getEndTime()),
+//					botTemplate.escape(eventData.getCityName()), botTemplate.br2nl(eventData.getAddress()),
+//					botTemplate.escape(eventData.getLink()), eventData.getId());
+
+			flexTemplate = String.format(eventData.getName(), eventData.getCode(), eventData.getPopulation(),
+					eventData.getUpdated_at(), eventData.getToday().getDeaths(), eventData.getToday().getConfirmed(),
+					eventData.getLatest_data().getDeaths(), eventData.getLatest_data().getConfirmed(),
+					eventData.getLatest_data().getRecovered(), eventData.getLatest_data().getCritical());
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-			botService.reply(replyToken, new FlexMessage("Dicoding Academy", flexContainer));
+			botService.reply(replyToken, new FlexMessage("Corona VS Indonesia", flexContainer));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

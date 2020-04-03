@@ -11,6 +11,7 @@ public class CoronaBotEvents {
 
 	@JsonProperty("success")
 	private boolean success;
+
 	@JsonProperty("data")
 	private List<CoronaBotDatum> data = null;
 
