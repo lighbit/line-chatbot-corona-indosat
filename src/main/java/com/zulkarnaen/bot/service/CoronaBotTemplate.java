@@ -82,6 +82,10 @@ public class CoronaBotTemplate {
 		return StringEscapeUtils.escapeJson(text.trim());
 	}
 
+	public String escapeInt(int text) {
+		return StringEscapeUtils.escapeJson(Integer.toString(text));
+	}
+
 	public String br2nl(String html) {
 		Document document = Jsoup.parse(html);
 		document.select("br").append("\\n");

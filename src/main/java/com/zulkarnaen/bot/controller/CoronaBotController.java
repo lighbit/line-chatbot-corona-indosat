@@ -409,10 +409,15 @@ public class CoronaBotController {
 //					botTemplate.escape(eventData.getCityName()), botTemplate.br2nl(eventData.getAddress()),
 //					botTemplate.escape(eventData.getLink()), eventData.getId());
 
-			flexTemplate = String.format(eventData.getName(), eventData.getCode(), eventData.getPopulation(),
-					eventData.getUpdated_at(), eventData.getToday().getDeaths(), eventData.getToday().getConfirmed(),
-					eventData.getLatest_data().getDeaths(), eventData.getLatest_data().getConfirmed(),
-					eventData.getLatest_data().getRecovered(), eventData.getLatest_data().getCritical());
+			flexTemplate = String.format(flexTemplate, botTemplate.escape(eventData.getName()),
+					botTemplate.escape(eventData.getCode()), botTemplate.escapeInt(eventData.getPopulation()),
+					botTemplate.escape(eventData.getUpdated_at()),
+					botTemplate.escapeInt(eventData.getToday().getDeaths()),
+					botTemplate.escapeInt(eventData.getToday().getConfirmed()),
+					botTemplate.escapeInt(eventData.getLatest_data().getDeaths()),
+					botTemplate.escapeInt(eventData.getLatest_data().getConfirmed()),
+					botTemplate.escapeInt(eventData.getLatest_data().getRecovered()),
+					botTemplate.escapeInt(eventData.getLatest_data().getCritical()));
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
