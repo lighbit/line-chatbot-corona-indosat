@@ -56,6 +56,12 @@ public class CoronaBotTemplate {
 		String country, death, confirm;
 		CarouselColumn column;
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
+		if (dicodingEvents.getData().getTimeline().size() > 30) {
+
+			i = 22;
+		} else if (dicodingEvents.getData().getTimeline().size() > 20) {
+			i = 12;
+		}
 		for (i = 0; i < dicodingEvents.getData().getTimeline().size(); i++) {
 			death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
 			confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
