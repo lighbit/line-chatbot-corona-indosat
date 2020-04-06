@@ -1,5 +1,7 @@
 package com.zulkarnaen.bot.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,6 +32,9 @@ public class CoronaBotDatum {
 
 	@JsonProperty("latest_data")
 	private CoronaBotLatest latest_data;
+	
+	@JsonProperty("timeline")
+	private List<CoronaBotTimeline> timeline;
 
 	@JsonProperty("coordinates")
 	public CoronaBotCoordinates getCoordinates() {
@@ -100,5 +105,13 @@ public class CoronaBotDatum {
 	public void setLatest_data(CoronaBotLatest latest_data) {
 		this.latest_data = latest_data;
 	}
+	@JsonProperty("timeline")
+	public List<CoronaBotTimeline> getTimeline() {
+		return timeline;
+	}
 
+	@JsonProperty("timeline")
+	public void setTimeline(List<CoronaBotTimeline> timeline) {
+		this.timeline = timeline;
+	}
 }

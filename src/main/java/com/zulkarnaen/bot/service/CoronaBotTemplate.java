@@ -56,10 +56,10 @@ public class CoronaBotTemplate {
 		String country, death, confirm;
 		CarouselColumn column;
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
-		for (i = 0; i < dicodingEvents.getData().size(); i++) {
-			death = Integer.toString(dicodingEvents.getData().get(i).getToday().getDeaths());
-			confirm = Integer.toString(dicodingEvents.getData().get(i).getToday().getConfirmed());
-			country = dicodingEvents.getData().get(i).getName();
+		for (i = 0; i < dicodingEvents.getData().getTimeline().size(); i++) {
+			death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
+			confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
+			country = dicodingEvents.getData().getName();
 
 			column = new CarouselColumn(death, country.substring(0, (country.length() < 40) ? country.length() : 40),
 					confirm,

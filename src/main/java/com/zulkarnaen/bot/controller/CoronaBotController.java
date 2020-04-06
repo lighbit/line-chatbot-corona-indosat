@@ -84,9 +84,9 @@ public class CoronaBotController {
 	public ResponseEntity<String> callback(String xLineSignature, @RequestBody String eventsPayload) {
 		try {
 			// validasi line signature. matikan validasi ini jika masih dalam pengembangan
-			if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
-				throw new RuntimeException("Invalid Signature Validation");
-			}
+//			if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
+//				throw new RuntimeException("Invalid Signature Validation");
+//			}
 
 			System.out.println(eventsPayload);
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
@@ -169,7 +169,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
 				|| msgText.contains("teman")) {
 			processText(replyToken, textMessage);
-		} else if (msgText.contains("Perkembangan") || msgText.contains("Status") || msgText.contains("Kondisi")) {
+		} else if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
@@ -189,7 +189,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
 				|| msgText.contains("teman")) {
 			processText(replyToken, textMessage);
-		} else if (msgText.contains("Perkembangan") || msgText.contains("Status") || msgText.contains("Kondisi")) {
+		} else if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
@@ -203,7 +203,7 @@ public class CoronaBotController {
 		if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
 				|| msgText.contains("teman")) {
 			processText(replyToken, textMessage);
-		} else if (msgText.contains("Perkembangan") || msgText.contains("Status") || msgText.contains("Kondisi")) {
+		} else if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
@@ -323,11 +323,11 @@ public class CoronaBotController {
 	}
 
 	private void showCarouselEvents(String replyToken, String additionalInfo) {
-		String userFound = dbService.findUser(sender.getUserId());
+//		String userFound = dbService.findUser(sender.getUserId());
 
-		if (userFound == null) {
-			userNotFoundFallback(replyToken);
-		}
+//		if (userFound == null) {
+//			userNotFoundFallback(replyToken);
+//		}
 
 		if ((coronaBotEvents == null)) {
 			getDicodingEventsData();
