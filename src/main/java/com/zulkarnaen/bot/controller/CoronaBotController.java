@@ -181,8 +181,8 @@ public class CoronaBotController {
 			showEventSummary(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
-
 			showEventSummaryDeclaration(replyToken, textMessage);
+			handleKitaBisaTemplate(replyToken);
 
 		} else {
 			handleFallbackMessage(replyToken, new GroupSource(groupId, sender.getUserId()));
@@ -206,8 +206,8 @@ public class CoronaBotController {
 			showEventSummary(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
-
 			showEventSummaryDeclaration(replyToken, textMessage);
+			handleKitaBisaTemplate(replyToken);
 
 		} else {
 			handleFallbackMessage(replyToken, new RoomSource(roomId, sender.getUserId()));
@@ -225,9 +225,8 @@ public class CoronaBotController {
 			showEventSummary(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
-
 			showEventSummaryDeclaration(replyToken, textMessage);
-
+			handleKitaBisaTemplate(replyToken);
 		} else {
 			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
 		}
@@ -236,6 +235,29 @@ public class CoronaBotController {
 	private void handleFallbackMessage(String replyToken, Source source) {
 		greetingMessage(replyToken, source, "Hi " + sender.getDisplayName()
 				+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+	}
+
+	private TemplateMessage handleKitaBisaTemplate(String replyToken) {
+		String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
+		String thumbnailImageUrl = "https://imgix.kitabisa.com/d6c23e00-a7a6-44f0-81be-c272e5399942.jpg?ar=16:9&w=664&auto=format,compress";
+		String title = "Selamatkan Nyawa Sesama! \n#BersamaLawanCorona";
+		String text = "Penyebaran virus corona di Indonesia terus meluas. Dampak virus ini sangat mengkhawatirkan: Ribuan orang positif dan dalam pengawasan, sementara ratusan lainnya meninggal dunia.\r\n"
+				+ "Angka tersebut bukan statistik semata, melainkan menyangkut nyawa dan kehidupan banyak orang. Penyebaran corona berdampak pada banyak hal mulai dari kesehatan banyak orang, sampai kehidupan ekonomi masyarakat kecil yang menurun drastis. \r\n"
+				+ "\r\n"
+				+ "Kita tak bisa diam saja melihat penyebaran virus ini. Kita harus tolong menolong untuk menghentikan penyebaran virus corona secepat mungkin. \r\n"
+				+ "\r\n"
+				+ "Melalui galang dana ini, kamu dan semua orang bisa berdonasi untuk membantu menghentikan penyebaran virus corona. Kita akan menggunakan hasil galang dana ini untuk membantu dan melindungi banyak orang yang terdampak corona. Detail dan jenis bantuan dari hasil donasi dapat dilihat dalam infografis di bawah ini:";
+
+		List<CarouselColumn> carouselColumn = new ArrayList<>();
+		CarouselColumn column;
+
+		column = new CarouselColumn(thumbnailImageUrl, title, text,
+				Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
+		carouselColumn.add(column);
+
+		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
+
+		return new TemplateMessage("Your search result", carouselTemplate);
 	}
 
 	private void processText(String replyToken, String messageText) {
@@ -441,20 +463,11 @@ public class CoronaBotController {
 		}
 	}
 
-	private TemplateMessage showEventSummaryDeclaration(String replyToken, String userTxt) {
+	private void showEventSummaryDeclaration(String replyToken, String userTxt) {
 		try {
 
 			List<Message> messageList = new ArrayList<>();
 			int total = Integer.parseInt(userTxt.substring(userTxt.lastIndexOf(":") + 2));
-			String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
-			String thumbnailImageUrl = "https://imgix.kitabisa.com/d6c23e00-a7a6-44f0-81be-c272e5399942.jpg?ar=16:9&w=664&auto=format,compress";
-			String title = "Selamatkan Nyawa Sesama! \n#BersamaLawanCorona";
-			String text = "Penyebaran virus corona di Indonesia terus meluas. Dampak virus ini sangat mengkhawatirkan: Ribuan orang positif dan dalam pengawasan, sementara ratusan lainnya meninggal dunia.\r\n"
-					+ "Angka tersebut bukan statistik semata, melainkan menyangkut nyawa dan kehidupan banyak orang. Penyebaran corona berdampak pada banyak hal mulai dari kesehatan banyak orang, sampai kehidupan ekonomi masyarakat kecil yang menurun drastis. \r\n"
-					+ "\r\n"
-					+ "Kita tak bisa diam saja melihat penyebaran virus ini. Kita harus tolong menolong untuk menghentikan penyebaran virus corona secepat mungkin. \r\n"
-					+ "\r\n"
-					+ "Melalui galang dana ini, kamu dan semua orang bisa berdonasi untuk membantu menghentikan penyebaran virus corona. Kita akan menggunakan hasil galang dana ini untuk membantu dan melindungi banyak orang yang terdampak corona. Detail dan jenis bantuan dari hasil donasi dapat dilihat dalam infografis di bawah ini:";
 
 			if (userTxt.contains("Meninggal")) {
 
@@ -544,17 +557,6 @@ public class CoronaBotController {
 				}
 
 			}
-
-			List<CarouselColumn> carouselColumn = new ArrayList<>();
-			CarouselColumn column;
-
-			column = new CarouselColumn(thumbnailImageUrl, title, text,
-					Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
-			carouselColumn.add(column);
-
-			CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
-
-			return new TemplateMessage("Your search result", carouselTemplate);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);

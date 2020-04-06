@@ -75,7 +75,7 @@ public class CoronaBotTemplate {
 					"Update tanggal " + date + " Jumlah Penduduk : " + dicodingEvents.getData().getPopulation(),
 					Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
 							new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
-							new MessageAction("Sembuh", "Berhasil Sembuh Sebesar : " + recover)));
+							new MessageAction("Sembuh", "Berhasil Sembuh : " + recover)));
 
 			carouselColumn.add(column);
 		}
