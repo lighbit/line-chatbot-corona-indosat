@@ -58,9 +58,9 @@ public class CoronaBotTemplate {
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
 		if (dicodingEvents.getData().getTimeline().size() > 30) {
 
-			b = 22;
+			b = 25;
 		} else if (dicodingEvents.getData().getTimeline().size() > 20) {
-			b = 12;
+			b = 15;
 		}
 		for (i = b; i < dicodingEvents.getData().getTimeline().size(); i++) {
 			death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
