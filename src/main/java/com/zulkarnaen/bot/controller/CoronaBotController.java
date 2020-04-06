@@ -241,7 +241,7 @@ public class CoronaBotController {
 	private void handleKitaBisaTemplate(String replyToken) {
 		String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
 		String thumbnailImageUrl = "https://imgix.kitabisa.com/d6c23e00-a7a6-44f0-81be-c272e5399942.jpg?ar=16:9&w=664&auto=format,compress";
-		String title = "Selamatkan Nyawa Sesama! \n#BersamaLawanCorona";
+		String title = "Selamatkan Nyawa #BersamaLawanCorona";
 		String text = "Penyebaran virus corona di Indonesia terus meluas. Dampak virus ini sangat mengkhawatirkan: Ribuan orang positif dan dalam pengawasan, sementara ratusan lainnya meninggal dunia.\r\n"
 				+ "Angka tersebut bukan statistik semata, melainkan menyangkut nyawa dan kehidupan banyak orang. Penyebaran corona berdampak pada banyak hal mulai dari kesehatan banyak orang, sampai kehidupan ekonomi masyarakat kecil yang menurun drastis. \r\n"
 				+ "\r\n"
