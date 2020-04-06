@@ -52,32 +52,36 @@ public class CoronaBotTemplate {
 	}
 
 	public TemplateMessage carouselEvents(CoronaBotEvents dicodingEvents) {
-		int i, b = 0, recover;
+		int i, recover;
 		String country, death, confirm, image, date;
 		CarouselColumn column;
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
-		if (dicodingEvents.getData().getTimeline().size() > 30) {
+		for (i = 0; i < dicodingEvents.getData().getTimeline().size(); i++) {
 
-			b = 22;
-		} else if (dicodingEvents.getData().getTimeline().size() > 20) {
-			b = 12;
-		}
-		for (i = b; i < dicodingEvents.getData().getTimeline().size(); i++) {
-			death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
-			confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
-			country = dicodingEvents.getData().getName();
-			date = dicodingEvents.getData().getTimeline().get(i).getDate();
-			recover = dicodingEvents.getData().getTimeline().get(i).getRecovered();
-			image = "https://bit.ly/2RhmL3Q";
+			if (i == 9) {
 
-			column = new CarouselColumn(image,
-					"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40),
-					"Update tanggal " + date + " Jumlah Penduduk : " + dicodingEvents.getData().getPopulation(),
-					Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
-							new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
-							new MessageAction("Sembuh", "Berhasil Sembuh : " + recover)));
+				break;
 
-			carouselColumn.add(column);
+			} else {
+
+				death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
+				confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
+				country = dicodingEvents.getData().getName();
+				date = dicodingEvents.getData().getTimeline().get(i).getDate();
+				recover = dicodingEvents.getData().getTimeline().get(i).getRecovered();
+				image = "https://bit.ly/2RhmL3Q";
+
+				column = new CarouselColumn(image,
+						"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40),
+						"Update tanggal " + date + " Jumlah Penduduk : " + dicodingEvents.getData().getPopulation(),
+						Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
+								new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
+								new MessageAction("Sembuh", "Berhasil Sembuh : " + recover)));
+
+				carouselColumn.add(column);
+
+			}
+
 		}
 
 		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);

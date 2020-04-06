@@ -2,7 +2,6 @@ package com.zulkarnaen.bot.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
-import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
@@ -19,6 +18,7 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
+import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
@@ -27,7 +27,6 @@ import com.zulkarnaen.bot.model.CoronaBotDatum;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
 import com.zulkarnaen.bot.model.CoronaBotJointEvents;
 import com.zulkarnaen.bot.model.CoronaBotLineEventsModel;
-import com.zulkarnaen.bot.model.CoronaBotTimeline;
 import com.zulkarnaen.bot.service.CoronaBotService;
 import com.zulkarnaen.bot.service.CoronaBotTemplate;
 import com.zulkarnaen.bot.service.CoronaBotDBService;
@@ -248,16 +247,12 @@ public class CoronaBotController {
 				+ "\r\n"
 				+ "Melalui galang dana ini, kamu dan semua orang bisa berdonasi untuk membantu menghentikan penyebaran virus corona. Kita akan menggunakan hasil galang dana ini untuk membantu dan melindungi banyak orang yang terdampak corona. Detail dan jenis bantuan dari hasil donasi dapat dilihat dalam infografis di bawah ini:";
 
-		List<CarouselColumn> carouselColumn = new ArrayList<>();
-		CarouselColumn column;
-
-		column = new CarouselColumn(thumbnailImageUrl, title, text,
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
 				Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
-		
-		carouselColumn.add(column);
-		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
 
-		new TemplateMessage("Your search result", carouselTemplate);
+		TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+		botService.reply(replyToken, templateMessage);
+
 	}
 
 	private void processText(String replyToken, String messageText) {
@@ -344,6 +339,7 @@ public class CoronaBotController {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void userNotFoundFallback(String replyToken) {
 		userNotFoundFallback(replyToken, null);
 	}
