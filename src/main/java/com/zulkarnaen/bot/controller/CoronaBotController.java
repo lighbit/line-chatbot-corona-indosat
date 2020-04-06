@@ -19,8 +19,6 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
-import com.linecorp.bot.model.message.template.CarouselColumn;
-import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotDatum;
@@ -181,8 +179,8 @@ public class CoronaBotController {
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
+		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
-
 		} else {
 			handleFallbackMessage(replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -206,8 +204,8 @@ public class CoronaBotController {
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
+		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
-
 		} else {
 			handleFallbackMessage(replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -227,7 +225,6 @@ public class CoronaBotController {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
-
 		} else {
 			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
 		}
@@ -240,14 +237,9 @@ public class CoronaBotController {
 
 	private void handleKitaBisaTemplate(String replyToken) {
 		String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
-		String thumbnailImageUrl = "https://imgix.kitabisa.com/d6c23e00-a7a6-44f0-81be-c272e5399942.jpg?ar=16:9&w=664&auto=format,compress";
+		String thumbnailImageUrl = "https://bit.ly/34eUJv7";
 		String title = "Selamatkan Nyawa #BersamaLawanCorona";
-		String text = "Penyebaran virus corona di Indonesia terus meluas. Dampak virus ini sangat mengkhawatirkan: Ribuan orang positif dan dalam pengawasan, sementara ratusan lainnya meninggal dunia.\r\n"
-				+ "Angka tersebut bukan statistik semata, melainkan menyangkut nyawa dan kehidupan banyak orang. Penyebaran corona berdampak pada banyak hal mulai dari kesehatan banyak orang, sampai kehidupan ekonomi masyarakat kecil yang menurun drastis. \r\n"
-				+ "\r\n"
-				+ "Kita tak bisa diam saja melihat penyebaran virus ini. Kita harus tolong menolong untuk menghentikan penyebaran virus corona secepat mungkin. \r\n"
-				+ "\r\n"
-				+ "Melalui galang dana ini, kamu dan semua orang bisa berdonasi untuk membantu menghentikan penyebaran virus corona. Kita akan menggunakan hasil galang dana ini untuk membantu dan melindungi banyak orang yang terdampak corona. Detail dan jenis bantuan dari hasil donasi dapat dilihat dalam infografis di bawah ini:";
+		String text = "Mari Bantu Korban & Paramedis dgn Berdonasi Di KITABISA.COM";
 
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
 				Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
@@ -304,14 +296,15 @@ public class CoronaBotController {
 
 		if (joinStatus == -1) {
 			TemplateMessage buttonsTemplate = botTemplate.createButton("Kamu sudah bergabung di event ini",
-					"Lihat Teman", "teman #" + eventId);
+					"Lihat Teman", "teman #" + eventId, null, null);
 			botService.reply(replyToken, buttonsTemplate);
 			return;
 		}
 
 		if (joinStatus == 1) {
 			TemplateMessage buttonsTemplate = botTemplate.createButton(
-					"Pendaftaran event berhasil! Berikut teman yang menemani kamu", "Lihat Teman", "teman #" + eventId);
+					"Pendaftaran event berhasil! Berikut teman yang menemani kamu", "Lihat Teman", "teman #" + eventId,
+					null, null);
 			botService.reply(replyToken, buttonsTemplate);
 			broadcastNewFriendJoined(eventId, senderId);
 			return;
@@ -427,7 +420,7 @@ public class CoronaBotController {
 
 		Set<String> stringSet = new HashSet<String>(listIds);
 		String msg = "Hi, ada teman baru telah bergabung di event " + eventId;
-		TemplateMessage buttonsTemplate = botTemplate.createButton(msg, "Lihat Teman", "teman #" + eventId);
+		TemplateMessage buttonsTemplate = botTemplate.createButton(msg, "Lihat Teman", "teman #" + eventId, null, null);
 		botService.multicast(stringSet, buttonsTemplate);
 	}
 
@@ -475,15 +468,14 @@ public class CoronaBotController {
 					botService.reply(replyToken, messageList);
 				} else if (total > 50) {
 
-					messageList
-							.add(new TextMessage("Korban Meninggal Kurang dari lebih dari 50 orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban Meninggal lebih dari 50 orang yaitu: " + total));
 					messageList.add(new TextMessage(
 							"ini URGENT! KAMU HARUS Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
 					botService.reply(replyToken, messageList);
 
 				} else if (total > 40) {
 
-					messageList.add(new TextMessage("Korban Meninggal Kurang dari 40 Orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban Meninggal lebih dari 40 Orang yaitu: " + total));
 					messageList.add(
 							new TextMessage("Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
 					botService.reply(replyToken, messageList);
@@ -505,8 +497,7 @@ public class CoronaBotController {
 					botService.reply(replyToken, messageList);
 				} else if (total > 50 && total < 80) {
 
-					messageList.add(
-							new TextMessage("Korban Terkonfirmasi Lebih dari lebih dari 50 orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban Terkonfirmasi Lebih dari 50 orang yaitu: " + total));
 					messageList.add(
 							new TextMessage("Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
 					botService.reply(replyToken, messageList);
@@ -535,7 +526,7 @@ public class CoronaBotController {
 					botService.reply(replyToken, messageList);
 				} else if (total > 20) {
 
-					messageList.add(new TextMessage("Korban Sembuh lebih dari lebih dari 20 orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban Sembuh Lebih dari 20 orang yaitu: " + total));
 					messageList.add(new TextMessage(
 							"Alhamdulillah Sudah Banyak yang sembuh mari terus kita doakan terutama para medis"));
 					botService.reply(replyToken, messageList);

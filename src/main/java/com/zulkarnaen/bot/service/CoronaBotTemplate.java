@@ -19,15 +19,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class CoronaBotTemplate {
 
-	public TemplateMessage createButton(String message, String actionTitle, String actionText) {
-		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(null, null, message,
-				Collections.singletonList(new MessageAction(actionTitle, actionText)));
+	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDonasi,
+			String image) {
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message, Arrays
+				.asList(new MessageAction(actionTitle, actionText), new MessageAction(actionDonasi, actionDonasi)));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
@@ -35,6 +35,8 @@ public class CoronaBotTemplate {
 	public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
 		String message = "Hai %s! Mari Pantau Perkembangan Corona di Indonesia.";
 		String action = "Lihat Perkembangan";
+		String actionDonasi = "Donasi";
+		String image = "https://bit.ly/34eUJv7";
 
 		if (source instanceof GroupSource) {
 			message = String.format(message, "Group");
@@ -48,7 +50,7 @@ public class CoronaBotTemplate {
 					+ "kamu mau liat status terkini virus corona di indonesia?";
 		}
 
-		return createButton(message, action, action);
+		return createButton(message, action, action, actionDonasi, image);
 	}
 
 	public TemplateMessage carouselEvents(CoronaBotEvents dicodingEvents) {
