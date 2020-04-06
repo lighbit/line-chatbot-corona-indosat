@@ -67,7 +67,7 @@ public class CoronaBotTemplate {
 			confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
 			country = dicodingEvents.getData().getName();
 
-			column = new CarouselColumn(death, country.substring(0, (country.length() < 40) ? country.length() : 40),
+			column = new CarouselColumn(null, country.substring(0, (country.length() < 40) ? country.length() : 40),
 					confirm,
 					Arrays.asList(new MessageAction("Meninggal", death), new MessageAction("Terkonfirmasi", confirm)));
 
