@@ -20,6 +20,7 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.CarouselColumn;
+import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotDatum;
@@ -178,7 +179,8 @@ public class CoronaBotController {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
-		} else if (msgText.contains("Meninggal") || msgText.contains("terkonfirmasi") || msgText.contains("sembuh")) {
+		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
+				|| msgText.contains("sembuh :")) {
 
 			showEventSummaryDeclaration(replyToken, textMessage);
 
@@ -202,7 +204,8 @@ public class CoronaBotController {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
-		} else if (msgText.contains("Meninggal") || msgText.contains("terkonfirmasi") || msgText.contains("sembuh")) {
+		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
+				|| msgText.contains("sembuh :")) {
 
 			showEventSummaryDeclaration(replyToken, textMessage);
 
@@ -220,7 +223,8 @@ public class CoronaBotController {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
-		} else if (msgText.contains("Meninggal") || msgText.contains("terkonfirmasi") || msgText.contains("sembuh")) {
+		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
+				|| msgText.contains("sembuh :")) {
 
 			showEventSummaryDeclaration(replyToken, textMessage);
 
@@ -437,7 +441,7 @@ public class CoronaBotController {
 		}
 	}
 
-	private void showEventSummaryDeclaration(String replyToken, String userTxt) {
+	private TemplateMessage showEventSummaryDeclaration(String replyToken, String userTxt) {
 		try {
 
 			List<Message> messageList = new ArrayList<>();
@@ -547,6 +551,10 @@ public class CoronaBotController {
 			column = new CarouselColumn(thumbnailImageUrl, title, text,
 					Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
 			carouselColumn.add(column);
+
+			CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
+
+			return new TemplateMessage("Your search result", carouselTemplate);
 
 		} catch (Exception e) {
 			throw new RuntimeException(e);
