@@ -225,8 +225,8 @@ public class CoronaBotController {
 			showEventSummary(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
-			showEventSummaryDeclaration(replyToken, textMessage);
 			handleKitaBisaTemplate(replyToken);
+			showEventSummaryDeclaration(replyToken, textMessage);
 		} else {
 			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
 		}
@@ -237,7 +237,7 @@ public class CoronaBotController {
 				+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 	}
 
-	private TemplateMessage handleKitaBisaTemplate(String replyToken) {
+	private void handleKitaBisaTemplate(String replyToken) {
 		String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
 		String thumbnailImageUrl = "https://imgix.kitabisa.com/d6c23e00-a7a6-44f0-81be-c272e5399942.jpg?ar=16:9&w=664&auto=format,compress";
 		String title = "Selamatkan Nyawa Sesama! \n#BersamaLawanCorona";
@@ -253,11 +253,11 @@ public class CoronaBotController {
 
 		column = new CarouselColumn(thumbnailImageUrl, title, text,
 				Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
+		
 		carouselColumn.add(column);
-
 		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
 
-		return new TemplateMessage("Your search result", carouselTemplate);
+		new TemplateMessage("Your search result", carouselTemplate);
 	}
 
 	private void processText(String replyToken, String messageText) {
