@@ -69,15 +69,24 @@ public class CoronaBotController {
 	private UserProfileResponse sender = null;
 	private CoronaBotEvents coronaBotEvents = null;
 
+	/* GET JSON */
+	@RequestMapping(value = "/corona", method = RequestMethod.GET)
+	public CoronaBotEvents getCoronaJson() {
+
+		getDicodingEventsData();
+
+		return coronaBotEvents;
+
+	}
+
 	/* WEBHOOK DEFAULT */
 	@RequestMapping(value = "/webhook", method = RequestMethod.POST)
-	public ResponseEntity<String> callback(@RequestHeader("X-Line-Signature") String xLineSignature,
-			@RequestBody String eventsPayload) {
+	public ResponseEntity<String> callback(String xLineSignature, @RequestBody String eventsPayload) {
 		try {
-			// validasi line signature. matikan validasi ini jika masih dalam pengembangan
-			if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
-				throw new RuntimeException("Invalid Signature Validation");
-			}
+//			// validasi line signature. matikan validasi ini jika masih dalam pengembangan
+//			if (!lineSignatureValidator.validateSignature(eventsPayload.getBytes(), xLineSignature)) {
+//				throw new RuntimeException("Invalid Signature Validation");
+//			}
 
 			System.out.println(eventsPayload);
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
@@ -173,14 +182,14 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("bot leave")) {
 			if (sender == null) {
-				botService.replyText(replyToken, "Hi, tambahkan dulu bot Dicoding Event sebagai teman!");
+				botService.replyText(replyToken, "Hi, tambahkan dulu Aku sebagai teman!");
 			} else {
 				botService.leaveRoom(roomId);
 			}
 		} else if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
 				|| msgText.contains("teman")) {
-			processText(replyToken, msgText);
-		} else if (msgText.contains("lihat daftar event")) {
+			processText(replyToken, textMessage);
+		} else if (msgText.contains("Perkembangan") || msgText.contains("Status") || msgText.contains("Kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
@@ -193,8 +202,8 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
 				|| msgText.contains("teman")) {
-			processText(replyToken, msgText);
-		} else if (msgText.contains("lihat daftar event")) {
+			processText(replyToken, textMessage);
+		} else if (msgText.contains("Perkembangan") || msgText.contains("Status") || msgText.contains("Kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
@@ -278,9 +287,9 @@ public class CoronaBotController {
 		List<CoronaBotJointEvents> jointEvents = dbService.getJoinedEvent(eventId);
 
 		if (jointEvents.size() > 0) {
-			List<String> friendList = jointEvents
-					.stream().map((jointEvent) -> String.format("Namamu: %s\nLINE ID: %s\n",
-							jointEvent.display_name, "http://line.me/ti/p/~" + jointEvent.line_id))
+			List<String> friendList = jointEvents.stream()
+					.map((jointEvent) -> String.format("Namamu: %s\nLINE ID: %s\n", jointEvent.display_name,
+							"http://line.me/ti/p/~" + jointEvent.line_id))
 					.collect(Collectors.toList());
 
 			String replyText = "Daftar teman di event #" + eventId + ":\n\n";
@@ -320,7 +329,7 @@ public class CoronaBotController {
 			userNotFoundFallback(replyToken);
 		}
 
-		if ((coronaBotEvents == null) || (coronaBotEvents.getData().size() < 1)) {
+		if ((coronaBotEvents == null)) {
 			getDicodingEventsData();
 		}
 
@@ -387,8 +396,7 @@ public class CoronaBotController {
 				getDicodingEventsData();
 			}
 
-			int eventIndex = Integer.parseInt(String.valueOf(userTxt.charAt(1))) - 1;
-			CoronaBotDatum eventData = coronaBotEvents.getData().get(eventIndex);
+			CoronaBotDatum eventData = coronaBotEvents.getData();
 
 			ClassLoader classLoader = getClass().getClassLoader();
 			String encoding = StandardCharsets.UTF_8.name();

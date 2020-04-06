@@ -1,11 +1,13 @@
 package com.zulkarnaen.bot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "deaths", "confirmed", "critical", "critical" })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CoronaBotLatest {
 
 	@JsonProperty("deaths")

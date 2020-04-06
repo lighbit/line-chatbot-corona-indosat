@@ -1,12 +1,17 @@
 package com.zulkarnaen.bot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "name", "code", "population", "updated_at", "today", "latest_data" })
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class CoronaBotDatum {
+
+	@JsonProperty("coordinates")
+	private CoronaBotCoordinates coordinates;
 
 	@JsonProperty("name")
 	private String name;
@@ -18,13 +23,23 @@ public class CoronaBotDatum {
 	private int population;
 
 	@JsonProperty("updated_at")
-	private int updated_at;
+	private String updated_at;
 
 	@JsonProperty("today")
 	private CoronaBotToday today;
 
 	@JsonProperty("latest_data")
 	private CoronaBotLatest latest_data;
+
+	@JsonProperty("coordinates")
+	public CoronaBotCoordinates getCoordinates() {
+		return coordinates;
+	}
+
+	@JsonProperty("coordinates")
+	public void setCoordinates(CoronaBotCoordinates coordinates) {
+		this.coordinates = coordinates;
+	}
 
 	@JsonProperty("name")
 	public String getName() {
@@ -57,12 +72,12 @@ public class CoronaBotDatum {
 	}
 
 	@JsonProperty("updated_at")
-	public int getUpdated_at() {
+	public String getUpdated_at() {
 		return updated_at;
 	}
 
 	@JsonProperty("updated_at")
-	public void setUpdated_at(int updated_at) {
+	public void setUpdated_at(String updated_at) {
 		this.updated_at = updated_at;
 	}
 
