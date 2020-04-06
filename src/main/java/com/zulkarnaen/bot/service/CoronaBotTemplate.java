@@ -33,7 +33,7 @@ public class CoronaBotTemplate {
 	}
 
 	public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
-		String message = "Hai %s! Mari Pantau Perkembangan Corona di Indonesia.";
+		String message = "Hai %s! Mari Pantau Corona di Indonesia.";
 		String action = "Lihat Perkembangan";
 		String actionDonasi = "Donasi";
 		String image = "https://bit.ly/34eUJv7";
