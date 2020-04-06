@@ -225,7 +225,9 @@ public class CoronaBotController {
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
+		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
+
 		} else {
 			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
 		}
