@@ -43,7 +43,7 @@ public class CoronaBotTemplate {
 		} else if (source instanceof UserSource) {
 			message = String.format(message, sender.getDisplayName());
 		} else {
-			message = "Eh maaf {AccountName} ga denger kamu ngomong apa?\r\n"
+			message = "Eh maaf" + sender.getDisplayName() + " ga denger kamu ngomong apa?\r\n"
 					+ "aku sedang tidak fokus karena pandemic ini(crying)\r\n"
 					+ "kamu mau liat status terkini virus corona di indonesia?";
 		}
