@@ -68,7 +68,7 @@ public class CoronaBotTemplate {
 			country = dicodingEvents.getData().getName();
 			date = dicodingEvents.getData().getTimeline().get(i).getDate();
 			recover = dicodingEvents.getData().getTimeline().get(i).getRecovered();
-			image = "https://cdn2.tstatic.net/bogor/foto/bank/images/bendera-merah-putih_20180817_152412.jpg";
+			image = "https://bit.ly/2RhmL3Q";
 
 			column = new CarouselColumn(image,
 					"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40),
