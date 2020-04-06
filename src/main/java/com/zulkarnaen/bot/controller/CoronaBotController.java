@@ -224,8 +224,8 @@ public class CoronaBotController {
 			showEventSummary(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
-			handleKitaBisaTemplate(replyToken);
 			showEventSummaryDeclaration(replyToken, textMessage);
+			handleKitaBisaTemplate(replyToken);
 		} else {
 			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
 		}
