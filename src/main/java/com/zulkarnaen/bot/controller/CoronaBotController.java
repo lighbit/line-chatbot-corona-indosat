@@ -2,6 +2,8 @@ package com.zulkarnaen.bot.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
+import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
@@ -17,12 +19,14 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
+import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotDatum;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
 import com.zulkarnaen.bot.model.CoronaBotJointEvents;
 import com.zulkarnaen.bot.model.CoronaBotLineEventsModel;
+import com.zulkarnaen.bot.model.CoronaBotTimeline;
 import com.zulkarnaen.bot.service.CoronaBotService;
 import com.zulkarnaen.bot.service.CoronaBotTemplate;
 import com.zulkarnaen.bot.service.CoronaBotDBService;
@@ -43,6 +47,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -173,6 +178,10 @@ public class CoronaBotController {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
+		} else if (msgText.contains("Meninggal") || msgText.contains("terkonfirmasi") || msgText.contains("sembuh")) {
+
+			showEventSummaryDeclaration(replyToken, textMessage);
+
 		} else {
 			handleFallbackMessage(replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -193,6 +202,10 @@ public class CoronaBotController {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
+		} else if (msgText.contains("Meninggal") || msgText.contains("terkonfirmasi") || msgText.contains("sembuh")) {
+
+			showEventSummaryDeclaration(replyToken, textMessage);
+
 		} else {
 			handleFallbackMessage(replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -207,6 +220,10 @@ public class CoronaBotController {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
 			showEventSummary(replyToken, textMessage);
+		} else if (msgText.contains("Meninggal") || msgText.contains("terkonfirmasi") || msgText.contains("sembuh")) {
+
+			showEventSummaryDeclaration(replyToken, textMessage);
+
 		} else {
 			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
 		}
@@ -402,13 +419,6 @@ public class CoronaBotController {
 			String encoding = StandardCharsets.UTF_8.name();
 			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_event.json"), encoding);
 
-//			flexTemplate = String.format(flexTemplate, botTemplate.escape(eventData.getImagePath()),
-//					botTemplate.escape(eventData.getName()), botTemplate.escape(eventData.getOwnerName()),
-//					botTemplate.br2nl(eventData.getDescription()), eventData.getQuota(),
-//					botTemplate.escape(eventData.getBeginTime()), botTemplate.escape(eventData.getEndTime()),
-//					botTemplate.escape(eventData.getCityName()), botTemplate.br2nl(eventData.getAddress()),
-//					botTemplate.escape(eventData.getLink()), eventData.getId());
-
 			flexTemplate = String.format(flexTemplate, botTemplate.escape(eventData.getName()),
 					botTemplate.escape(eventData.getCode()), botTemplate.escapeInt(eventData.getPopulation()),
 					botTemplate.escape(eventData.getUpdated_at()),
@@ -425,5 +435,126 @@ public class CoronaBotController {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	private void showEventSummaryDeclaration(String replyToken, String userTxt) {
+		try {
+
+			List<Message> messageList = new ArrayList<>();
+			int total = Integer.parseInt(userTxt.substring(userTxt.lastIndexOf(":") + 2));
+			String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
+			String thumbnailImageUrl = "https://imgix.kitabisa.com/d6c23e00-a7a6-44f0-81be-c272e5399942.jpg?ar=16:9&w=664&auto=format,compress";
+			String title = "Selamatkan Nyawa Sesama! \n#BersamaLawanCorona";
+			String text = "Penyebaran virus corona di Indonesia terus meluas. Dampak virus ini sangat mengkhawatirkan: Ribuan orang positif dan dalam pengawasan, sementara ratusan lainnya meninggal dunia.\r\n"
+					+ "Angka tersebut bukan statistik semata, melainkan menyangkut nyawa dan kehidupan banyak orang. Penyebaran corona berdampak pada banyak hal mulai dari kesehatan banyak orang, sampai kehidupan ekonomi masyarakat kecil yang menurun drastis. \r\n"
+					+ "\r\n"
+					+ "Kita tak bisa diam saja melihat penyebaran virus ini. Kita harus tolong menolong untuk menghentikan penyebaran virus corona secepat mungkin. \r\n"
+					+ "\r\n"
+					+ "Melalui galang dana ini, kamu dan semua orang bisa berdonasi untuk membantu menghentikan penyebaran virus corona. Kita akan menggunakan hasil galang dana ini untuk membantu dan melindungi banyak orang yang terdampak corona. Detail dan jenis bantuan dari hasil donasi dapat dilihat dalam infografis di bawah ini:";
+
+			if (userTxt.contains("Meninggal")) {
+
+				if (total < 10) {
+					messageList.add(new TextMessage("Korban Meninggal Kurang dari 10 orang yaitu: " + total));
+					messageList.add(new TextMessage("Stay Safe dan Stay Health ya dengan cara dirumah aja :)"));
+					botService.reply(replyToken, messageList);
+				} else if (total > 50) {
+
+					messageList
+							.add(new TextMessage("Korban Meninggal Kurang dari lebih dari 50 orang yaitu: " + total));
+					messageList.add(new TextMessage(
+							"ini URGENT! KAMU HARUS Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					botService.reply(replyToken, messageList);
+
+				} else if (total > 40) {
+
+					messageList.add(new TextMessage("Korban Meninggal Kurang dari 40 Orang yaitu: " + total));
+					messageList.add(
+							new TextMessage("Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					botService.reply(replyToken, messageList);
+
+				} else {
+
+					messageList.add(new TextMessage("Korban Meninggal yaitu: " + total));
+					messageList.add(
+							new TextMessage("Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
+					botService.reply(replyToken, messageList);
+
+				}
+
+			} else if (userTxt.contains("Terkonfirmasi")) {
+
+				if (total < 10) {
+					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 10 orang yaitu: " + total));
+					messageList.add(new TextMessage("Mari Dirumah Aja biar Semakin hilang virus corona nya!"));
+					botService.reply(replyToken, messageList);
+				} else if (total > 50 && total < 80) {
+
+					messageList.add(
+							new TextMessage("Korban Terkonfirmasi Lebih dari lebih dari 50 orang yaitu: " + total));
+					messageList.add(
+							new TextMessage("Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
+					botService.reply(replyToken, messageList);
+
+				} else if (total < 100) {
+
+					messageList.add(new TextMessage("Korban Terkonfirmasi lebih dari 90 Orang yaitu: " + total));
+					messageList.add(
+							new TextMessage("Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					botService.reply(replyToken, messageList);
+
+				} else {
+
+					messageList.add(new TextMessage("Korban Terkonfirmasi yaitu: " + total));
+					messageList.add(new TextMessage(
+							"ini URGENT! KAMU HARUS Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					botService.reply(replyToken, messageList);
+
+				}
+
+			} else if (userTxt.contains("Sembuh")) {
+
+				if (total < 10) {
+					messageList.add(new TextMessage("Korban Sembuh Kurang dari 10 orang yaitu: " + total));
+					messageList.add(new TextMessage("Mari Doakan Teman Teman kita dan para medis yuk! berdoa dimulai"));
+					botService.reply(replyToken, messageList);
+				} else if (total > 20) {
+
+					messageList.add(new TextMessage("Korban Sembuh lebih dari lebih dari 20 orang yaitu: " + total));
+					messageList.add(new TextMessage(
+							"Alhamdulillah Sudah Banyak yang sembuh mari terus kita doakan terutama para medis"));
+					botService.reply(replyToken, messageList);
+
+				} else if (total > 30) {
+
+					messageList.add(new TextMessage("Korban Sembuh lebih dari 30 Orang yaitu: " + total));
+					messageList.add(new TextMessage("Alhamdulillah ini semua berkat bantuan kita Mari Terus doakan!"));
+					botService.reply(replyToken, messageList);
+
+				} else {
+
+					messageList.add(new TextMessage("Korban Sembuh yaitu: " + total));
+					messageList.add(new TextMessage("Semoga Sembuh Semua aamiin!"));
+					botService.reply(replyToken, messageList);
+
+				}
+
+			}
+
+			List<CarouselColumn> carouselColumn = new ArrayList<>();
+			CarouselColumn column;
+
+			column = new CarouselColumn(thumbnailImageUrl, title, text,
+					Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
+			carouselColumn.add(column);
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static void main(String[] args) {
+		String userTxt = "Korban Meninggal : 20";
+		System.out.println(Integer.parseInt(userTxt.substring(userTxt.lastIndexOf(":") + 2)));
 	}
 }

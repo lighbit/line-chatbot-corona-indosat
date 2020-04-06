@@ -52,24 +52,31 @@ public class CoronaBotTemplate {
 	}
 
 	public TemplateMessage carouselEvents(CoronaBotEvents dicodingEvents) {
-		int i, b = 0;
-		String country, death, confirm;
+		int i, b = 0, recover;
+		String country, death, confirm, image, date;
 		CarouselColumn column;
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
 		if (dicodingEvents.getData().getTimeline().size() > 30) {
 
-			b = 25;
+			b = 22;
 		} else if (dicodingEvents.getData().getTimeline().size() > 20) {
-			b = 15;
+			b = 12;
 		}
 		for (i = b; i < dicodingEvents.getData().getTimeline().size(); i++) {
 			death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
 			confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
 			country = dicodingEvents.getData().getName();
+			date = dicodingEvents.getData().getTimeline().get(i).getDate();
+			recover = dicodingEvents.getData().getTimeline().get(i).getRecovered();
+			image = "https://cdn2.tstatic.net/bogor/foto/bank/images/bendera-merah-putih_20180817_152412.jpg";
 
-			column = new CarouselColumn(null, country.substring(0, (country.length() < 40) ? country.length() : 40),
-					confirm,
-					Arrays.asList(new MessageAction("Meninggal", death), new MessageAction("Terkonfirmasi", confirm)));
+			column = new CarouselColumn(image,
+					"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40),
+					"Update Terkini pada tanggal " + date + "\nJumlah Penduduk : "
+							+ dicodingEvents.getData().getPopulation(),
+					Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
+							new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
+							new MessageAction("Sembuh", "Berhasil Sembuh Sebesar : " + recover)));
 
 			carouselColumn.add(column);
 		}
