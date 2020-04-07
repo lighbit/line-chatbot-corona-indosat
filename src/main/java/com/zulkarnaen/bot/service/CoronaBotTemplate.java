@@ -49,7 +49,7 @@ public class CoronaBotTemplate {
 	/* BASE GREETING MESSAGE */
 	public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
 		String message = "Hai %s! Mari Pantau Corona di Indonesia.";
-		String corona = "Apa itu Corona Virus?";
+		String corona = "Apa itu Covid-19?";
 		String cegah = "Cara Pencegahan";
 		String action = "Lihat Perkembangan";
 		String actionDonasi = "Donasi";
