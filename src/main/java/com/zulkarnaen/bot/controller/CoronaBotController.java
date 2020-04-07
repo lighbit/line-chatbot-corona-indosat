@@ -168,6 +168,10 @@ public class CoronaBotController {
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
 			handleHowToWashHand(replyToken);
+		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
+			handleCreator(replyToken);
+		} else if (msgText.contains("dicoding")) {
+			handleDicodingThanks(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -190,6 +194,10 @@ public class CoronaBotController {
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
 			handleHowToWashHand(replyToken);
+		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
+			handleCreator(replyToken);
+		} else if (msgText.contains("dicoding")) {
+			handleDicodingThanks(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -211,6 +219,10 @@ public class CoronaBotController {
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
 			handleHowToWashHand(replyToken);
+		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
+			handleCreator(replyToken);
+		} else if (msgText.contains("dicoding")) {
+			handleDicodingThanks(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -224,20 +236,47 @@ public class CoronaBotController {
 		} else if (msgText.equals("hai") || msgText.equals("hallo") || msgText.equals("hei")
 				|| msgText.equals("halo")) {
 			greetingMessageCoronaDefault(replyToken, source, msgText + " " + sender.getDisplayName()
-					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("pagi")) {
-			greetingMessageCoronaDefault(replyToken, source, "Selamat Pagi" + sender.getDisplayName()
-					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+			greetingMessageCoronaDefault(replyToken, source, "Selamat Pagi " + sender.getDisplayName()
+					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("siang")) {
-			greetingMessageCoronaDefault(replyToken, source, "Selamat Siang" + sender.getDisplayName()
-					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+			greetingMessageCoronaDefault(replyToken, source, "Selamat Siang " + sender.getDisplayName()
+					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("malam")) {
-			greetingMessageCoronaDefault(replyToken, source, "Selamat Malam" + sender.getDisplayName()
-					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+			greetingMessageCoronaDefault(replyToken, source, "Selamat Malam " + sender.getDisplayName()
+					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else {
-			greetingMessageCoronaDefault(replyToken, source, "Hai" + sender.getDisplayName()
-					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+			greetingMessageCoronaDefault(replyToken, source, "Hai " + sender.getDisplayName()
+					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		}
+
+	}
+
+	private void handleDicodingThanks(String replyToken) {
+
+		String kenalan = "Hasil Karya Zulkarnaen!";
+		String salam = "Thanks dicoding Sudah Bantu saya sejauh ini salam hangat Zulkarnaen :) ";
+
+		List<Message> messages = new ArrayList<>();
+		messages.add(new TextMessage(kenalan));
+		messages.add(new TextMessage(salam));
+
+		botService.reply(replyToken, messages);
+
+	}
+
+	private void handleCreator(String replyToken) {
+		String urlCorona = "https://bit.ly/39N9V3R";
+		String thumbnailImageUrl = "https://bit.ly/2UN5uld";
+		String title = "Hai aku Zulkarnaen";
+		String text = "Lihat Aku di Linkedin!";
+
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
+				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
+
+		TemplateMessage templateMessage = new TemplateMessage("Creator", buttonsTemplate);
+		botService.reply(replyToken, templateMessage);
 
 	}
 
@@ -256,7 +295,7 @@ public class CoronaBotController {
 	}
 
 	private void handleHowToWashHand(String replyToken) {
-		String urlCorona = "https://bit.ly/3dX6riJ";
+		String urlCorona = "https://bit.ly/2Xezg45";
 		String thumbnailImageUrl = "https://bit.ly/3aP3K0B";
 		String title = "Pencegahan Corona Virus (Covid-19)";
 		String text = "Baca Selengkapnya disini";
