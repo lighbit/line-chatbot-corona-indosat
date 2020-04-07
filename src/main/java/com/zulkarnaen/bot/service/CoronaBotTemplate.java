@@ -26,6 +26,7 @@ import java.util.List;
 @Service
 public class CoronaBotTemplate {
 
+	/* CREATE BUTTON MORE THAN 1 */
 	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDonasi,
 			String image) {
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message, Arrays
@@ -34,6 +35,7 @@ public class CoronaBotTemplate {
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
 
+	/* CREATE BUTTON SINGLE */
 	public static TemplateMessage createButtonSingle(String message, String actionTitle, String actionText,
 			String image) {
 
@@ -43,6 +45,7 @@ public class CoronaBotTemplate {
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
 
+	/* BASE GREETING MESSAGE */
 	public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
 		String message = "Hai %s! Mari Pantau Corona di Indonesia.";
 		String action = "Lihat Perkembangan";
@@ -62,12 +65,13 @@ public class CoronaBotTemplate {
 		return createButton(message, action, action, actionDonasi, image);
 	}
 
-	public TemplateMessage carouselEvents(CoronaBotEvents dicodingEvents) {
+	/* CAROUSEL TEMPLATE */
+	public TemplateMessage carouselEvents(CoronaBotEvents coronaBotEvents) {
 		int i, recover;
 		String country, death, confirm, image, date;
 		CarouselColumn column;
 		List<CarouselColumn> carouselColumn = new ArrayList<>();
-		for (i = 0; i < dicodingEvents.getData().getTimeline().size(); i++) {
+		for (i = 0; i < coronaBotEvents.getData().getTimeline().size(); i++) {
 
 			if (i == 9) {
 
@@ -75,16 +79,16 @@ public class CoronaBotTemplate {
 
 			} else {
 
-				death = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getDeaths());
-				confirm = Integer.toString(dicodingEvents.getData().getTimeline().get(i).getConfirmed());
-				country = dicodingEvents.getData().getName();
-				date = dicodingEvents.getData().getTimeline().get(i).getDate();
-				recover = dicodingEvents.getData().getTimeline().get(i).getRecovered();
+				death = Integer.toString(coronaBotEvents.getData().getTimeline().get(i).getDeaths());
+				confirm = Integer.toString(coronaBotEvents.getData().getTimeline().get(i).getConfirmed());
+				country = coronaBotEvents.getData().getName();
+				date = coronaBotEvents.getData().getTimeline().get(i).getDate();
+				recover = coronaBotEvents.getData().getTimeline().get(i).getRecovered();
 				image = "https://bit.ly/2RhmL3Q";
 
 				column = new CarouselColumn(image, "Update tanggal " + ServiceUtil.dateConverter(date),
 						"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40)
-								+ " Jumlah Penduduk : " + dicodingEvents.getData().getPopulation(),
+								+ " Jumlah Penduduk : " + coronaBotEvents.getData().getPopulation(),
 						Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
 								new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
 								new MessageAction("Sembuh", "Berhasil Sembuh : " + recover)));
