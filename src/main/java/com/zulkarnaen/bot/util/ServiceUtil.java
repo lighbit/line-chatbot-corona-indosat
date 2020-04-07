@@ -1,6 +1,7 @@
 package com.zulkarnaen.bot.util;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,25 @@ public class ServiceUtil {
 		return result.toUpperCase();
 	}
 
+	public static String populationFormat(String population) {
+		String pattern = "###,###.###";
+		int number = Integer.parseInt(population);
+
+		population = Integer.toString(number);
+
+		DecimalFormat decimalFormat = new DecimalFormat(pattern);
+
+		String format = decimalFormat.format(population);
+
+		return format;
+	}
+
 	public static void main(String[] args) {
-		String inputDate = "2020-03-15";
-		System.out.println(dateConverter(inputDate));
+		String inputDate = "123456.23";
+
+		String awe = populationFormat(inputDate);
+
+		System.out.println(awe);
 	}
 
 }
