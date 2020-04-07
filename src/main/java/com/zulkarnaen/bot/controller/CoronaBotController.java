@@ -182,7 +182,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
 		} else {
-			handleFallbackMessage(replyToken, new GroupSource(groupId, sender.getUserId()));
+			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
 	}
 
@@ -207,7 +207,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
 		} else {
-			handleFallbackMessage(replyToken, new RoomSource(roomId, sender.getUserId()));
+			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
 	}
 
@@ -226,13 +226,33 @@ public class CoronaBotController {
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
 		} else {
-			handleFallbackMessage(replyToken, new UserSource(sender.getUserId()));
+			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
 	}
 
-	private void handleFallbackMessage(String replyToken, Source source) {
-		greetingMessage(replyToken, source, "Hi " + sender.getDisplayName()
-				+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+	private void HandleSalam(String msgText, String replyToken, Source source) {
+
+		if (msgText.contains("assala") || msgText.contains("asala") || msgText.contains("mikum")) {
+			greetingMessage(replyToken, source, "Waalaikumsalam " + sender.getDisplayName()
+					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		} else if (msgText.equals("hai") || msgText.equals("hallo") || msgText.equals("hei")
+				|| msgText.equals("halo")) {
+			greetingMessage(replyToken, source, msgText + sender.getDisplayName()
+					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		} else if (msgText.contains("pagi")) {
+			greetingMessage(replyToken, source, "Selamat Pagi" + sender.getDisplayName()
+					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		} else if (msgText.contains("siang")) {
+			greetingMessage(replyToken, source, "Selamat Siang" + sender.getDisplayName()
+					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		} else if (msgText.contains("malam")) {
+			greetingMessage(replyToken, source, "Selamat Malam" + sender.getDisplayName()
+					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		} else {
+			greetingMessage(replyToken, source, "Hai" + sender.getDisplayName()
+					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		}
+
 	}
 
 	private void handleKitaBisaTemplate(String replyToken) {
@@ -332,11 +352,6 @@ public class CoronaBotController {
 		} else {
 			botService.replyText(replyToken, "Event tidak ditemukan");
 		}
-	}
-
-	@SuppressWarnings("unused")
-	private void userNotFoundFallback(String replyToken) {
-		userNotFoundFallback(replyToken, null);
 	}
 
 	/* Jika User tidak terdeteksi */
@@ -459,32 +474,51 @@ public class CoronaBotController {
 
 			List<Message> messageList = new ArrayList<>();
 			int total = Integer.parseInt(userTxt.substring(userTxt.lastIndexOf(":") + 2));
+			String actionDonasi = "Donasi";
+			String image = "https://bit.ly/34eUJv7";
 
 			if (userTxt.contains("Meninggal")) {
 
 				if (total < 10) {
+
+					CoronaBotTemplate.createButtonSingle("Korban Meninggal Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
+
 					messageList.add(new TextMessage("Korban Meninggal Kurang dari 10 orang yaitu: " + total));
 					messageList.add(new TextMessage("Stay Safe dan Stay Health ya dengan cara dirumah aja :)"));
 					botService.reply(replyToken, messageList);
-				} else if (total > 50) {
+				} else if (total > 150 && total < 200) {
 
-					messageList.add(new TextMessage("Korban Meninggal lebih dari 50 orang yaitu: " + total));
+					CoronaBotTemplate.createButtonSingle("Korban Meninggal Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
+
+					messageList.add(new TextMessage("Korban Meninggal lebih dari 150 orang yaitu: " + total));
 					messageList.add(new TextMessage(
 							"ini URGENT! KAMU HARUS Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					messageList.add(new TextMessage(
+							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
-				} else if (total > 40) {
+				} else if (total > 100) {
 
-					messageList.add(new TextMessage("Korban Meninggal lebih dari 40 Orang yaitu: " + total));
+					CoronaBotTemplate.createButtonSingle("Korban Meninggal Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
+
+					messageList.add(new TextMessage("Korban Meninggal lebih dari 100 Orang yaitu: " + total));
 					messageList.add(
 							new TextMessage("Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
 					botService.reply(replyToken, messageList);
 
 				} else {
 
+					CoronaBotTemplate.createButtonSingle("Korban Meninggal Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
+
 					messageList.add(new TextMessage("Korban Meninggal yaitu: " + total));
-					messageList.add(
-							new TextMessage("Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
+					messageList.add(new TextMessage(
+							"Sangat URGENT!!! Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
+					messageList.add(new TextMessage(
+							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
 				}
@@ -492,28 +526,47 @@ public class CoronaBotController {
 			} else if (userTxt.contains("Terkonfirmasi")) {
 
 				if (total < 10) {
+
+					CoronaBotTemplate.createButtonSingle("Korban Terkonfirmasi Saat ini yaitu: " + total,
+							"Mari Berdonasi", actionDonasi, image);
+
 					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 10 orang yaitu: " + total));
 					messageList.add(new TextMessage("Mari Dirumah Aja biar Semakin hilang virus corona nya!"));
 					botService.reply(replyToken, messageList);
-				} else if (total > 50 && total < 80) {
+				} else if (total > 1000 && total < 1500) {
 
-					messageList.add(new TextMessage("Korban Terkonfirmasi Lebih dari 50 orang yaitu: " + total));
-					messageList.add(
-							new TextMessage("Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
+					CoronaBotTemplate.createButtonSingle("Korban Terkonfirmasi Saat ini yaitu: " + total,
+							"Mari Berdonasi", actionDonasi, image);
+
+					messageList.add(new TextMessage("Korban Terkonfirmasi Lebih dari 1000 orang yaitu: " + total));
+					messageList.add(new TextMessage(
+							"Sudah Banyak Yang Terkonfirmasi Diharapkan Untuk Kamu, Keluarga dan Teman tetap dirumah dan jangan kemana mana please!!"));
+					messageList.add(new TextMessage(
+							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
-				} else if (total < 100) {
+				} else if (total < 1000) {
 
-					messageList.add(new TextMessage("Korban Terkonfirmasi lebih dari 90 Orang yaitu: " + total));
-					messageList.add(
-							new TextMessage("Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					CoronaBotTemplate.createButtonSingle("Korban Terkonfirmasi Saat ini yaitu: " + total,
+							"Mari Berdonasi", actionDonasi, image);
+
+					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 1000 Orang yaitu: " + total));
+					messageList.add(new TextMessage(
+							"Aku Tidak Mau kamu, Keluarga dan Teman Teman mu kena Mari ikuti apa kata Pemerintah untuk tetap dirumah stay safe and healty!"));
+					messageList.add(new TextMessage(
+							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
 				} else {
 
+					CoronaBotTemplate.createButtonSingle("Korban Terkonfirmasi Saat ini yaitu: " + total,
+							"Mari Berdonasi", actionDonasi, image);
+
 					messageList.add(new TextMessage("Korban Terkonfirmasi yaitu: " + total));
 					messageList.add(new TextMessage(
-							"ini URGENT! KAMU HARUS Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+							"Ya Tuhan Sedih Sekali liatnya sudah ribuan orang terkena virus corona bantu saya berdoa bersama ya!"));
+					messageList.add(new TextMessage(
+							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
 				}
@@ -521,17 +574,29 @@ public class CoronaBotController {
 			} else if (userTxt.contains("Sembuh")) {
 
 				if (total < 10) {
+
+					CoronaBotTemplate.createButtonSingle("Korban Sembuh Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
+
 					messageList.add(new TextMessage("Korban Sembuh Kurang dari 10 orang yaitu: " + total));
 					messageList.add(new TextMessage("Mari Doakan Teman Teman kita dan para medis yuk! berdoa dimulai"));
+					messageList.add(new TextMessage(
+							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 				} else if (total > 20) {
+
+					CoronaBotTemplate.createButtonSingle("Korban Sembuh Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
 
 					messageList.add(new TextMessage("Korban Sembuh Lebih dari 20 orang yaitu: " + total));
 					messageList.add(new TextMessage(
 							"Alhamdulillah Sudah Banyak yang sembuh mari terus kita doakan terutama para medis"));
 					botService.reply(replyToken, messageList);
 
-				} else if (total > 30) {
+				} else if (total > 30 && total < 50) {
+
+					CoronaBotTemplate.createButtonSingle("Korban Sembuh Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
 
 					messageList.add(new TextMessage("Korban Sembuh lebih dari 30 Orang yaitu: " + total));
 					messageList.add(new TextMessage("Alhamdulillah ini semua berkat bantuan kita Mari Terus doakan!"));
@@ -539,8 +604,12 @@ public class CoronaBotController {
 
 				} else {
 
+					CoronaBotTemplate.createButtonSingle("Korban Sembuh Saat ini yaitu: " + total, "Mari Berdonasi",
+							actionDonasi, image);
+
 					messageList.add(new TextMessage("Korban Sembuh yaitu: " + total));
-					messageList.add(new TextMessage("Semoga Sembuh Semua aamiin!"));
+					messageList.add(new TextMessage(
+							"Senang Sekali liatnya Yang sembuh lebih dari 50 orang. Semoga Sembuh Semua aamiin!"));
 					botService.reply(replyToken, messageList);
 
 				}

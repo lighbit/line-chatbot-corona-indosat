@@ -11,6 +11,7 @@ import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
+import com.zulkarnaen.bot.util.ServiceUtil;
 
 import org.apache.commons.text.StringEscapeUtils;
 import org.jsoup.Jsoup;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,6 +30,15 @@ public class CoronaBotTemplate {
 			String image) {
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message, Arrays
 				.asList(new MessageAction(actionTitle, actionText), new MessageAction(actionDonasi, actionDonasi)));
+
+		return new TemplateMessage(actionTitle, buttonsTemplate);
+	}
+
+	public static TemplateMessage createButtonSingle(String message, String actionTitle, String actionText,
+			String image) {
+
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message,
+				Collections.singletonList(new MessageAction(actionTitle, actionText)));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
@@ -45,9 +56,7 @@ public class CoronaBotTemplate {
 		} else if (source instanceof UserSource) {
 			message = String.format(message, sender.getDisplayName());
 		} else {
-			message = "Eh maaf" + sender.getDisplayName() + " ga denger kamu ngomong apa?\r\n"
-					+ "aku sedang tidak fokus karena pandemic ini(crying)\r\n"
-					+ "kamu mau liat status terkini virus corona di indonesia?";
+			message = "UNKNOW FORMAT ROOM";
 		}
 
 		return createButton(message, action, action, actionDonasi, image);
@@ -73,9 +82,9 @@ public class CoronaBotTemplate {
 				recover = dicodingEvents.getData().getTimeline().get(i).getRecovered();
 				image = "https://bit.ly/2RhmL3Q";
 
-				column = new CarouselColumn(image,
-						"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40),
-						"Update tanggal " + date + " Jumlah Penduduk : " + dicodingEvents.getData().getPopulation(),
+				column = new CarouselColumn(image, "Update tanggal " + ServiceUtil.dateConverter(date),
+						"Negara " + country.substring(0, (country.length() < 40) ? country.length() : 40)
+								+ " Jumlah Penduduk : " + dicodingEvents.getData().getPopulation(),
 						Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
 								new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
 								new MessageAction("Sembuh", "Berhasil Sembuh : " + recover)));
