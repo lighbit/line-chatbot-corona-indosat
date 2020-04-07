@@ -36,12 +36,4 @@ public class ServiceUtil {
 		return format;
 	}
 
-	public static void main(String[] args) {
-		String inputDate = "123456.23";
-
-		String awe = populationFormat(inputDate);
-
-		System.out.println(awe);
-	}
-
 }

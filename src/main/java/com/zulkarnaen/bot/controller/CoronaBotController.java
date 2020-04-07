@@ -23,14 +23,10 @@ import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotDatum;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
-import com.zulkarnaen.bot.model.CoronaBotJointEvents;
 import com.zulkarnaen.bot.model.CoronaBotLineEventsModel;
 import com.zulkarnaen.bot.service.CoronaBotService;
 import com.zulkarnaen.bot.service.CoronaBotTemplate;
-import com.zulkarnaen.bot.service.CoronaBotDBService;
-
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.nio.client.CloseableHttpAsyncClient;
@@ -46,12 +42,9 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.stream.Collectors;
 
 @RestController
 public class CoronaBotController {
@@ -64,10 +57,7 @@ public class CoronaBotController {
 	private CoronaBotService botService;
 
 	@Autowired
-	private CoronaBotTemplate botTemplate;
-
-	@Autowired
-	private CoronaBotDBService dbService;
+	private CoronaBotTemplate coronaBotTemplate;
 
 	private UserProfileResponse sender = null;
 	private CoronaBotEvents coronaBotEvents = null;
@@ -113,13 +103,13 @@ public class CoronaBotController {
 	}
 
 	/* GREATING MESSAGE HANDLE BASE */
-	private void greetingMessage(String replyToken, Source source, String additionalMessage) {
+	private void greetingMessageCoronaDefault(String replyToken, Source source, String additionalMessage) {
 		if (sender == null) {
 			String senderId = source.getSenderId();
 			sender = botService.getProfile(senderId);
 		}
 
-		TemplateMessage greetingMessage = botTemplate.greetingMessage(source, sender);
+		TemplateMessage greetingMessage = coronaBotTemplate.greetingMessage(source, sender);
 
 		if (additionalMessage != null) {
 			List<Message> messages = new ArrayList<>();
@@ -132,7 +122,7 @@ public class CoronaBotController {
 	}
 
 	private void handleJointOrFollowEvent(String replyToken, Source source) {
-		greetingMessage(replyToken, source, null);
+		greetingMessageCoronaDefault(replyToken, source, null);
 	}
 
 	private void handleMessageEvent(MessageEvent<?> event) {
@@ -145,7 +135,7 @@ public class CoronaBotController {
 		if (content instanceof TextMessageContent) {
 			handleTextMessage(replyToken, (TextMessageContent) content, source);
 		} else {
-			greetingMessage(replyToken, source, null);
+			greetingMessageCoronaDefault(replyToken, source, null);
 		}
 	}
 
@@ -163,26 +153,21 @@ public class CoronaBotController {
 
 	private void handleGroupChats(String replyToken, String textMessage, String groupId) {
 		String msgText = textMessage.toLowerCase();
-		if (msgText.contains("bot leave")) {
-			if (sender == null) {
-				botService.replyText(replyToken, "Hi, Mari Pantau Bersama Dengan jadikan Aku Sebagai Teman!");
-			} else {
-				botService.leaveGroup(groupId);
-			}
 
-			/* PROCESSING MESSAGE DARI USER */
-		} else if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
-				|| msgText.contains("teman")) {
-			processText(replyToken, textMessage);
-		} else if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
+		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
-			showEventSummary(replyToken, textMessage);
+			showEventSummaryCorona(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
+		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
+			handlecoronaVirusExplanation(replyToken);
+		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
+				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
+			handleHowToWashHand(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -190,24 +175,21 @@ public class CoronaBotController {
 
 	private void handleRoomChats(String replyToken, String textMessage, String roomId) {
 		String msgText = textMessage.toLowerCase();
-		if (msgText.contains("bot leave")) {
-			if (sender == null) {
-				botService.replyText(replyToken, "Hi, tambahkan dulu Aku sebagai teman!");
-			} else {
-				botService.leaveRoom(roomId);
-			}
-		} else if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
-				|| msgText.contains("teman")) {
-			processText(replyToken, textMessage);
-		} else if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
+
+		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
-			showEventSummary(replyToken, textMessage);
+			showEventSummaryCorona(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
+		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
+			handlecoronaVirusExplanation(replyToken);
+		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
+				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
+			handleHowToWashHand(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -215,18 +197,20 @@ public class CoronaBotController {
 
 	private void handleOneOnOneChats(String replyToken, String textMessage) {
 		String msgText = textMessage.toLowerCase();
-		if (msgText.contains("id") || msgText.contains("find") || msgText.contains("join")
-				|| msgText.contains("teman")) {
-			processText(replyToken, textMessage);
-		} else if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
+		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
 		} else if (msgText.contains("summary")) {
-			showEventSummary(replyToken, textMessage);
+			showEventSummaryCorona(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
 			handleKitaBisaTemplate(replyToken);
+		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
+			handlecoronaVirusExplanation(replyToken);
+		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
+				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
+			handleHowToWashHand(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -235,25 +219,53 @@ public class CoronaBotController {
 	private void HandleSalam(String msgText, String replyToken, Source source) {
 
 		if (msgText.contains("assala") || msgText.contains("asala") || msgText.contains("mikum")) {
-			greetingMessage(replyToken, source, "Waalaikumsalam " + sender.getDisplayName()
+			greetingMessageCoronaDefault(replyToken, source, "Waalaikumsalam " + sender.getDisplayName()
 					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.equals("hai") || msgText.equals("hallo") || msgText.equals("hei")
 				|| msgText.equals("halo")) {
-			greetingMessage(replyToken, source, msgText + " " + sender.getDisplayName()
+			greetingMessageCoronaDefault(replyToken, source, msgText + " " + sender.getDisplayName()
 					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("pagi")) {
-			greetingMessage(replyToken, source, "Selamat Pagi" + sender.getDisplayName()
+			greetingMessageCoronaDefault(replyToken, source, "Selamat Pagi" + sender.getDisplayName()
 					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("siang")) {
-			greetingMessage(replyToken, source, "Selamat Siang" + sender.getDisplayName()
+			greetingMessageCoronaDefault(replyToken, source, "Selamat Siang" + sender.getDisplayName()
 					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("malam")) {
-			greetingMessage(replyToken, source, "Selamat Malam" + sender.getDisplayName()
+			greetingMessageCoronaDefault(replyToken, source, "Selamat Malam" + sender.getDisplayName()
 					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else {
-			greetingMessage(replyToken, source, "Hai" + sender.getDisplayName()
+			greetingMessageCoronaDefault(replyToken, source, "Hai" + sender.getDisplayName()
 					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		}
+
+	}
+
+	private void handlecoronaVirusExplanation(String replyToken) {
+		String urlCorona = "https://bit.ly/3dX6riJ";
+		String thumbnailImageUrl = "https://bit.ly/39HVXjO";
+		String title = "Apa itu corona virus? (Covid-19)";
+		String text = "Baca Selengkapnya disini";
+
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
+				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
+
+		TemplateMessage templateMessage = new TemplateMessage("Apa Itu Corona", buttonsTemplate);
+		botService.reply(replyToken, templateMessage);
+
+	}
+
+	private void handleHowToWashHand(String replyToken) {
+		String urlCorona = "https://bit.ly/3dX6riJ";
+		String thumbnailImageUrl = "https://bit.ly/3aP3K0B";
+		String title = "Pencegahan Corona Virus (Covid-19)";
+		String text = "Baca Selengkapnya disini";
+
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
+				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
+
+		TemplateMessage templateMessage = new TemplateMessage("Pencegahan Corona", buttonsTemplate);
+		botService.reply(replyToken, templateMessage);
 
 	}
 
@@ -269,104 +281,6 @@ public class CoronaBotController {
 		TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
 		botService.reply(replyToken, templateMessage);
 
-	}
-
-	private void processText(String replyToken, String messageText) {
-		String[] words = messageText.trim().split("\\s+");
-		String intent = words[0];
-
-		if (intent.equalsIgnoreCase("id")) {
-			handleRegisteringUser(replyToken, words);
-		} else if (intent.equalsIgnoreCase("join")) {
-			handleJoinEvent(replyToken, words);
-		} else if (intent.equalsIgnoreCase("teman")) {
-			handleShowFriend(replyToken, words);
-		}
-	}
-
-	private void handleRegisteringUser(String replyToken, String[] words) {
-		String target = words.length > 1 ? words[1] : "";
-
-		if (target.length() <= 3) {
-		} else {
-			String lineId = target.substring(target.indexOf(":") + 2);
-			if (sender != null) {
-				if (!sender.getDisplayName().isEmpty() && (lineId.length() > 0)) {
-					if (dbService.regLineID(sender.getUserId(), lineId, sender.getDisplayName()) != 0) {
-						showCarouselEvents(replyToken, "Terimakasih Banyak ya. berikut status corona di indonesia");
-					} else {
-						userNotFoundFallback(replyToken,
-								"Sepertinya namamu salah bisa di ketik lagi seperti contoh ini:");
-					}
-				} else {
-					userNotFoundFallback(replyToken, "Tambahin Aku sebagai Teman dulu ya, lalu ikuti lagi cara ini:");
-				}
-			} else {
-				userNotFoundFallback(replyToken, "Maaf, Tambahkan Aku sebagai temanmu ya!");
-			}
-		}
-	}
-
-	private void handleJoinEvent(String replyToken, String[] words) {
-		String target = words.length > 2 ? words[2] : "";
-		String eventId = target.substring(target.indexOf("#") + 1);
-		String senderId = sender.getUserId();
-		String senderName = sender.getDisplayName();
-		String lineId = dbService.findUser(senderId);
-
-		int joinStatus = dbService.joinEvent(eventId, senderId, lineId, senderName);
-
-		if (joinStatus == -1) {
-			TemplateMessage buttonsTemplate = botTemplate.createButton("Kamu sudah bergabung di event ini",
-					"Lihat Teman", "teman #" + eventId, null, null);
-			botService.reply(replyToken, buttonsTemplate);
-			return;
-		}
-
-		if (joinStatus == 1) {
-			TemplateMessage buttonsTemplate = botTemplate.createButton(
-					"Pendaftaran event berhasil! Berikut teman yang menemani kamu", "Lihat Teman", "teman #" + eventId,
-					null, null);
-			botService.reply(replyToken, buttonsTemplate);
-			broadcastNewFriendJoined(eventId, senderId);
-			return;
-		}
-
-		botService.replyText(replyToken, "yah, kamu gagal bergabung event :(");
-	}
-
-	private void handleShowFriend(String replyToken, String[] words) {
-		String target = StringUtils.join(words, " ");
-		String eventId = target.substring(target.indexOf("#") + 1).trim();
-
-		List<CoronaBotJointEvents> jointEvents = dbService.getJoinedEvent(eventId);
-
-		if (jointEvents.size() > 0) {
-			List<String> friendList = jointEvents.stream()
-					.map((jointEvent) -> String.format("Namamu: %s\nLINE ID: %s\n", jointEvent.display_name,
-							"http://line.me/ti/p/~" + jointEvent.line_id))
-					.collect(Collectors.toList());
-
-			String replyText = "Daftar teman di event #" + eventId + ":\n\n";
-			replyText += StringUtils.join(friendList, "\n\n");
-
-			botService.replyText(replyToken, replyText);
-		} else {
-			botService.replyText(replyToken, "Event tidak ditemukan");
-		}
-	}
-
-	/* Jika User tidak terdeteksi */
-	private void userNotFoundFallback(String replyToken, String additionalInfo) {
-		List<String> messages = new ArrayList<String>();
-
-		if (additionalInfo != null)
-			messages.add(additionalInfo);
-		messages.add("Aku ingin Mengenalmu. bisa sebutkan namamu (pake \'nama: ?\' ya)");
-		messages.add("Contoh: nama: Zulkarnaen");
-
-		botService.replyText(replyToken, messages.toArray(new String[messages.size()]));
-		return;
 	}
 
 	private void showCarouselEvents(String replyToken) {
@@ -385,7 +299,7 @@ public class CoronaBotController {
 		}
 
 		/* TAMPILKAN HASIl */
-		TemplateMessage carouselEvents = botTemplate.carouselEvents(coronaBotEvents);
+		TemplateMessage carouselEvents = coronaBotTemplate.carouselEvents(coronaBotEvents);
 
 		if (additionalInfo == null) {
 			botService.reply(replyToken, carouselEvents);
@@ -428,20 +342,7 @@ public class CoronaBotController {
 		}
 	}
 
-	private void broadcastNewFriendJoined(String eventId, String newFriendId) {
-		List<String> listIds;
-		List<CoronaBotJointEvents> jointEvents = dbService.getJoinedEvent(eventId);
-
-		listIds = jointEvents.stream().filter(jointEvent -> !jointEvent.user_id.equals(newFriendId))
-				.map((jointEvent) -> jointEvent.user_id).collect(Collectors.toList());
-
-		Set<String> stringSet = new HashSet<String>(listIds);
-		String msg = "Hi, ada teman baru telah bergabung di event " + eventId;
-		TemplateMessage buttonsTemplate = botTemplate.createButton(msg, "Lihat Teman", "teman #" + eventId, null, null);
-		botService.multicast(stringSet, buttonsTemplate);
-	}
-
-	private void showEventSummary(String replyToken, String userTxt) {
+	private void showEventSummaryCorona(String replyToken, String userTxt) {
 		try {
 			if (coronaBotEvents == null) {
 				getEventsData();
@@ -453,15 +354,16 @@ public class CoronaBotController {
 			String encoding = StandardCharsets.UTF_8.name();
 			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_event.json"), encoding);
 
-			flexTemplate = String.format(flexTemplate, botTemplate.escape(eventData.getName()),
-					botTemplate.escape(eventData.getCode()), botTemplate.escapeInt(eventData.getPopulation()),
-					botTemplate.escape(eventData.getUpdated_at()),
-					botTemplate.escapeInt(eventData.getToday().getDeaths()),
-					botTemplate.escapeInt(eventData.getToday().getConfirmed()),
-					botTemplate.escapeInt(eventData.getLatest_data().getDeaths()),
-					botTemplate.escapeInt(eventData.getLatest_data().getConfirmed()),
-					botTemplate.escapeInt(eventData.getLatest_data().getRecovered()),
-					botTemplate.escapeInt(eventData.getLatest_data().getCritical()));
+			flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(eventData.getName()),
+					coronaBotTemplate.escape(eventData.getCode()),
+					coronaBotTemplate.escapeInt(eventData.getPopulation()),
+					coronaBotTemplate.escape(eventData.getUpdated_at()),
+					coronaBotTemplate.escapeInt(eventData.getToday().getDeaths()),
+					coronaBotTemplate.escapeInt(eventData.getToday().getConfirmed()),
+					coronaBotTemplate.escapeInt(eventData.getLatest_data().getDeaths()),
+					coronaBotTemplate.escapeInt(eventData.getLatest_data().getConfirmed()),
+					coronaBotTemplate.escapeInt(eventData.getLatest_data().getRecovered()),
+					coronaBotTemplate.escapeInt(eventData.getLatest_data().getCritical()));
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
