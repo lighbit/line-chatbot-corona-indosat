@@ -177,7 +177,7 @@ public class CoronaBotController {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
 			handleDicodingThanks(replyToken);
-		} else if (msgText.contains("Lokasi")) {
+		} else if (msgText.contains("lokasi")) {
 			handleLocationRS(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
