@@ -205,6 +205,8 @@ public class CoronaBotController {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
 			handleDicodingThanks(replyToken);
+		} else if (msgText.contains("lokasi")) {
+			handleLocationRS(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -230,6 +232,8 @@ public class CoronaBotController {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
 			handleDicodingThanks(replyToken);
+		} else if (msgText.contains("lokasi")) {
+			handleLocationRS(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
