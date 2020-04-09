@@ -33,11 +33,10 @@ public class CoronaBotTemplate {
 
 	/* CREATE BUTTON MORE THAN 1 */
 	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDonasi,
-			String image, String corona, String cegah, String rumahSakit) {
+			String image, String corona, String cegah) {
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message,
 				Arrays.asList(new MessageAction(corona, corona), new MessageAction(cegah, cegah),
-						new MessageAction(actionTitle, actionText), new MessageAction(rumahSakit, "Lokasi"),
-						new MessageAction(actionDonasi, actionDonasi)));
+						new MessageAction(actionTitle, actionText), new MessageAction(actionDonasi, actionDonasi)));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
@@ -58,7 +57,6 @@ public class CoronaBotTemplate {
 		String corona = "Apa itu Covid-19?";
 		String cegah = "Cara Pencegahan";
 		String action = "Lihat Perkembangan";
-		String rumahSakit = "Lokasi Rumah Sakit";
 		String actionDonasi = "Donasi";
 		String image = "https://bit.ly/34eUJv7";
 
@@ -72,7 +70,7 @@ public class CoronaBotTemplate {
 			message = "UNKNOW FORMAT ROOM";
 		}
 
-		return createButton(message, action, action, actionDonasi, image, corona, cegah, rumahSakit);
+		return createButton(message, action, action, actionDonasi, image, corona, cegah);
 	}
 
 	/* CAROUSEL TEMPLATE */

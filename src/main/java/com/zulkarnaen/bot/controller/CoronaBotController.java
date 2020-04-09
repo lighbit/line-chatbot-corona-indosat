@@ -2,6 +2,7 @@ package com.zulkarnaen.bot.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
+import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
@@ -304,10 +305,11 @@ public class CoronaBotController {
 		String urlCorona = "https://bit.ly/2Xezg45";
 		String thumbnailImageUrl = "https://bit.ly/3aP3K0B";
 		String title = "Pencegahan Corona Virus (Covid-19)";
-		String text = "Baca Selengkapnya disini";
+		String text = "Cari Tahu cara mencegah & jika merasa cek RS dibawah";
+		String rumahSakit = "Lokasi Rumah Sakit";
 
-		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
-				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text, Arrays
+				.asList(new URIAction("Baca Selengkapnya..", urlCorona), new MessageAction(rumahSakit, "Lokasi")));
 
 		TemplateMessage templateMessage = new TemplateMessage("Pencegahan Corona", buttonsTemplate);
 		botService.reply(replyToken, templateMessage);
