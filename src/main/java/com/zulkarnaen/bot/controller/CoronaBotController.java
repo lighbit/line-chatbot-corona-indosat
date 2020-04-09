@@ -575,11 +575,25 @@ public class CoronaBotController {
 			String stickerID = "51626501";
 
 			messageList.add(new TextMessage("Hallo " + sender.getDisplayName()
-					+ "! untuk mencari lokasi rumah sakit ketik 'lokasi <nama daerah>' contoh 'lokasi bandung' terimakasih."));
+					+ "! untuk mencari lokasi rumah sakit ketik 'lokasi<spasi><nama daerah>' contoh 'lokasi bandung' terimakasih."));
 			messageList.add(new StickerMessage(packageID, stickerID));
 
 			botService.reply(replyToken, messageList);
 
+		} else if (coronaBotLocationModel.getTitle().equals("salah")) {
+
+			List<Message> messageList = new ArrayList<>();
+
+			String packageID = "11538";
+			String stickerID = "51626523";
+
+			messageList.add(new TextMessage(
+					"Hallo " + sender.getDisplayName() + "! Maaf Lokasi Rumah sakitnya tidak dapat ditemukan."));
+			messageList.add(new StickerMessage(packageID, stickerID));
+			messageList.add(new TextMessage(
+					"untuk mencari lokasi rumah sakit lain, ketik 'lokasi<spasi><nama daerah>' contoh 'lokasi bandung' terimakasih."));
+
+			botService.reply(replyToken, messageList);
 		}
 
 		botService.reply(replyToken,
