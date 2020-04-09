@@ -5,6 +5,7 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
+import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
@@ -16,6 +17,7 @@ import com.zulkarnaen.bot.util.ServiceUtil;
 import org.apache.commons.text.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,12 +28,16 @@ import java.util.List;
 @Service
 public class CoronaBotTemplate {
 
+	@Autowired
+	private CoronaBotService botService;
+
 	/* CREATE BUTTON MORE THAN 1 */
 	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDonasi,
-			String image, String corona, String cegah) {
+			String image, String corona, String cegah, String rumahSakit) {
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message,
 				Arrays.asList(new MessageAction(corona, corona), new MessageAction(cegah, cegah),
-						new MessageAction(actionTitle, actionText), new MessageAction(actionDonasi, actionDonasi)));
+						new MessageAction(actionTitle, actionText), new MessageAction(rumahSakit, "Lokasi"),
+						new MessageAction(actionDonasi, actionDonasi)));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
@@ -46,12 +52,13 @@ public class CoronaBotTemplate {
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
 
-	/* BASE GREETING MESSAGE */
+	/* GREETING MESSAGE */
 	public TemplateMessage greetingMessage(Source source, UserProfileResponse sender) {
 		String message = "Hai %s! Mari Pantau Corona di Indonesia.";
 		String corona = "Apa itu Covid-19?";
 		String cegah = "Cara Pencegahan";
 		String action = "Lihat Perkembangan";
+		String rumahSakit = "Lokasi Rumah Sakit";
 		String actionDonasi = "Donasi";
 		String image = "https://bit.ly/34eUJv7";
 
@@ -65,7 +72,7 @@ public class CoronaBotTemplate {
 			message = "UNKNOW FORMAT ROOM";
 		}
 
-		return createButton(message, action, action, actionDonasi, image, corona, cegah);
+		return createButton(message, action, action, actionDonasi, image, corona, cegah, rumahSakit);
 	}
 
 	/* CAROUSEL TEMPLATE */
@@ -104,6 +111,20 @@ public class CoronaBotTemplate {
 
 		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
 		return new TemplateMessage("Your search result", carouselTemplate);
+	}
+
+	/* STICKER HANDLE PUBLIC */
+	public void handleStickerMessageEvent(String replyToken) {
+		handleSticker(replyToken);
+	}
+
+	/* STICKER BASE PRIVATE */
+	private void handleSticker(String replyToken) {
+
+		String packageID = "11537";
+		String stickerID = "52002755";
+
+		botService.reply(replyToken, new StickerMessage(packageID, stickerID));
 	}
 
 	public String escape(String text) {

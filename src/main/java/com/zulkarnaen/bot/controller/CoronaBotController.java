@@ -14,7 +14,9 @@ import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
 import com.linecorp.bot.model.message.FlexMessage;
+import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
+import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
@@ -24,6 +26,8 @@ import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotDatum;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
 import com.zulkarnaen.bot.model.CoronaBotLineEventsModel;
+import com.zulkarnaen.bot.model.CoronaBotLocationModel;
+import com.zulkarnaen.bot.service.CoronaBotLocationMapping;
 import com.zulkarnaen.bot.service.CoronaBotService;
 import com.zulkarnaen.bot.service.CoronaBotTemplate;
 import org.apache.commons.io.IOUtils;
@@ -66,7 +70,7 @@ public class CoronaBotController {
 	@RequestMapping(value = "/corona", method = RequestMethod.GET)
 	public CoronaBotEvents getCoronaJson() {
 
-		getEventsData();
+		getEventsData("none");
 
 		return coronaBotEvents;
 
@@ -172,6 +176,8 @@ public class CoronaBotController {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
 			handleDicodingThanks(replyToken);
+		} else if (msgText.contains("Lokasi")) {
+			handleLocationRS(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -334,7 +340,7 @@ public class CoronaBotController {
 //		}
 
 		if ((coronaBotEvents == null)) {
-			getEventsData();
+			getEventsData(replyToken);
 		}
 
 		/* TAMPILKAN HASIl */
@@ -351,10 +357,12 @@ public class CoronaBotController {
 		botService.reply(replyToken, messageList);
 	}
 
-	private void getEventsData() {
+	private void getEventsData(String replyToken) {
 		// Act as client with GET method
 		String URI = "http://corona-api.com/countries/id";
 		System.out.println("URI: " + URI);
+
+		List<Message> messageList = new ArrayList<>();
 
 		try (CloseableHttpAsyncClient client = HttpAsyncClients.createDefault()) {
 			client.start();
@@ -377,14 +385,19 @@ public class CoronaBotController {
 			ObjectMapper objectMapper = new ObjectMapper();
 			coronaBotEvents = objectMapper.readValue(jsonResponse, CoronaBotEvents.class);
 		} catch (InterruptedException | ExecutionException | IOException e) {
-			throw new RuntimeException(e);
+			messageList.add(new TextMessage("Ada Kesalahan dalam mengambil data ke sumber terkait"));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
 		}
 	}
 
 	private void showEventSummaryCorona(String replyToken, String userTxt) {
+
+		List<Message> messageList = new ArrayList<>();
 		try {
 			if (coronaBotEvents == null) {
-				getEventsData();
+				getEventsData(replyToken);
 			}
 
 			CoronaBotDatum eventData = coronaBotEvents.getData();
@@ -408,14 +421,18 @@ public class CoronaBotController {
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
 			botService.reply(replyToken, new FlexMessage("Corona VS Indonesia", flexContainer));
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
 		}
 	}
 
 	private void showEventSummaryDeclaration(String replyToken, String userTxt) {
+
+		List<Message> messageList = new ArrayList<>();
 		try {
 
-			List<Message> messageList = new ArrayList<>();
 			int total = Integer.parseInt(userTxt.substring(userTxt.lastIndexOf(":") + 2));
 
 			if (userTxt.contains("Meninggal")) {
@@ -454,6 +471,9 @@ public class CoronaBotController {
 
 			} else if (userTxt.contains("Terkonfirmasi")) {
 
+				String packageID = "11537";
+				String stickerID = "52002735";
+
 				if (total < 10) {
 
 					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 10 orang yaitu: " + total));
@@ -466,15 +486,19 @@ public class CoronaBotController {
 							"Sudah Banyak Yang Terkonfirmasi Diharapkan Untuk Kamu, Keluarga dan Teman tetap dirumah dan jangan kemana mana please!!"));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
+
 					botService.reply(replyToken, messageList);
 
-				} else if (total < 1000) {
+				} else if (total > 500 && total < 1000) {
 
 					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 1000 Orang yaitu: " + total));
 					messageList.add(new TextMessage(
 							"Aku Tidak Mau kamu, Keluarga dan Teman Teman mu kena Mari ikuti apa kata Pemerintah untuk tetap dirumah stay safe and healty!"));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
+
 					botService.reply(replyToken, messageList);
 
 				} else {
@@ -484,6 +508,8 @@ public class CoronaBotController {
 							"Ya Tuhan Sedih Sekali liatnya sudah ribuan orang terkena virus corona bantu saya berdoa bersama ya!"));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
+
 					botService.reply(replyToken, messageList);
 
 				}
@@ -497,7 +523,7 @@ public class CoronaBotController {
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
-				} else if (total > 20) {
+				} else if (total > 20 && total < 30) {
 
 					messageList.add(new TextMessage("Korban Sembuh Lebih dari 20 orang yaitu: " + total));
 					messageList.add(new TextMessage(
@@ -507,14 +533,14 @@ public class CoronaBotController {
 				} else if (total > 30 && total < 50) {
 
 					messageList.add(new TextMessage("Korban Sembuh lebih dari 30 Orang yaitu: " + total));
-					messageList.add(new TextMessage("Alhamdulillah ini semua berkat bantuan kita Mari Terus doakan!"));
+					messageList
+							.add(new TextMessage("Alhamdulillah ini semua berkat bantuan kalian Mari Terus doakan!"));
 					botService.reply(replyToken, messageList);
 
 				} else {
 
 					messageList.add(new TextMessage("Korban Sembuh yaitu: " + total));
-					messageList.add(new TextMessage(
-							"Senang Sekali liatnya Yang sembuh lebih dari 50 orang. Semoga Sembuh Semua aamiin!"));
+					messageList.add(new TextMessage("Senang Sekali liatnya Yang sembuh. Semoga Sembuh Semua aamiin!"));
 					botService.reply(replyToken, messageList);
 
 				}
@@ -522,8 +548,38 @@ public class CoronaBotController {
 			}
 
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			messageList.add(new TextMessage("Maaf aku tidak mengerti"));
+			messageList.add(new TextMessage(
+					"ketik status atau perkembangan dan klik button pada template untuk melihat status korban"));
+			botService.reply(replyToken, messageList);
 		}
+	}
+
+	public void handleLocationRS(String replyToken, String msgText) {
+
+		/* HANDLE MAPPING ALL RS IN INDONESIA */
+		CoronaBotLocationModel coronaBotLocationModel;
+		coronaBotLocationModel = CoronaBotLocationMapping.handleLocationRSMapping(replyToken, msgText);
+
+		if (coronaBotLocationModel.getTitle().equals("tidak sesuai")) {
+
+			List<Message> messageList = new ArrayList<>();
+
+			String packageID = "11537";
+			String stickerID = "52002755";
+
+			messageList.add(new TextMessage("Hallo! maaf lokasi yang kamu masukan salah"));
+			messageList.add(new TextMessage(
+					"untuk mencari lokasi rumah sakit ketik 'lokasi <nama daerah>' contoh 'lokasi bandung' terimakasih."));
+			messageList.add(new StickerMessage(packageID, stickerID));
+
+			botService.reply(replyToken, messageList);
+
+		}
+
+		botService.reply(replyToken,
+				new LocationMessage(coronaBotLocationModel.getTitle(), coronaBotLocationModel.getAddress(),
+						coronaBotLocationModel.getLatitude(), coronaBotLocationModel.getLongtitude()));
 	}
 
 }
