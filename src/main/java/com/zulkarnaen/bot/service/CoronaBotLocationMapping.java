@@ -102,7 +102,7 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setLatitude(-5.402763);
 			coronaBotLocationModel.setLongtitude(105.258550);
 
-		} else if (msgText.equals("jkt") || msgText.contains("dki") || msgText.contains("jakarta")) {
+		} else if (msgText.contains("jkt") || msgText.contains("dki") || msgText.contains("jakarta")) {
 
 			coronaBotLocationModel.setTitle("RSPI Prof. Dr. Sulianti Saroso");
 			coronaBotLocationModel
@@ -110,7 +110,7 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setLatitude(-6.129851);
 			coronaBotLocationModel.setLongtitude(106.862252);
 
-		} else if (msgText.contains("bekasi") || msgText.equals("bks") || msgText.contains("planet bekasi")
+		} else if (msgText.contains("bekasi") || msgText.contains("bks") || msgText.contains("planet bekasi")
 				|| msgText.contains("planet-bekasi")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kabupaten Bekasi");
@@ -118,14 +118,14 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setLatitude(-6.266471);
 			coronaBotLocationModel.setLongtitude(107.083071);
 
-		} else if (msgText.equals("bdg") || msgText.contains("bandung")) {
+		} else if (msgText.contains("bdg") || msgText.contains("bandung")) {
 
 			coronaBotLocationModel.setTitle("RSUP dr. Hasan Sadikin");
 			coronaBotLocationModel.setAddress("Jl. Pasteur No.38, Pasteur, Bandung. Telp: (022) 2551111");
 			coronaBotLocationModel.setLatitude(-6.896126);
 			coronaBotLocationModel.setLongtitude(107.598748);
 
-		} else if (msgText.equals("bgr") || msgText.contains("bogor")) {
+		} else if (msgText.contains("bgr") || msgText.contains("bogor")) {
 
 			coronaBotLocationModel.setTitle("RS Paru dr. M. Goenawan Partowidigdo");
 			coronaBotLocationModel.setAddress("Jl. Puncak Raya Km. 83, Cisarua, Bogor. Telp: (0251) 8253630");
@@ -167,7 +167,7 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setLatitude(-6.885490);
 			coronaBotLocationModel.setLongtitude(107.534942);
 
-		} else if (msgText.equals("tgr") || msgText.contains("tangerang") || msgText.contains("banten")) {
+		} else if (msgText.contains("tgr") || msgText.contains("tangerang") || msgText.contains("banten")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kabupaten Tangerang");
 			coronaBotLocationModel.setAddress("Jl. Jend. Ahmad Yani No.9. Telp: (021) 5523507");
