@@ -1,13 +1,7 @@
 package com.zulkarnaen.bot.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.linecorp.bot.model.message.Message;
-import com.linecorp.bot.model.message.TextMessage;
 import com.zulkarnaen.bot.model.CoronaBotLocationModel;
 
 @Service
@@ -26,84 +20,84 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
 			coronaBotLocationModel.setLatitude(5.563991);
 			coronaBotLocationModel.setLongtitude(95.337631);
 
-		} else if (msgText.contains("")) {
+		} else if (msgText.contains("asu")) {
 
 			coronaBotLocationModel.setTitle("");
 			coronaBotLocationModel.setAddress("");
