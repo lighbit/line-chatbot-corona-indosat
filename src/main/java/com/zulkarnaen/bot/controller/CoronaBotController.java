@@ -167,7 +167,7 @@ public class CoronaBotController {
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
-			handleKitaBisaTemplate(replyToken);
+			handleDonasiTemplate(replyToken);
 		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
 			handlecoronaVirusExplanation(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
@@ -179,6 +179,8 @@ public class CoronaBotController {
 			handleDicodingThanks(replyToken);
 		} else if (msgText.contains("lokasi")) {
 			handleLocationRS(replyToken, msgText);
+		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
+			handleCallCenter(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -195,7 +197,7 @@ public class CoronaBotController {
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
-			handleKitaBisaTemplate(replyToken);
+			handleDonasiTemplate(replyToken);
 		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
 			handlecoronaVirusExplanation(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
@@ -207,6 +209,8 @@ public class CoronaBotController {
 			handleDicodingThanks(replyToken);
 		} else if (msgText.contains("lokasi")) {
 			handleLocationRS(replyToken, msgText);
+		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
+			handleCallCenter(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -222,7 +226,7 @@ public class CoronaBotController {
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
 		} else if (msgText.contains("donasi")) {
-			handleKitaBisaTemplate(replyToken);
+			handleDonasiTemplate(replyToken);
 		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
 			handlecoronaVirusExplanation(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
@@ -234,6 +238,8 @@ public class CoronaBotController {
 			handleDicodingThanks(replyToken);
 		} else if (msgText.contains("lokasi")) {
 			handleLocationRS(replyToken, msgText);
+		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
+			handleCallCenter(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -295,7 +301,7 @@ public class CoronaBotController {
 		String urlCorona = "https://bit.ly/3dX6riJ";
 		String thumbnailImageUrl = "https://bit.ly/39HVXjO";
 		String title = "Apa itu corona virus? (Covid-19)";
-		String text = "Baca Selengkapnya disini";
+		String text = "Penjelasan Seputar corona virus (covid-19) ada disini.";
 
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
 				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
@@ -311,26 +317,47 @@ public class CoronaBotController {
 		String title = "Pencegahan Corona Virus (Covid-19)";
 		String text = "Cari Tahu cara mencegah & jika merasa cek RS dibawah";
 		String rumahSakit = "Lokasi Rumah Sakit";
+		String callCenter = "Call Center";
 
-		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text, Arrays
-				.asList(new URIAction("Baca Selengkapnya..", urlCorona), new MessageAction(rumahSakit, "Lokasi")));
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
+				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona), new MessageAction(rumahSakit, "Lokasi"),
+						new MessageAction(callCenter, callCenter)));
 
 		TemplateMessage templateMessage = new TemplateMessage("Pencegahan Corona", buttonsTemplate);
 		botService.reply(replyToken, templateMessage);
 
 	}
 
-	private void handleKitaBisaTemplate(String replyToken) {
-		String urlCorona = "https://kitabisa.com/campaign/indonesialawancorona";
+	private void handleDonasiTemplate(String replyToken) {
+		String urlCoronaKitabisa = "https://kitabisa.com/campaign/indonesialawancorona";
+		String urlCoronaDompetDhuafa = "https://donasi.dompetdhuafa.org/bersamalawancorona/";
 		String thumbnailImageUrl = "https://bit.ly/34eUJv7";
 		String title = "Selamatkan Nyawa #BersamaLawanCorona";
-		String text = "Mari Bantu Korban & Paramedis dgn Berdonasi Di KITABISA.COM";
+		String text = "Mari Bantu Korban & Paramedis dgn Berdonasi di";
 
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
-				Arrays.asList(new URIAction("Mari Berdonasi", urlCorona)));
+				Arrays.asList(new URIAction("Kitabisa.com", urlCoronaKitabisa),
+						new URIAction("DompetDhuafa.org", urlCoronaDompetDhuafa)));
 
-		TemplateMessage templateMessage = new TemplateMessage("Button alt text", buttonsTemplate);
+		TemplateMessage templateMessage = new TemplateMessage("Berdonasi", buttonsTemplate);
 		botService.reply(replyToken, templateMessage);
+
+	}
+
+	private void handleCallCenter(String replyToken) {
+
+		List<Message> messageList = new ArrayList<>();
+
+		String packageID = "11538";
+		String stickerID = "51626496";
+
+		messageList.add(new TextMessage("119"));
+		messageList.add(new TextMessage("Hallo " + sender.getDisplayName()
+				+ "! 119 adalah nomor hotline seputar corona jika kamu merasakan gejala seperti corona langsung telpon dan jangan takus"));
+		messageList.add(new TextMessage("Aku yakin kamu tidak akan kenapa-kenapa pasti!"));
+		messageList.add(new StickerMessage(packageID, stickerID));
+
+		botService.reply(replyToken, messageList);
 
 	}
 
@@ -339,11 +366,6 @@ public class CoronaBotController {
 	}
 
 	private void showCarouselEvents(String replyToken, String additionalInfo) {
-//		String userFound = dbService.findUser(sender.getUserId());
-
-//		if (userFound == null) {
-//			userNotFoundFallback(replyToken);
-//		}
 
 		if ((coronaBotEvents == null)) {
 			getEventsData(replyToken);
@@ -588,7 +610,7 @@ public class CoronaBotController {
 			String stickerID = "51626523";
 
 			messageList.add(new TextMessage(
-					"Hallo " + sender.getDisplayName() + "! Maaf Lokasi Rumah sakitnya tidak dapat ditemukan."));
+					"Maaf " + sender.getDisplayName() + "! Maaf Lokasi Rumah sakitnya tidak dapat ditemukan."));
 			messageList.add(new StickerMessage(packageID, stickerID));
 			messageList.add(new TextMessage(
 					"untuk mencari lokasi rumah sakit lain, ketik 'lokasi<spasi><nama daerah>' contoh 'lokasi bandung' terimakasih."));
