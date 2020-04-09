@@ -567,12 +567,11 @@ public class CoronaBotController {
 
 			List<Message> messageList = new ArrayList<>();
 
-			String packageID = "11537";
-			String stickerID = "52002755";
+			String packageID = "11538";
+			String stickerID = "51626501";
 
-			messageList.add(new TextMessage("Hallo! maaf lokasi yang kamu masukan salah"));
-			messageList.add(new TextMessage(
-					"untuk mencari lokasi rumah sakit ketik 'lokasi <nama daerah>' contoh 'lokasi bandung' terimakasih."));
+			messageList.add(new TextMessage("Hallo " + sender.getDisplayName()
+					+ "! untuk mencari lokasi rumah sakit ketik 'lokasi <nama daerah>' contoh 'lokasi bandung' terimakasih."));
 			messageList.add(new StickerMessage(packageID, stickerID));
 
 			botService.reply(replyToken, messageList);
