@@ -8,7 +8,9 @@ import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.ReplyEvent;
+import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
+import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
@@ -139,9 +141,40 @@ public class CoronaBotController {
 
 		if (content instanceof TextMessageContent) {
 			handleTextMessage(replyToken, (TextMessageContent) content, source);
+		} else if (content instanceof LocationMessageContent) {
+			handleLocationMessage(replyToken, (LocationMessageContent) content, source);
+		} else if (content instanceof StickerMessageContent) {
+			handleStickerMessage(replyToken, (StickerMessageContent) content, source);
 		} else {
 			greetingMessageCoronaDefault(replyToken, source, null);
 		}
+	}
+
+	private void handleLocationMessage(String replyToken, LocationMessageContent content, Source source) {
+
+		List<Message> messageList = new ArrayList<>();
+
+		messageList.add(new TextMessage("Terimakasih sudah share lokasi-nya!"));
+		messageList.add(new TextMessage("kalo tidak salah nama jalannya adalah " + content.getAddress()));
+		messageList.add(new TextMessage("apa aku benar ;)"));
+
+		botService.reply(replyToken, messageList);
+
+	}
+
+	private void handleStickerMessage(String replyToken, StickerMessageContent content, Source source) {
+
+		List<Message> messageList = new ArrayList<>();
+		String packageID = content.getPackageId();
+		String stickerID = content.getStickerId();
+
+		messageList.add(new TextMessage("Terimakasih sudah share sticker-nya!"));
+		messageList.add(new TextMessage("kalo tidak salah gambarnya seperti ini ya"));
+		messageList.add(new StickerMessage(packageID, stickerID));
+		messageList.add(new TextMessage("apa aku benar ;)"));
+
+		botService.reply(replyToken, messageList);
+
 	}
 
 	private void handleTextMessage(String replyToken, TextMessageContent content, Source source) {
@@ -353,7 +386,7 @@ public class CoronaBotController {
 
 		messageList.add(new TextMessage("119"));
 		messageList.add(new TextMessage("Hallo " + sender.getDisplayName()
-				+ "! 119 adalah nomor hotline seputar corona jika kamu merasakan gejala seperti corona langsung telpon dan jangan takus"));
+				+ "! 119 adalah nomor hotline seputar corona jika kamu merasakan gejala seperti corona langsung telpon dan jangan takut"));
 		messageList.add(new TextMessage("Aku yakin kamu tidak akan kenapa-kenapa pasti!"));
 		messageList.add(new StickerMessage(packageID, stickerID));
 
@@ -610,7 +643,7 @@ public class CoronaBotController {
 			String stickerID = "51626523";
 
 			messageList.add(new TextMessage(
-					"Maaf " + sender.getDisplayName() + "! Maaf Lokasi Rumah sakitnya tidak dapat ditemukan."));
+					"Hallo " + sender.getDisplayName() + "! Maaf Lokasi Rumah sakitnya tidak dapat ditemukan."));
 			messageList.add(new StickerMessage(packageID, stickerID));
 			messageList.add(new TextMessage(
 					"untuk mencari lokasi rumah sakit lain, ketik 'lokasi<spasi><nama daerah>' contoh 'lokasi bandung' terimakasih."));
