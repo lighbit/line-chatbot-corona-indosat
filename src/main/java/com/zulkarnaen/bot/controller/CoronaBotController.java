@@ -594,6 +594,8 @@ public class CoronaBotController {
 			ya = "98780ya1";
 			tidak = "98780tidak1";
 
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
 		}
 
 	}

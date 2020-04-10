@@ -74,7 +74,8 @@
 					"type": "postback",
 					"label": "Berita Terbaru",
 					"data": "news"
-				}
+				},
+				"style": "primary"
 			},
 			{
 				"type": "spacer"
