@@ -2,6 +2,7 @@ package com.zulkarnaen.bot.service;
 
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.PostbackAction;
+import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
@@ -13,6 +14,7 @@ import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
+import com.zulkarnaen.bot.model.CoronaBotGoogleArticles;
 import com.zulkarnaen.bot.util.ServiceUtil;
 
 import org.apache.commons.text.StringEscapeUtils;
@@ -110,6 +112,39 @@ public class CoronaBotTemplate {
 
 		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
 		return new TemplateMessage("Your search result", carouselTemplate);
+	}
+
+	/* Handle Greeting flex_template */
+	public TemplateMessage carouselEventsNews(CoronaBotGoogleArticles coronaBotGoogleArticles) {
+		int i;
+		String title, description, urlToImage, url;
+		CarouselColumn column;
+		List<CarouselColumn> carouselColumn = new ArrayList<>();
+		for (i = 0; i < coronaBotGoogleArticles.getArticles().size(); i++) {
+
+			if (i == 9) {
+
+				break;
+
+			} else {
+
+				title = coronaBotGoogleArticles.getArticles().get(i).getTitle();
+				description = coronaBotGoogleArticles.getArticles().get(i).getDescription();
+				urlToImage = coronaBotGoogleArticles.getArticles().get(i).getUrlToImage();
+				url = coronaBotGoogleArticles.getArticles().get(i).getUrl();
+
+				column = new CarouselColumn(urlToImage, title,
+						description.substring(0, (description.length() < 40) ? description.length() : 40),
+						Arrays.asList(new URIAction("Baca Selengkapnya..", url)));
+
+				carouselColumn.add(column);
+
+			}
+		}
+
+		CarouselTemplate carouselTemplate = new CarouselTemplate(carouselColumn);
+		return new TemplateMessage("Your search result", carouselTemplate);
+
 	}
 
 	/* STICKER HANDLE PUBLIC */

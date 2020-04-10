@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
@@ -31,6 +32,7 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
+import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
@@ -40,6 +42,8 @@ import com.zulkarnaen.bot.model.CoronaBotLocationModel;
 import com.zulkarnaen.bot.service.CoronaBotLocationMapping;
 import com.zulkarnaen.bot.service.CoronaBotService;
 import com.zulkarnaen.bot.service.CoronaBotTemplate;
+import com.zulkarnaen.bot.util.ServiceUtil;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -109,7 +113,7 @@ public class CoronaBotController {
 	@RequestMapping(value = "/newss", method = RequestMethod.GET)
 	public CoronaBotGoogleArticles getDataFlex() {
 
-		carouselEventsNewsFlex("none", sender);
+		carouselEventsNewsFlex("none", "asu");
 
 		return coronaBotGoogleArticles;
 
@@ -372,7 +376,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, sender);
+			carouselEventsNewsFlex(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else {
@@ -407,7 +411,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, sender);
+			carouselEventsNewsFlex(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -439,7 +443,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, sender);
+			carouselEventsNewsFlex(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -584,52 +588,25 @@ public class CoronaBotController {
 		}
 	}
 
-	/* Handle Greeting flex_template */
-	private void carouselEventsNewsFlex(String replyToken, UserProfileResponse sender) {
-		List<Message> messageList = new ArrayList<>();
-		int i;
-		String name, title, description, urlToImage, url;
+	/* Show Carousel Events */
+	private void carouselEventsNewsFlex(String replyToken, String additionalInfo) {
 
 		if ((coronaBotGoogleArticles == null)) {
 			getEventDataGoogleNews(replyToken);
 		}
 
-		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-			String encoding = StandardCharsets.UTF_8.name();
-			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_news.json"), encoding);
+		/* TAMPILKAN HASIl */
+		TemplateMessage carouselEvents = coronaBotTemplate.carouselEventsNews(coronaBotGoogleArticles);
 
-			for (i = 0; i < coronaBotGoogleArticles.getArticles().size(); i++) {
-
-				if (i == 9) {
-
-					break;
-
-				} else {
-
-					name = coronaBotGoogleArticles.getArticles().get(i).getSource().getName();
-					title = coronaBotGoogleArticles.getArticles().get(i).getTitle();
-					description = coronaBotGoogleArticles.getArticles().get(i).getDescription();
-					urlToImage = coronaBotGoogleArticles.getArticles().get(i).getUrlToImage();
-					url = coronaBotGoogleArticles.getArticles().get(i).getUrl();
-
-					flexTemplate = String.format(flexTemplate, urlToImage, coronaBotTemplate.escape(title),
-							coronaBotTemplate.escape("Sumber : " + name), coronaBotTemplate.escape(description), url);
-				}
-			}
-
-			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-
-			ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("News Update", flexContainer));
-			botService.reply(replyMessage);
-
-		} catch (IOException e) {
-			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
-			messageList.add(new TextMessage(
-					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
-			botService.reply(replyToken, messageList);
+		if (additionalInfo == null) {
+			botService.reply(replyToken, carouselEvents);
+			return;
 		}
+
+		List<Message> messageList = new ArrayList<>();
+		messageList.add(new TextMessage(additionalInfo));
+		messageList.add(carouselEvents);
+		botService.reply(replyToken, messageList);
 	}
 
 	/* Handle cara cuci tangan (digantikan flex) */
