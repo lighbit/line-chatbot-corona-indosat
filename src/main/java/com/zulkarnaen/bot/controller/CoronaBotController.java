@@ -8,6 +8,7 @@ import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
+import com.linecorp.bot.model.event.PostbackEvent;
 import com.linecorp.bot.model.event.ReplyEvent;
 import com.linecorp.bot.model.event.message.AudioMessageContent;
 import com.linecorp.bot.model.event.message.FileMessageContent;
@@ -125,6 +126,8 @@ public class CoronaBotController {
 					handleJointOrFollowEvent(replyToken, event.getSource());
 				} else if (event instanceof MessageEvent) {
 					handleMessageEvent((MessageEvent<?>) event);
+				} else if (event instanceof PostbackEvent) {
+					handlePostbackEvent((PostbackEvent) event);
 				}
 			});
 
@@ -155,6 +158,18 @@ public class CoronaBotController {
 
 	private void handleJointOrFollowEvent(String replyToken, Source source) {
 		greetingMessageCoronaDefault(replyToken, source, null);
+	}
+
+	/* Handle Postback Event (semua message handle disini dulu) */
+	private void handlePostbackEvent(PostbackEvent event) {
+		String replyToken = event.getReplyToken();
+		Source source = event.getSource();
+		String senderId = source.getSenderId();
+		String data = event.getPostbackContent().getData();
+		sender = botService.getProfile(senderId);
+
+		showEventSummaryDeclaration(replyToken, data);
+
 	}
 
 	/* Handle Message Event (semua message handle disini dulu) */
