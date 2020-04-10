@@ -33,6 +33,7 @@ import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotDatum;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
+import com.zulkarnaen.bot.model.CoronaBotGoogleArticles;
 import com.zulkarnaen.bot.model.CoronaBotLineEventsModel;
 import com.zulkarnaen.bot.model.CoronaBotLocationModel;
 import com.zulkarnaen.bot.service.CoronaBotLocationMapping;
@@ -73,6 +74,7 @@ public class CoronaBotController {
 
 	private UserProfileResponse sender = null;
 	private CoronaBotEvents coronaBotEvents = null;
+	private CoronaBotGoogleArticles coronaBotGoogleArticles = null;
 
 	/* GET JSON */
 	@RequestMapping(value = "/corona", method = RequestMethod.GET)
@@ -81,6 +83,16 @@ public class CoronaBotController {
 		getEventsData("none");
 
 		return coronaBotEvents;
+
+	}
+
+	/* GET JSON */
+	@RequestMapping(value = "/news", method = RequestMethod.GET)
+	public CoronaBotGoogleArticles getNewsCorona() {
+
+		getEventDataGoogleNews("none");
+
+		return coronaBotGoogleArticles;
 
 	}
 
@@ -284,8 +296,6 @@ public class CoronaBotController {
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
-		} else if (msgText.contains("summary")) {
-			showEventSummaryCorona(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -315,8 +325,6 @@ public class CoronaBotController {
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
-		} else if (msgText.contains("summary")) {
-			showEventSummaryCorona(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -345,8 +353,6 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
 			showCarouselEvents(replyToken);
-		} else if (msgText.contains("summary")) {
-			showEventSummaryCorona(replyToken, textMessage);
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -356,7 +362,7 @@ public class CoronaBotController {
 			handlecoronaVirusExplanation(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
-			handleHowToWashHand(replyToken);
+			showEventSummaryCorona(replyToken);
 		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
@@ -596,31 +602,52 @@ public class CoronaBotController {
 		}
 	}
 
+	/* Handle Get NEWS API GOOGLE */
+	private void getEventDataGoogleNews(String replyToken) {
+		// Act as client with GET method
+		String URI = "http://newsapi.org/v2/everything?q=corona&language=id&apiKey=c1eda55382224fe881f78d4b24b4877e";
+		System.out.println("URI: " + URI);
+
+		List<Message> messageList = new ArrayList<>();
+
+		try (CloseableHttpAsyncClient client = HttpAsyncClients.createDefault()) {
+			client.start();
+			// Use HTTP Get to retrieve data
+			HttpGet get = new HttpGet(URI);
+
+			Future<HttpResponse> future = client.execute(get, null);
+			HttpResponse responseGet = future.get();
+			System.out.println("HTTP executed");
+			System.out.println("HTTP Status of response: " + responseGet.getStatusLine().getStatusCode());
+
+			// Get the response from the GET request
+			InputStream inputStream = responseGet.getEntity().getContent();
+			String encoding = StandardCharsets.UTF_8.name();
+			String jsonResponse = IOUtils.toString(inputStream, encoding);
+
+			System.out.println("Got result");
+			System.out.println(jsonResponse);
+
+			ObjectMapper objectMapper = new ObjectMapper();
+			coronaBotGoogleArticles = objectMapper.readValue(jsonResponse, CoronaBotGoogleArticles.class);
+		} catch (InterruptedException | ExecutionException | IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam mengambil data ke sumber terkait"));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
+		}
+	}
+
 	/* Handle Hasil Semua dari flex_template (Masih belum Bisa) */
-	private void showEventSummaryCorona(String replyToken, String userTxt) {
+	private void showEventSummaryCorona(String replyToken) {
 
 		List<Message> messageList = new ArrayList<>();
 		try {
-			if (coronaBotEvents == null) {
-				getEventsData(replyToken);
-			}
-
-			CoronaBotDatum eventData = coronaBotEvents.getData();
 
 			ClassLoader classLoader = getClass().getClassLoader();
 			String encoding = StandardCharsets.UTF_8.name();
-			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_event.json"), encoding);
-
-			flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(eventData.getName()),
-					coronaBotTemplate.escape(eventData.getCode()),
-					coronaBotTemplate.escapeInt(eventData.getPopulation()),
-					coronaBotTemplate.escape(eventData.getUpdated_at()),
-					coronaBotTemplate.escapeInt(eventData.getToday().getDeaths()),
-					coronaBotTemplate.escapeInt(eventData.getToday().getConfirmed()),
-					coronaBotTemplate.escapeInt(eventData.getLatest_data().getDeaths()),
-					coronaBotTemplate.escapeInt(eventData.getLatest_data().getConfirmed()),
-					coronaBotTemplate.escapeInt(eventData.getLatest_data().getRecovered()),
-					coronaBotTemplate.escapeInt(eventData.getLatest_data().getCritical()));
+			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json"),
+					encoding);
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
