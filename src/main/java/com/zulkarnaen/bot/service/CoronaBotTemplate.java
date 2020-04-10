@@ -133,7 +133,7 @@ public class CoronaBotTemplate {
 				urlToImage = coronaBotGoogleArticles.getArticles().get(i).getUrlToImage();
 				url = coronaBotGoogleArticles.getArticles().get(i).getUrl();
 
-				column = new CarouselColumn(urlToImage, title,
+				column = new CarouselColumn(urlToImage, title.substring(0, (title.length() < 40) ? title.length() : 40),
 						description.substring(0, (description.length() < 40) ? description.length() : 40),
 						Arrays.asList(new URIAction("Baca Selengkapnya..", url)));
 

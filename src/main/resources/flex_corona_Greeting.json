@@ -84,6 +84,24 @@
 				"type": "button",
 				"action": {
 					"type": "postback",
+					"label": "Cek Gejala",
+					"data": "gejala"
+				},
+				"style": "primary"
+			},
+			{
+				"type": "button",
+				"action": {
+					"type": "postback",
+					"label": "Berita Terkini",
+					"data": "news"
+				},
+				"style": "primary"
+			},
+			{
+				"type": "button",
+				"action": {
+					"type": "postback",
 					"label": "Lokasi Rumah Sakit",
 					"data": "Lokasi"
 				},

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
 import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
-import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
@@ -32,7 +31,6 @@ import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
-import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
@@ -42,8 +40,6 @@ import com.zulkarnaen.bot.model.CoronaBotLocationModel;
 import com.zulkarnaen.bot.service.CoronaBotLocationMapping;
 import com.zulkarnaen.bot.service.CoronaBotService;
 import com.zulkarnaen.bot.service.CoronaBotTemplate;
-import com.zulkarnaen.bot.util.ServiceUtil;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -113,7 +109,7 @@ public class CoronaBotController {
 	@RequestMapping(value = "/newss", method = RequestMethod.GET)
 	public CoronaBotGoogleArticles getDataFlex() {
 
-		carouselEventsNewsFlex("none", "asu");
+		carouselEventsNewsTemplate("none", "asu");
 
 		return coronaBotGoogleArticles;
 
@@ -204,6 +200,8 @@ public class CoronaBotController {
 			handleLocationRS(replyToken, msgText);
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
+		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
+			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -376,9 +374,13 @@ public class CoronaBotController {
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
+		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -411,7 +413,11 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -443,7 +449,11 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -465,6 +475,141 @@ public class CoronaBotController {
 
 			ReplyMessage replyMessage = new ReplyMessage(replyToken,
 					new FlexMessage("Apa itu Covid-19", flexContainer));
+			botService.reply(replyMessage);
+		} catch (IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
+		}
+	}
+
+	/* Handle logic gejala flex */
+	private void handleGejalalogic(String replyToken, String msgText) {
+
+		msgText = msgText.toLowerCase();
+		String urlImage, title, description, ya = null, tidak;
+
+		if (msgText.contains("98780ya1")) {
+
+			urlImage = "https://bit.ly/3b2zY8O";
+			title = "Test 2";
+			description = "Apakah Anda mengalami Nyeri dada yang parah?";
+			ya = "98780ya2";
+			tidak = "98780tidak2";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780tidak2")) {
+
+			urlImage = "https://bit.ly/3b2zY8O";
+			title = "Test 2";
+			description = "Apakah Anda mengalami Nyeri dada yang parah?";
+			ya = "98780ya2";
+			tidak = "98780tidak2";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780ya2")) {
+
+			urlImage = "https://bit.ly/2y9TAZN";
+			title = "Test 3";
+			description = "Apakah Anda mengalami Demam Tinggi?";
+			ya = "98780ya3";
+			tidak = "98780tidak3";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780tidak2")) {
+
+			urlImage = "https://bit.ly/2y9TAZN";
+			title = "Test 3";
+			description = "Apakah Anda mengalami Demam Tinggi?";
+			ya = "98780ya3";
+			tidak = "98780tidak3";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780ya3")) {
+
+			urlImage = "https://bit.ly/34oxv62";
+			title = "Test 4";
+			description = "Apakah Anda mengalami Sakit Tenggorokan?";
+			ya = "98780ya4";
+			tidak = "98780tidak4";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780tidak3")) {
+
+			urlImage = "https://bit.ly/34oxv62";
+			title = "Test 4";
+			description = "Apakah Anda mengalami Sakit Tenggorokan?";
+			ya = "98780ya4";
+			tidak = "98780tidak4";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780ya4")) {
+
+			urlImage = "https://bit.ly/2wtGqGG";
+			title = "Test 5";
+			description = "Apakah Anda mengalami Batuk tak kunjung henti?";
+			ya = "98780hasil";
+			tidak = "98780hasil";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780tidak4")) {
+
+			urlImage = "https://bit.ly/2wtGqGG";
+			title = "Test 5";
+			description = "Apakah Anda mengalami Batuk tak kunjung henti?";
+			ya = "98780hasil";
+			tidak = "98780hasil";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780hasil")) {
+
+			urlImage = "https://bit.ly/3bb3QQt";
+			title = "Hasilmu!";
+			description = "Jika kamu pilih Ya 1 - 2 Kamu tidak perlu ke dokter karantina dirimu sendiri minimal 14 hari untuk jaga-jaga\nJika kamu pilih ya 2 - 5 disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal";
+			ya = "98780---98780";
+			tidak = "98780---98780";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else {
+
+			urlImage = "https://bit.ly/2UXuKVX";
+			title = "Test 1";
+			description = "Apakah Anda mengalami Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)";
+			ya = "98780ya1";
+			tidak = "98780tidak1";
+
+		}
+
+	}
+
+	/* Handle Gejala flex_template */
+	private void handleGejalaFlex(String replyToken, UserProfileResponse sender, String urlImage, String title,
+			String description, String ya, String tidak) {
+		List<Message> messageList = new ArrayList<>();
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String encoding = StandardCharsets.UTF_8.name();
+			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_base_gejala.json"),
+					encoding);
+
+			flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(urlImage),
+					coronaBotTemplate.escape(title), coronaBotTemplate.escape(description),
+					coronaBotTemplate.escape(ya), coronaBotTemplate.escape(tidak));
+
+			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+			ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("TEST COVID-19", flexContainer));
 			botService.reply(replyMessage);
 		} catch (IOException e) {
 			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
@@ -589,7 +734,7 @@ public class CoronaBotController {
 	}
 
 	/* Show Carousel Events */
-	private void carouselEventsNewsFlex(String replyToken, String additionalInfo) {
+	private void carouselEventsNewsTemplate(String replyToken, String additionalInfo) {
 
 		if ((coronaBotGoogleArticles == null)) {
 			getEventDataGoogleNews(replyToken);
