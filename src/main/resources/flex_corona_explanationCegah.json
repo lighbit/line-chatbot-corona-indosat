@@ -4,12 +4,12 @@
 		"type": "image",
 		"url": "https://blog.ruangguru.com/hs-fs/hubfs/corona%20-%20cuci%20tangan.png?width=600&name=corona%20-%20cuci%20tangan.png",
 		"size": "full",
-		"aspectRatio": "600:600",
 		"aspectMode": "cover",
 		"action": {
 			"type": "uri",
 			"uri": "http://linecorp.com/"
-		}
+		},
+		"aspectRatio": "1:1"
 	},
 	"body": {
 		"type": "box",

@@ -4,7 +4,7 @@
 		"type": "image",
 		"url": "https://bit.ly/39HVXjO",
 		"size": "full",
-		"aspectRatio": "20:13",
+		"aspectRatio": "1:1",
 		"aspectMode": "cover",
 		"action": {
 			"type": "uri",

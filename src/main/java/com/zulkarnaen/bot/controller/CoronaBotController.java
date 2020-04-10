@@ -32,7 +32,6 @@ import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
-import com.zulkarnaen.bot.model.CoronaBotDatum;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
 import com.zulkarnaen.bot.model.CoronaBotGoogleArticles;
 import com.zulkarnaen.bot.model.CoronaBotLineEventsModel;
@@ -76,6 +75,14 @@ public class CoronaBotController {
 	private UserProfileResponse sender = null;
 	private CoronaBotEvents coronaBotEvents = null;
 	private CoronaBotGoogleArticles coronaBotGoogleArticles = null;
+
+	/* GET JSON */
+	@RequestMapping(value = "/flex", method = RequestMethod.GET)
+	public void getflex() {
+
+		showEventSummaryCorona("none");
+
+	}
 
 	/* GET JSON */
 	@RequestMapping(value = "/corona", method = RequestMethod.GET)
