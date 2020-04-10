@@ -180,7 +180,7 @@ public class CoronaBotController {
 		} else if (content instanceof FileMessageContent) {
 			handleFileMessage(replyToken, (FileMessageContent) content, source);
 		} else {
-			greetingMessageFlex(replyToken, sender);
+			greetingMessageCoronaDefault(replyToken, source, null);
 		}
 	}
 
@@ -428,6 +428,8 @@ public class CoronaBotController {
 		} else if (msgText.contains("malam")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Malam " + sender.getDisplayName()
 					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+		} else if (msgText.contains("awe")) {
+			greetingMessageFlex(replyToken, sender);
 		} else {
 			greetingMessageCoronaDefault(replyToken, source, "Hai " + sender.getDisplayName()
 					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
