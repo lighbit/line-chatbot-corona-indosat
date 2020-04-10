@@ -214,12 +214,23 @@ public class CoronaBotController {
 	private void handleFileMessage(String replyToken, FileMessageContent content, Source source) {
 
 		List<Message> messageList = new ArrayList<>();
-		long sizeInMb = content.getFileSize() / (1024 * 1024);
+		long sizeInMb = content.getFileSize();
+		String penjelasan;
+
+		if (sizeInMb == 0) {
+
+			sizeInMb = sizeInMb / 1024;
+			penjelasan = "kb";
+
+		} else {
+			sizeInMb = sizeInMb / (1024 * 1024);
+			penjelasan = "mb";
+		}
 
 		messageList.add(new TextMessage("Terimakasih sudah share File-nya!"));
 		messageList.add(new TextMessage("Karena ini privasi, jadi Vira cuma bisa baca judulnya!"));
 		messageList.add(new TextMessage("Judulnya file nya adalah '" + content.getFileName() + "'"));
-		messageList.add(new TextMessage("ukurannya sebesar '" + sizeInMb + "mb'"));
+		messageList.add(new TextMessage("ukurannya sebesar '" + sizeInMb + penjelasan + "'"));
 
 		botService.reply(replyToken, messageList);
 
