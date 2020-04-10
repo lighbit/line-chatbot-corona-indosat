@@ -98,10 +98,9 @@ public class CoronaBotTemplate {
 				column = new CarouselColumn(image, "Update tanggal " + ServiceUtil.dateConverter(date),
 						"NKRI " + country.substring(0, (country.length() < 40) ? country.length() : 40)
 								+ " \nJumlah Penduduk : " + coronaBotEvents.getData().getPopulation() + " Jiwa",
-						Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
-								new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
-								new MessageAction("Sembuh", "Berhasil Sembuh : " + recover),
-								new PostbackAction("zul", death)));
+						Arrays.asList(new PostbackAction("Meninggal", "Korban Meninggal : " + death),
+								new PostbackAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
+								new PostbackAction("Sembuh", "Berhasil Sembuh : " + recover)));
 
 				carouselColumn.add(column);
 
