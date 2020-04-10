@@ -168,7 +168,31 @@ public class CoronaBotController {
 		String data = event.getPostbackContent().getData();
 		sender = botService.getProfile(senderId);
 
-		showEventSummaryDeclaration(replyToken, data);
+		String msgText = data.toLowerCase();
+
+		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
+			showCarouselEvents(replyToken);
+		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
+				|| msgText.contains("sembuh :")) {
+			showEventSummaryDeclaration(replyToken, data);
+		} else if (msgText.contains("donasi")) {
+			handleDonasiTemplate(replyToken);
+		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
+			handlecoronaVirusExplanationFlex(replyToken);
+		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
+				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
+			handleHowToWashHandFlex(replyToken);
+		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
+			handleCreator(replyToken);
+		} else if (msgText.contains("dicoding")) {
+			handleDicodingThanks(replyToken);
+		} else if (msgText.contains("lokasi")) {
+			handleLocationRS(replyToken, msgText);
+		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
+			handleCallCenter(replyToken);
+		} else {
+			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
+		}
 
 	}
 

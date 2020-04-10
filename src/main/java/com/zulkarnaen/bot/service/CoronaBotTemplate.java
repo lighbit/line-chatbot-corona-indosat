@@ -36,8 +36,8 @@ public class CoronaBotTemplate {
 	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDonasi,
 			String image, String corona, String cegah) {
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message,
-				Arrays.asList(new MessageAction(corona, corona), new MessageAction(cegah, cegah),
-						new MessageAction(actionTitle, actionText), new MessageAction(actionDonasi, actionDonasi)));
+				Arrays.asList(new PostbackAction(corona, corona), new PostbackAction(cegah, cegah),
+						new PostbackAction(actionTitle, actionText), new PostbackAction(actionDonasi, actionDonasi)));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
