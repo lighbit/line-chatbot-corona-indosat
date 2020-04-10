@@ -674,9 +674,7 @@ public class CoronaBotController {
 
 					messageList.add(new TextMessage("Korban Meninggal yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Mungkin kamu ada keinginan ingin keluar rumah karena ada suatu hal, tapi untuk sekarang jangan keluar rumah dulu ya Vira sayang kamu!"));
-					messageList.add(new TextMessage(
-							"Mari berdoa supaya korban meninggal dalam keadaan syahid, amal ibadah korban diterima di sisi tuhan yang maha esa dan keluarga diberi ketabahan aamiin!"));
+							"Mungkin kamu ada keinginan ingin keluar rumah karena ada suatu hal, tapi untuk sekarang jangan keluar rumah dulu ya Vira sayang kamu! \nMari berdoa supaya korban meninggal dalam keadaan syahid, amal ibadah korban diterima di sisi tuhan yang maha esa dan keluarga diberi ketabahan aamiin!"));
 					messageList.add(new TextMessage(
 							"Kamu harus ikuti anjuran pemerintah #DirumahSaja, pakai masker, tetap tenang dan jangan panik ya!"));
 					messageList.add(new StickerMessage(packageID, stickerID));
