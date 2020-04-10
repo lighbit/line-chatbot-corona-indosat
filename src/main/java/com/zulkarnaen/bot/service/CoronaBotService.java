@@ -39,7 +39,7 @@ public class CoronaBotService {
 		}
 	}
 
-	private void reply(ReplyMessage replyMessage) {
+	public void reply(ReplyMessage replyMessage) {
 		try {
 			lineMessagingClient.replyMessage(replyMessage).get();
 		} catch (InterruptedException | ExecutionException e) {

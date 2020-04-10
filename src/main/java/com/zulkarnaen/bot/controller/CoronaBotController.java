@@ -2,6 +2,7 @@ package com.zulkarnaen.bot.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.linecorp.bot.client.LineSignatureValidator;
+import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
 import com.linecorp.bot.model.action.URIAction;
 import com.linecorp.bot.model.event.FollowEvent;
@@ -638,25 +639,21 @@ public class CoronaBotController {
 		}
 	}
 
-	/* Handle Hasil Semua dari flex_template (Masih belum Bisa) */
+	/* Handle Hasil Semua dari flex_template */
 	private void showEventSummaryCorona(String replyToken) {
-
-		List<Message> messageList = new ArrayList<>();
 		try {
-
 			ClassLoader classLoader = getClass().getClassLoader();
-			String encoding = StandardCharsets.UTF_8.name();
-			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json"),
-					encoding);
+			String flexTemplate = IOUtils
+					.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json.json"));
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-			botService.reply(replyToken, new FlexMessage("Corona VS Indonesia", flexContainer));
+
+			ReplyMessage replyMessage = new ReplyMessage(replyToken,
+					new FlexMessage("Dicoding Academy", flexContainer));
+			botService.reply(replyMessage);
 		} catch (IOException e) {
-			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
-			messageList.add(new TextMessage(
-					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
-			botService.reply(replyToken, messageList);
+			throw new RuntimeException(e);
 		}
 	}
 
