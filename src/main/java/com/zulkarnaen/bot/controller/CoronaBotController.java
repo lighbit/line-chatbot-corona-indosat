@@ -424,6 +424,8 @@ public class CoronaBotController {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
+		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
+			carouselEventsNewsFlex(replyToken, sender, "Ini dia Vira kasih berita terbaru seputar COVID-19 hari ini");
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -560,6 +562,56 @@ public class CoronaBotController {
 			ReplyMessage replyMessage = new ReplyMessage(replyToken,
 					new FlexMessage("Pencegahan Corona", flexContainer));
 			botService.reply(replyMessage);
+		} catch (IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
+		}
+	}
+
+	/* Handle Greeting flex_template */
+	private void carouselEventsNewsFlex(String replyToken, UserProfileResponse sender, String additonalData) {
+		List<Message> messageList = new ArrayList<>();
+		int i;
+		String name, title, description, urlToImage, url;
+
+		if ((coronaBotGoogleArticles == null)) {
+			getEventDataGoogleNews(replyToken);
+		}
+
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String encoding = StandardCharsets.UTF_8.name();
+			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_news.json"), encoding);
+
+			for (i = 0; i < coronaBotGoogleArticles.getArticles().size(); i++) {
+
+				if (i == 9) {
+
+					break;
+
+				} else {
+
+					name = coronaBotGoogleArticles.getArticles().get(i).getSource().getName();
+					title = coronaBotGoogleArticles.getArticles().get(i).getTitle();
+					description = coronaBotGoogleArticles.getArticles().get(i).getDescription();
+					urlToImage = coronaBotGoogleArticles.getArticles().get(i).getUrlToImage();
+					url = coronaBotGoogleArticles.getArticles().get(i).getUrl();
+
+					flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(urlToImage),
+							coronaBotTemplate.escape(title), coronaBotTemplate.escape("Sumber : " + name),
+							coronaBotTemplate.escape(description), coronaBotTemplate.escape(url));
+				}
+			}
+
+			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+			messageList.add(new TextMessage(additonalData));
+			messageList.add((Message) flexContainer);
+			botService.reply(replyToken, messageList);
+
 		} catch (IOException e) {
 			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
 			messageList.add(new TextMessage(

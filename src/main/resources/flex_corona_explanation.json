@@ -69,8 +69,15 @@
 				}
 			},
 			{
-				"type": "spacer",
-				"size": "sm"
+				"type": "button",
+				"action": {
+					"type": "postback",
+					"label": "Berita Terbaru",
+					"data": "news"
+				}
+			},
+			{
+				"type": "spacer"
 			}
 		],
 		"flex": 0

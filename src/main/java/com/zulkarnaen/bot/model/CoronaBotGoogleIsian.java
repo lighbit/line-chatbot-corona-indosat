@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({ "source", "author", "title", "url", "urlToImage", "publishedAt", "content" })
+@JsonPropertyOrder({ "source", "author", "title", "url", "description", "urlToImage", "publishedAt", "content" })
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CoronaBotGoogleIsian {
 
@@ -18,6 +18,9 @@ public class CoronaBotGoogleIsian {
 
 	@JsonProperty("title")
 	private String title;
+
+	@JsonProperty("description")
+	private String description;
 
 	@JsonProperty("url")
 	private String url;
@@ -59,6 +62,16 @@ public class CoronaBotGoogleIsian {
 	@JsonProperty("title")
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	@JsonProperty("description")
+	public String getDescription() {
+		return description;
+	}
+
+	@JsonProperty("description")
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@JsonProperty("url")
