@@ -109,7 +109,7 @@ public class CoronaBotController {
 	@RequestMapping(value = "/newss", method = RequestMethod.GET)
 	public CoronaBotGoogleArticles getDataFlex() {
 
-		carouselEventsNewsFlex("none", sender, null);
+		carouselEventsNewsFlex("none", sender);
 
 		return coronaBotGoogleArticles;
 
