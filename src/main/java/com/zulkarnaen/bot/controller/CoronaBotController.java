@@ -371,6 +371,8 @@ public class CoronaBotController {
 			handleLocationRS(replyToken, msgText);
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
+		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
+			carouselEventsNewsFlex(replyToken, sender);
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else {
@@ -404,6 +406,8 @@ public class CoronaBotController {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
+		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
+			carouselEventsNewsFlex(replyToken, sender);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -435,7 +439,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsFlex(replyToken, sender, "Ini dia Vira kasih berita terbaru seputar COVID-19 hari ini");
+			carouselEventsNewsFlex(replyToken, sender);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -581,7 +585,7 @@ public class CoronaBotController {
 	}
 
 	/* Handle Greeting flex_template */
-	private void carouselEventsNewsFlex(String replyToken, UserProfileResponse sender, String additonalData) {
+	private void carouselEventsNewsFlex(String replyToken, UserProfileResponse sender) {
 		List<Message> messageList = new ArrayList<>();
 		int i;
 		String name, title, description, urlToImage, url;
@@ -609,18 +613,16 @@ public class CoronaBotController {
 					urlToImage = coronaBotGoogleArticles.getArticles().get(i).getUrlToImage();
 					url = coronaBotGoogleArticles.getArticles().get(i).getUrl();
 
-					flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(urlToImage),
-							coronaBotTemplate.escape(title), coronaBotTemplate.escape("Sumber : " + name),
-							coronaBotTemplate.escape(description), coronaBotTemplate.escape(url));
+					flexTemplate = String.format(flexTemplate, urlToImage, coronaBotTemplate.escape(title),
+							coronaBotTemplate.escape("Sumber : " + name), coronaBotTemplate.escape(description), url);
 				}
 			}
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
 
-			messageList.add(new TextMessage(additonalData));
-			messageList.add((Message) flexContainer);
-			botService.reply(replyToken, messageList);
+			ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("News Update", flexContainer));
+			botService.reply(replyMessage);
 
 		} catch (IOException e) {
 			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
