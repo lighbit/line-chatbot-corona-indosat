@@ -105,6 +105,16 @@ public class CoronaBotController {
 
 	}
 
+	/* GET JSON */
+	@RequestMapping(value = "/newss", method = RequestMethod.GET)
+	public CoronaBotGoogleArticles getDataFlex() {
+
+		carouselEventsNewsFlex("none", sender, null);
+
+		return coronaBotGoogleArticles;
+
+	}
+
 	/* WEBHOOK REQUEST MAPPING */
 	@RequestMapping(value = "/webhook", method = RequestMethod.POST)
 	public ResponseEntity<String> callback(String xLineSignature, @RequestBody String eventsPayload) {
