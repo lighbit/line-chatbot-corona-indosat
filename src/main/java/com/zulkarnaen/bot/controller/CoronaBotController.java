@@ -8,20 +8,27 @@ import com.linecorp.bot.model.event.FollowEvent;
 import com.linecorp.bot.model.event.JoinEvent;
 import com.linecorp.bot.model.event.MessageEvent;
 import com.linecorp.bot.model.event.ReplyEvent;
+import com.linecorp.bot.model.event.message.AudioMessageContent;
+import com.linecorp.bot.model.event.message.FileMessageContent;
+import com.linecorp.bot.model.event.message.ImageMessageContent;
 import com.linecorp.bot.model.event.message.LocationMessageContent;
 import com.linecorp.bot.model.event.message.MessageContent;
 import com.linecorp.bot.model.event.message.StickerMessageContent;
 import com.linecorp.bot.model.event.message.TextMessageContent;
+import com.linecorp.bot.model.event.message.VideoMessageContent;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
+import com.linecorp.bot.model.message.AudioMessage;
 import com.linecorp.bot.model.message.FlexMessage;
+import com.linecorp.bot.model.message.ImageMessage;
 import com.linecorp.bot.model.message.LocationMessage;
 import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
+import com.linecorp.bot.model.message.VideoMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
@@ -146,9 +153,72 @@ public class CoronaBotController {
 			handleLocationMessage(replyToken, (LocationMessageContent) content, source);
 		} else if (content instanceof StickerMessageContent) {
 			handleStickerMessage(replyToken, (StickerMessageContent) content, source);
+		} else if (content instanceof ImageMessageContent) {
+			handleImageMessage(replyToken, (ImageMessageContent) content, source);
+		} else if (content instanceof AudioMessageContent) {
+			handleAudioMessage(replyToken, (AudioMessageContent) content, source);
+		} else if (content instanceof VideoMessageContent) {
+			handleVideoMessage(replyToken, (VideoMessageContent) content, source);
+		} else if (content instanceof FileMessageContent) {
+			handleFileMessage(replyToken, (FileMessageContent) content, source);
 		} else {
 			greetingMessageCoronaDefault(replyToken, source, null);
 		}
+	}
+
+	/* Handle Audio message (bisa dikembangkan..) */
+	private void handleAudioMessage(String replyToken, AudioMessageContent content, Source source) {
+
+		List<Message> messageList = new ArrayList<>();
+
+		messageList.add(new TextMessage("Terimakasih sudah share Suara indah-nya!"));
+		messageList.add(new AudioMessage(content.getId(), 100));
+		messageList.add(new TextMessage("Suara kamu indah bukan ;) ?"));
+
+		botService.reply(replyToken, messageList);
+
+	}
+
+	/* Handle Image message (bisa dikembangkan..) */
+	private void handleImageMessage(String replyToken, ImageMessageContent content, Source source) {
+
+		List<Message> messageList = new ArrayList<>();
+
+		messageList.add(new TextMessage("Terimakasih sudah share Foto-nya!"));
+		messageList.add(new TextMessage("Vira kirim balik foto indahmu!"));
+		messageList.add(new ImageMessage(sender.getPictureUrl(), sender.getPictureUrl()));
+		messageList.add(new TextMessage("Indah bukan ;) ?"));
+
+		botService.reply(replyToken, messageList);
+
+	}
+
+	/* Handle Video message (bisa dikembangkan..) */
+	private void handleVideoMessage(String replyToken, VideoMessageContent content, Source source) {
+
+		List<Message> messageList = new ArrayList<>();
+
+		messageList.add(new TextMessage("Terimakasih sudah share Video-nya!"));
+		messageList.add(new TextMessage("Vira kirim balik Video indahmu!"));
+		messageList.add(new VideoMessage(content.getUrl(), sender.getDisplayName()));
+		messageList.add(new TextMessage("Indah bukan ;) ?"));
+
+		botService.reply(replyToken, messageList);
+
+	}
+
+	/* Handle File message (bisa dikembangkan..) */
+	private void handleFileMessage(String replyToken, FileMessageContent content, Source source) {
+
+		List<Message> messageList = new ArrayList<>();
+
+		messageList.add(new TextMessage("Terimakasih sudah share File-nya!"));
+		messageList.add(new TextMessage("Karena ini privasi, jadi Vira cuma bisa baca judulnya!"));
+		messageList.add(new TextMessage("Judulnya file nya adalah '" + content.getFileName() + "'"));
+		messageList.add(new TextMessage("ukurannya sebesar '" + content.getFileSize() + "'"));
+
+		botService.reply(replyToken, messageList);
+
 	}
 
 	/* Handle location message (bisa dikembangkan..) */
@@ -158,7 +228,7 @@ public class CoronaBotController {
 
 		messageList.add(new TextMessage("Terimakasih sudah share lokasi-nya!"));
 		messageList.add(new TextMessage("kalo tidak salah nama jalannya adalah " + content.getAddress()));
-		messageList.add(new TextMessage("apa aku benar ;) ?"));
+		messageList.add(new TextMessage("apa Vira benar ;) ?"));
 
 		botService.reply(replyToken, messageList);
 
@@ -174,7 +244,7 @@ public class CoronaBotController {
 		messageList.add(new TextMessage("Terimakasih sudah share sticker-nya!"));
 		messageList.add(new TextMessage("kalo tidak salah gambarnya seperti ini ya"));
 		messageList.add(new StickerMessage(packageID, stickerID));
-		messageList.add(new TextMessage("apa aku benar ;) ?"));
+		messageList.add(new TextMessage("apa Vira benar ;) ?"));
 
 		botService.reply(replyToken, messageList);
 
@@ -189,7 +259,8 @@ public class CoronaBotController {
 		} else if (source instanceof UserSource) {
 			handleOneOnOneChats(replyToken, content.getText());
 		} else {
-			botService.replyText(replyToken, "Unknown Message Source!");
+			botService.replyText(replyToken,
+					"Maaf Source tidak di kenal. Pastikan kamu chat one to one atau group atau room untuk memulai");
 		}
 	}
 
@@ -290,23 +361,23 @@ public class CoronaBotController {
 
 		if (msgText.contains("assala") || msgText.contains("asala") || msgText.contains("mikum")) {
 			greetingMessageCoronaDefault(replyToken, source, "Waalaikumsalam " + sender.getDisplayName()
-					+ ", Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ ", untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.equals("hai") || msgText.equals("hallo") || msgText.equals("hei")
 				|| msgText.equals("halo")) {
 			greetingMessageCoronaDefault(replyToken, source, msgText + " " + sender.getDisplayName()
-					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("pagi")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Pagi " + sender.getDisplayName()
-					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("siang")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Siang " + sender.getDisplayName()
-					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else if (msgText.contains("malam")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Malam " + sender.getDisplayName()
-					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		} else {
 			greetingMessageCoronaDefault(replyToken, source, "Hai " + sender.getDisplayName()
-					+ "!, Untuk Lihat Kondisi Corona di indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
 		}
 
 	}
@@ -315,7 +386,7 @@ public class CoronaBotController {
 	private void handleDicodingThanks(String replyToken) {
 
 		String kenalan = "Hasil Karya Zulkarnaen!";
-		String salam = "Thanks dicoding Sudah Bantu saya sejauh ini salam hangat Zulkarnaen :) ";
+		String salam = "Thanks dicoding Sudah Bantu Saya sejauh ini salam hangat Zulkarnaen :) ";
 
 		List<Message> messages = new ArrayList<>();
 		messages.add(new TextMessage(kenalan));
@@ -329,7 +400,7 @@ public class CoronaBotController {
 	private void handleCreator(String replyToken) {
 		String urlCorona = "https://bit.ly/39N9V3R";
 		String thumbnailImageUrl = "https://bit.ly/2UN5uld";
-		String title = "Hai aku Zulkarnaen";
+		String title = "Hai Nama Saya Zulkarnaen";
 		String text = "Lihat Aku di Linkedin!";
 
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
@@ -344,8 +415,8 @@ public class CoronaBotController {
 	private void handlecoronaVirusExplanation(String replyToken) {
 		String urlCorona = "https://bit.ly/3dX6riJ";
 		String thumbnailImageUrl = "https://bit.ly/39HVXjO";
-		String title = "Apa itu corona virus? (Covid-19)";
-		String text = "Penjelasan Seputar corona virus (covid-19) ada disini.";
+		String title = "Apa itu corona virus? (COVID-19)";
+		String text = "Penjelasan Seputar corona virus (COVID-19) ada disini.";
 
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
 				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
@@ -375,7 +446,7 @@ public class CoronaBotController {
 
 	/* Handle donasi */
 	private void handleDonasiTemplate(String replyToken) {
-		String urlCoronaKitabisa = "https://kitabisa.com/campaign/indonesialawancorona";
+		String urlCoronaKitabisa = "https://kitabisa.com/campaign/Indonesialawancorona";
 		String urlCoronaDompetDhuafa = "https://donasi.dompetdhuafa.org/bersamalawancorona/";
 		String thumbnailImageUrl = "https://bit.ly/34eUJv7";
 		String title = "Selamatkan Nyawa #BersamaLawanCorona";
@@ -400,8 +471,8 @@ public class CoronaBotController {
 
 		messageList.add(new TextMessage("119"));
 		messageList.add(new TextMessage("Hallo " + sender.getDisplayName()
-				+ "! 119 adalah nomor hotline seputar corona jika kamu merasakan gejala seperti corona langsung telpon dan jangan takut"));
-		messageList.add(new TextMessage("Aku yakin kamu tidak akan kenapa-kenapa pasti!"));
+				+ "! 119 adalah nomor hotline seputar COVID-19. Jika kamu merasakan gejala tersebut, langsung telpon dan jangan takut"));
+		messageList.add(new TextMessage("Vira yakin kamu tidak akan kenapa-kenapa dan itu pasti!"));
 		messageList.add(new StickerMessage(packageID, stickerID));
 
 		botService.reply(replyToken, messageList);
@@ -411,7 +482,7 @@ public class CoronaBotController {
 	/* Handle Location Rumah Sakit */
 	public void handleLocationRS(String replyToken, String msgText) {
 
-		/* HANDLE MAPPING ALL RS IN INDONESIA */
+		/* HANDLE MAPPING ALL RS IN Indonesia */
 		CoronaBotLocationModel coronaBotLocationModel;
 		coronaBotLocationModel = CoronaBotLocationMapping.handleLocationRSMapping(replyToken, msgText);
 
@@ -423,7 +494,7 @@ public class CoronaBotController {
 			String stickerID = "51626501";
 
 			messageList.add(new TextMessage("Hallo " + sender.getDisplayName()
-					+ "! untuk mencari lokasi rumah sakit ketik 'lokasi<spasi><nama daerah>' contoh 'lokasi bandung' terimakasih."));
+					+ "! untuk mencari lokasi rumah sakit ketik 'lokasi<spasi><nama kota>' contoh 'lokasi bandung' terimakasih."));
 			messageList.add(new StickerMessage(packageID, stickerID));
 
 			botService.reply(replyToken, messageList);
@@ -436,10 +507,10 @@ public class CoronaBotController {
 			String stickerID = "51626523";
 
 			messageList.add(new TextMessage(
-					"Hallo " + sender.getDisplayName() + "! Maaf Lokasi Rumah sakitnya tidak dapat ditemukan."));
+					"Hallo " + sender.getDisplayName() + "!, maaf Vira tidak bisa menemukan rumah sakitnya."));
 			messageList.add(new StickerMessage(packageID, stickerID));
 			messageList.add(new TextMessage(
-					"untuk mencari lokasi rumah sakit lain, ketik 'lokasi<spasi><nama daerah>' contoh 'lokasi bandung' terimakasih."));
+					"Untuk mencari lokasi rumah sakit lain, ketik 'lokasi<spasi><nama kota>' contoh 'lokasi bandung' terimakasih."));
 
 			botService.reply(replyToken, messageList);
 		}
@@ -558,6 +629,9 @@ public class CoronaBotController {
 
 			if (userTxt.contains("Meninggal")) {
 
+				String packageID = "11537";
+				String stickerID = "52002742 ";
+
 				if (total < 10) {
 
 					messageList.add(new TextMessage("Korban Meninggal Kurang dari 10 orang yaitu: " + total));
@@ -567,25 +641,28 @@ public class CoronaBotController {
 
 					messageList.add(new TextMessage("Korban Meninggal lebih dari 150 orang yaitu: " + total));
 					messageList.add(new TextMessage(
-							"ini URGENT! KAMU HARUS Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+							"Kamu harus ikuti anjuran pemerintah #DirumahSaja, pakai masker, tetap tenang dan jangan panik ya!"));
 					messageList.add(new TextMessage(
-							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
+							"Oh ya, bantu korban dan para medis yuk dengan cara berdonasi Bersama. Ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
 				} else if (total > 100) {
 
 					messageList.add(new TextMessage("Korban Meninggal lebih dari 100 Orang yaitu: " + total));
-					messageList.add(
-							new TextMessage("Ikuti Anjuran Pemerintah, Pakai Masker, Tetap Tenang dan Jangan Panik!"));
+					messageList.add(new TextMessage(
+							"Kamu harus ikuti anjuran pemerintah, pakai masker, tetap tenang dan jangan panik ya kamu pasti bisa!"));
 					botService.reply(replyToken, messageList);
 
 				} else {
 
 					messageList.add(new TextMessage("Korban Meninggal yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Sangat URGENT!!! Jangan Kemana Mana tetap dirumah dan selalu pakai masker jika keluar!"));
+							"Mungkin kamu ada keinginan ingin keluar rumah karena ada suatu hal, tapi untuk sekarang jangan keluar rumah dulu ya Vira sayang kamu!"));
 					messageList.add(new TextMessage(
-							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
+							"Kamu harus ikuti anjuran pemerintah #DirumahSaja, pakai masker, tetap tenang dan jangan panik ya kamu pasti bisa!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
+					messageList.add(new TextMessage(
+							"Oh ya, bantu korban dan para medis yuk dengan cara berdonasi Bersama. Ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
 				}
@@ -594,28 +671,29 @@ public class CoronaBotController {
 
 				String packageID = "11537";
 				String stickerID = "52002735";
+				String stickerIDsedih = "52002755";
 
 				if (total < 10) {
 
-					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 10 orang yaitu: " + total));
-					messageList.add(new TextMessage("Mari Dirumah Aja biar Semakin hilang virus corona nya!"));
+					messageList.add(new TextMessage("Korban terkonfirmasi kurang dari 10 orang yaitu: " + total));
+					messageList.add(new TextMessage("Mari kita #DirumahSaja agar semakin hilang virus COVID-19 nya!"));
 					botService.reply(replyToken, messageList);
 				} else if (total > 1000 && total < 1500) {
 
-					messageList.add(new TextMessage("Korban Terkonfirmasi Lebih dari 1000 orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban terkonfirmasi lebih dari 1000 orang yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Sudah Banyak Yang Terkonfirmasi Diharapkan Untuk Kamu, Keluarga dan Teman tetap dirumah dan jangan kemana mana please!!"));
+							"Sudah Banyak Yang Terkonfirmasi Diharapkan Untuk Kamu, Keluarga dan Teman tetap dirumah dan jangan kemana mana ya aku gamau kamu kenapa kenapa!!"));
+					messageList.add(new StickerMessage(packageID, stickerIDsedih));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
-					messageList.add(new StickerMessage(packageID, stickerID));
 
 					botService.reply(replyToken, messageList);
 
 				} else if (total > 500 && total < 1000) {
 
-					messageList.add(new TextMessage("Korban Terkonfirmasi Kurang dari 1000 Orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban terkonfirmasi lebih dari 500 orang yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Aku Tidak Mau kamu, Keluarga dan Teman Teman mu kena Mari ikuti apa kata Pemerintah untuk tetap dirumah stay safe and healty!"));
+							"Vira Tidak Mau kamu, Keluarga dan Teman Teman mu kena Mari ikuti apa kata Pemerintah untuk tetap dirumah stay safe and healty!"));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					messageList.add(new StickerMessage(packageID, stickerID));
@@ -626,10 +704,10 @@ public class CoronaBotController {
 
 					messageList.add(new TextMessage("Korban Terkonfirmasi yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Ya Tuhan Sedih Sekali liatnya sudah ribuan orang terkena virus corona bantu saya berdoa bersama ya!"));
+							"Vira tidak ingin kamu, keluarga dan teman-teman kamu juga mengalami. Kamu tau ga sih Vira tuh sayang kamu! jangan buat aku sedih. Untuk Sekarang mari ikuti apa kata Pemerintah untuk tetap #DirumahSaja stay safe and healty!"));
+					messageList.add(new StickerMessage(packageID, stickerIDsedih));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
-					messageList.add(new StickerMessage(packageID, stickerID));
 
 					botService.reply(replyToken, messageList);
 
@@ -637,31 +715,41 @@ public class CoronaBotController {
 
 			} else if (userTxt.contains("Sembuh")) {
 
-				if (total < 10) {
+				String packageID = "11537";
+				String stickerID = "52002735";
 
-					messageList.add(new TextMessage("Korban Sembuh Kurang dari 10 orang yaitu: " + total));
-					messageList.add(new TextMessage("Mari Doakan Teman Teman kita dan para medis yuk! berdoa dimulai"));
+				if (total < 100) {
+
+					messageList.add(new TextMessage("Korban yang sembuh sudah mencapai : " + total));
+					messageList.add(new TextMessage("Mari doakan teman-teman kita dan para medis yuk! berdoa dimulai"));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
-				} else if (total > 20 && total < 30) {
+				} else if (total > 100 && total < 200) {
 
-					messageList.add(new TextMessage("Korban Sembuh Lebih dari 20 orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban yang sembuh sudah mencapai : " + total));
 					messageList.add(new TextMessage(
-							"Alhamdulillah Sudah Banyak yang sembuh mari terus kita doakan terutama para medis"));
+							"Alhamdulillah, Puji Tuhan, Sudah banyak yang sembuh mari terus kita doakan terutama para medis"));
 					botService.reply(replyToken, messageList);
 
-				} else if (total > 30 && total < 50) {
+				} else if (total > 200 && total < 300) {
 
-					messageList.add(new TextMessage("Korban Sembuh lebih dari 30 Orang yaitu: " + total));
-					messageList
-							.add(new TextMessage("Alhamdulillah ini semua berkat bantuan kalian Mari Terus doakan!"));
+					messageList.add(new TextMessage("Korban yang sembuh sudah mencapai : " + total));
+					messageList.add(new TextMessage(
+							"Alhamdulillah, Puji Tuhan, Sudah banyak yang sembuh mari terus kita doakan terutama para medis pahlawan super hero kita!"));
+					messageList.add(new TextMessage(
+							"Semakin banyak kamu berdonasi semakin banyak nyawa yang tertolong mari berdonasi dengan cara ketik donasi!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
 					botService.reply(replyToken, messageList);
 
 				} else {
 
-					messageList.add(new TextMessage("Korban Sembuh yaitu: " + total));
-					messageList.add(new TextMessage("Senang Sekali liatnya Yang sembuh. Semoga Sembuh Semua aamiin!"));
+					messageList.add(new TextMessage("Korban yang sembuh sudah mencapai : " + total));
+					messageList.add(new TextMessage(
+							"Alhamdulillah, Puji Tuhan, Sudah banyak yang sembuh mari terus kita doakan terutama para medis pahlawan super hero kita!"));
+					messageList.add(new TextMessage(
+							"Semakin banyak kamu berdonasi semakin banyak nyawa yang tertolong mari berdonasi dengan cara ketik donasi!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
 					botService.reply(replyToken, messageList);
 
 				}
@@ -669,7 +757,7 @@ public class CoronaBotController {
 			}
 
 		} catch (Exception e) {
-			messageList.add(new TextMessage("Maaf aku tidak mengerti"));
+			messageList.add(new TextMessage("Maaf Vira tidak mengerti"));
 			messageList.add(new TextMessage(
 					"ketik status atau perkembangan dan klik button pada template untuk melihat status korban"));
 			botService.reply(replyToken, messageList);
