@@ -170,10 +170,12 @@ public class CoronaBotController {
 	private void handleAudioMessage(String replyToken, AudioMessageContent content, Source source) {
 
 		List<Message> messageList = new ArrayList<>();
+		String packageID = "11537";
+		String stickerID = "52002752";
 
 		messageList.add(new TextMessage("Terimakasih sudah share Suara indah-nya!"));
-		messageList.add(new AudioMessage(content.getId(), 100));
-		messageList.add(new TextMessage("Suara kamu indah bukan ;) ?"));
+		messageList.add(new TextMessage("Suara kamu indah banget!!"));
+		messageList.add(new StickerMessage(packageID, stickerID));
 
 		botService.reply(replyToken, messageList);
 
@@ -197,11 +199,12 @@ public class CoronaBotController {
 	private void handleVideoMessage(String replyToken, VideoMessageContent content, Source source) {
 
 		List<Message> messageList = new ArrayList<>();
+		String packageID = "11537";
+		String stickerID = "52002762";
 
 		messageList.add(new TextMessage("Terimakasih sudah share Video-nya!"));
-		messageList.add(new TextMessage("Vira kirim balik Video indahmu!"));
-		messageList.add(new VideoMessage(content.getUrl(), sender.getDisplayName()));
-		messageList.add(new TextMessage("Indah bukan ;) ?"));
+		messageList.add(new TextMessage("Kamu cocok jadi vlogger!"));
+		messageList.add(new StickerMessage(packageID, stickerID));
 
 		botService.reply(replyToken, messageList);
 
@@ -211,11 +214,12 @@ public class CoronaBotController {
 	private void handleFileMessage(String replyToken, FileMessageContent content, Source source) {
 
 		List<Message> messageList = new ArrayList<>();
+		long sizeInMb = content.getFileSize() / (1024 * 1024);
 
 		messageList.add(new TextMessage("Terimakasih sudah share File-nya!"));
 		messageList.add(new TextMessage("Karena ini privasi, jadi Vira cuma bisa baca judulnya!"));
 		messageList.add(new TextMessage("Judulnya file nya adalah '" + content.getFileName() + "'"));
-		messageList.add(new TextMessage("ukurannya sebesar '" + content.getFileSize() + "'"));
+		messageList.add(new TextMessage("ukurannya sebesar '" + sizeInMb + "mb'"));
 
 		botService.reply(replyToken, messageList);
 
