@@ -784,7 +784,7 @@ public class CoronaBotController {
 
 					messageList.add(new TextMessage("Korban terkonfirmasi lebih dari 1000 orang yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Sudah Banyak Yang Terkonfirmasi Diharapkan Untuk Kamu, Keluarga dan Teman tetap dirumah dan jangan kemana mana ya aku gamau kamu kenapa kenapa!!"));
+							"Sudah Banyak Yang Terkonfirmasi Diharapkan Untuk Kamu, Keluarga dan Teman tetap dirumah dan jangan kemana mana ya Vira gamau kamu kenapa kenapa!!"));
 					messageList.add(new StickerMessage(packageID, stickerIDsedih));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
@@ -806,7 +806,7 @@ public class CoronaBotController {
 
 					messageList.add(new TextMessage("Korban Terkonfirmasi yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Vira tidak ingin kamu, keluarga dan teman-teman kamu juga mengalami. Kamu tau ga sih Vira tuh sayang kamu! jangan buat aku sedih. Untuk Sekarang mari ikuti apa kata Pemerintah untuk tetap #DirumahSaja stay safe and healty!"));
+							"Vira tidak ingin kamu, keluarga dan teman-teman kamu juga mengalami. Kamu tau ga sih Vira tuh sayang kamu! jangan buat Vira sedih. Untuk Sekarang mari ikuti apa kata Pemerintah untuk tetap #DirumahSaja stay safe and healty!"));
 					messageList.add(new StickerMessage(packageID, stickerIDsedih));
 					messageList.add(new TextMessage(
 							"Bantu Korban dan para medis yuk dengan berdonasi Bersama! ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));

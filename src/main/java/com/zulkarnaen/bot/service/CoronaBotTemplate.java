@@ -1,35 +1,26 @@
 package com.zulkarnaen.bot.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.linecorp.bot.model.ReplyMessage;
 import com.linecorp.bot.model.action.MessageAction;
+import com.linecorp.bot.model.action.PostbackAction;
 import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
-import com.linecorp.bot.model.message.FlexMessage;
-import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
-import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.message.template.CarouselColumn;
 import com.linecorp.bot.model.message.template.CarouselTemplate;
-import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
 import com.linecorp.bot.model.profile.UserProfileResponse;
 import com.zulkarnaen.bot.model.CoronaBotEvents;
 import com.zulkarnaen.bot.util.ServiceUtil;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.text.StringEscapeUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,31 +50,6 @@ public class CoronaBotTemplate {
 				Collections.singletonList(new MessageAction(actionTitle, actionText)));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
-	}
-
-	/* Handle cara cuci tangan flex_template */
-	private void greetingMessageFlex(String replyToken, UserProfileResponse sender) {
-		List<Message> messageList = new ArrayList<>();
-		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-			String encoding = StandardCharsets.UTF_8.name();
-			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_Greeting.json"),
-					encoding);
-
-			flexTemplate = String.format(flexTemplate, escape(sender.getDisplayName()));
-
-			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-
-			ReplyMessage replyMessage = new ReplyMessage(replyToken,
-					new FlexMessage("Apa itu Covid-19", flexContainer));
-			botService.reply(replyMessage);
-		} catch (IOException e) {
-			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
-			messageList.add(new TextMessage(
-					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
-			botService.reply(replyToken, messageList);
-		}
 	}
 
 	/* GREETING MESSAGE */
@@ -134,7 +100,8 @@ public class CoronaBotTemplate {
 								+ " \nJumlah Penduduk : " + coronaBotEvents.getData().getPopulation() + " Jiwa",
 						Arrays.asList(new MessageAction("Meninggal", "Korban Meninggal : " + death),
 								new MessageAction("Terkonfirmasi", "Korban Terkonfirmasi : " + confirm),
-								new MessageAction("Sembuh", "Berhasil Sembuh : " + recover)));
+								new MessageAction("Sembuh", "Berhasil Sembuh : " + recover),
+								new PostbackAction("zul", death)));
 
 				carouselColumn.add(column);
 
