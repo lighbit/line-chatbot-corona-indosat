@@ -20,7 +20,6 @@ import com.linecorp.bot.model.event.source.GroupSource;
 import com.linecorp.bot.model.event.source.RoomSource;
 import com.linecorp.bot.model.event.source.Source;
 import com.linecorp.bot.model.event.source.UserSource;
-import com.linecorp.bot.model.message.AudioMessage;
 import com.linecorp.bot.model.message.FlexMessage;
 import com.linecorp.bot.model.message.ImageMessage;
 import com.linecorp.bot.model.message.LocationMessage;
@@ -28,7 +27,6 @@ import com.linecorp.bot.model.message.Message;
 import com.linecorp.bot.model.message.StickerMessage;
 import com.linecorp.bot.model.message.TemplateMessage;
 import com.linecorp.bot.model.message.TextMessage;
-import com.linecorp.bot.model.message.VideoMessage;
 import com.linecorp.bot.model.message.flex.container.FlexContainer;
 import com.linecorp.bot.model.message.template.ButtonsTemplate;
 import com.linecorp.bot.model.objectmapper.ModelObjectMapper;
@@ -646,27 +644,30 @@ public class CoronaBotController {
 			if (userTxt.contains("Meninggal")) {
 
 				String packageID = "11537";
-				String stickerID = "52002742 ";
+				String stickerID = "52002740 ";
 
 				if (total < 10) {
 
 					messageList.add(new TextMessage("Korban Meninggal Kurang dari 10 orang yaitu: " + total));
 					messageList.add(new TextMessage("Stay Safe dan Stay Health ya dengan cara dirumah aja :)"));
 					botService.reply(replyToken, messageList);
-				} else if (total > 150 && total < 200) {
+				} else if (total > 300 && total < 400) {
 
-					messageList.add(new TextMessage("Korban Meninggal lebih dari 150 orang yaitu: " + total));
+					messageList.add(new TextMessage("Korban Meninggal lebih dari 300 orang yaitu: " + total));
+					messageList.add(new TextMessage(
+							"Mari berdoa supaya korban meninggal dalam keadaan syahid, amal ibadah korban diterima di sisi tuhan yang maha esa dan keluarga diberi ketabahan aamiin!"));
 					messageList.add(new TextMessage(
 							"Kamu harus ikuti anjuran pemerintah #DirumahSaja, pakai masker, tetap tenang dan jangan panik ya!"));
+					messageList.add(new StickerMessage(packageID, stickerID));
 					messageList.add(new TextMessage(
 							"Oh ya, bantu korban dan para medis yuk dengan cara berdonasi Bersama. Ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
 					botService.reply(replyToken, messageList);
 
-				} else if (total > 100) {
+				} else if (total > 100 && total < 200) {
 
 					messageList.add(new TextMessage("Korban Meninggal lebih dari 100 Orang yaitu: " + total));
 					messageList.add(new TextMessage(
-							"Kamu harus ikuti anjuran pemerintah, pakai masker, tetap tenang dan jangan panik ya kamu pasti bisa!"));
+							"Kamu harus ikuti anjuran pemerintah, pakai masker, tetap tenang dan jangan panik ya. Kamu pasti bisa!"));
 					botService.reply(replyToken, messageList);
 
 				} else {
@@ -675,7 +676,9 @@ public class CoronaBotController {
 					messageList.add(new TextMessage(
 							"Mungkin kamu ada keinginan ingin keluar rumah karena ada suatu hal, tapi untuk sekarang jangan keluar rumah dulu ya Vira sayang kamu!"));
 					messageList.add(new TextMessage(
-							"Kamu harus ikuti anjuran pemerintah #DirumahSaja, pakai masker, tetap tenang dan jangan panik ya kamu pasti bisa!"));
+							"Mari berdoa supaya korban meninggal dalam keadaan syahid, amal ibadah korban diterima di sisi tuhan yang maha esa dan keluarga diberi ketabahan aamiin!"));
+					messageList.add(new TextMessage(
+							"Kamu harus ikuti anjuran pemerintah #DirumahSaja, pakai masker, tetap tenang dan jangan panik ya!"));
 					messageList.add(new StickerMessage(packageID, stickerID));
 					messageList.add(new TextMessage(
 							"Oh ya, bantu korban dan para medis yuk dengan cara berdonasi Bersama. Ketik donasi atau klik button Mari Berdonasi untuk berdonasi!"));
