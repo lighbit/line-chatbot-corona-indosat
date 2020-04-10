@@ -35,11 +35,11 @@ public class CoronaBotTemplate {
 	private CoronaBotService botService;
 
 	/* CREATE BUTTON MORE THAN 1 */
-	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDonasi,
+	public TemplateMessage createButton(String message, String actionTitle, String actionText, String actionDashboard,
 			String image, String corona, String cegah) {
 		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(image, null, message,
 				Arrays.asList(new PostbackAction(corona, corona), new PostbackAction(cegah, cegah),
-						new PostbackAction(actionTitle, actionText), new PostbackAction(actionDonasi, actionDonasi)));
+						new PostbackAction(actionTitle, actionText), new PostbackAction(actionDashboard, "Dashboard")));
 
 		return new TemplateMessage(actionTitle, buttonsTemplate);
 	}
@@ -60,7 +60,7 @@ public class CoronaBotTemplate {
 		String corona = "Apa itu Covid-19?";
 		String cegah = "Cara Pencegahan";
 		String action = "Lihat Perkembangan";
-		String actionDonasi = "Donasi";
+		String actionDashboard = "Cek Fitur";
 		String image = "https://bit.ly/34eUJv7";
 
 		if (source instanceof GroupSource) {
@@ -73,7 +73,7 @@ public class CoronaBotTemplate {
 			message = "UNKNOW FORMAT ROOM";
 		}
 
-		return createButton(message, action, action, actionDonasi, image, corona, cegah);
+		return createButton(message, action, action, actionDashboard, image, corona, cegah);
 	}
 
 	/* CAROUSEL TEMPLATE */
