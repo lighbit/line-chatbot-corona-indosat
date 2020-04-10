@@ -644,7 +644,7 @@ public class CoronaBotController {
 			if (userTxt.contains("Meninggal")) {
 
 				String packageID = "11537";
-				String stickerID = "52002740 ";
+				String stickerID = "52002740";
 
 				if (total < 10) {
 
