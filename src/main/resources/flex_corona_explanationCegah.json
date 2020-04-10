@@ -69,18 +69,18 @@
 			{
 				"type": "button",
 				"action": {
-					"type": "message",
+					"type": "postback",
 					"label": "Lokasi Rumah Sakit",
-					"text": "Lokasi"
+					"data": "Lokasi"
 				},
 				"style": "primary"
 			},
 			{
 				"type": "button",
 				"action": {
-					"type": "message",
+					"type": "postback",
 					"label": "Call Center",
-					"text": "Call Center"
+					"data": "Call Center"
 				},
 				"style": "primary"
 			}
