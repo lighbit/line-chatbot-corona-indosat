@@ -641,10 +641,11 @@ public class CoronaBotController {
 
 	/* Handle Hasil Semua dari flex_template */
 	private void showEventSummaryCorona(String replyToken) {
+		List<Message> messageList = new ArrayList<>();
 		try {
 			ClassLoader classLoader = getClass().getClassLoader();
 			String flexTemplate = IOUtils
-					.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json.json"));
+					.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json"));
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
@@ -653,7 +654,10 @@ public class CoronaBotController {
 					new FlexMessage("Dicoding Academy", flexContainer));
 			botService.reply(replyMessage);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
 		}
 	}
 
