@@ -194,15 +194,15 @@ public class CoronaBotLocationMapping {
 
 			coronaBotLocationModel.setTitle("RS Paru dr. Ario Wirawan salatiga");
 			coronaBotLocationModel.setAddress("Jl. Hasanudin No.806, Mangunsari, Salatiga. Telp: (0298) 326130");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.350316);
+			coronaBotLocationModel.setLongtitude(110.488838);
 
 		} else if (msgText.contains("purwokerto")) {
 
 			coronaBotLocationModel.setTitle("RSUD Prof. Dr. Margono Soekarjo");
 			coronaBotLocationModel.setAddress("Jl. Dr. Gumbreg No.1, Purwokerto. Telp: (0281) 632708");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.436375);
+			coronaBotLocationModel.setLongtitude(109.267463);
 
 		} else if (msgText.contains("surakarta")) {
 
@@ -215,107 +215,107 @@ public class CoronaBotLocationMapping {
 
 			coronaBotLocationModel.setTitle("RSUD Tidar Magelang");
 			coronaBotLocationModel.setAddress("Jl. Tidar No.30 A, Magelang. Telp: (0293) 36226");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.557909);
+			coronaBotLocationModel.setLongtitude(110.841675);
 
 		} else if (msgText.contains("banyumas")) {
 
 			coronaBotLocationModel.setTitle("RSUD Banyumas");
 			coronaBotLocationModel
 					.setAddress("Jl. Rumah Sakit No.1, Karangpucung, Kabupaten Banyumas. Telp: (0281) 796031");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.528963);
+			coronaBotLocationModel.setLongtitude(109.292657);
 
 		} else if (msgText.contains("kudus")) {
 
 			coronaBotLocationModel.setTitle("RSU dr. Loekmonohadi");
 			coronaBotLocationModel.setAddress("Jl. Dr. Lukmonohadi No.19, Kabupaten Kudus. Telp:  (0291) 444001");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-6.818220);
+			coronaBotLocationModel.setLongtitude(110.836780);
 
 		} else if (msgText.contains("kraton")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kraton");
 			coronaBotLocationModel.setAddress("Jl. Veteran No.31, Pekalongan. Telp: (0285) 421621");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-6.881073);
+			coronaBotLocationModel.setLongtitude(109.667546);
 
 		} else if (msgText.contains("slawi")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Soeselo Slawi");
 			coronaBotLocationModel.setAddress("Jl. Dr. Sutomo No.63, Slawi. Telp: (0283) 491016");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-6.993301);
+			coronaBotLocationModel.setLongtitude(109.137708);
 
 		} else if (msgText.contains("kendal")) {
 
 			coronaBotLocationModel.setTitle("RSUD RAA Soewondo Kendal");
 			coronaBotLocationModel.setAddress("Jl. Laut No.21, Kendal. Telp: (0294) 381433");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-6.917546);
+			coronaBotLocationModel.setLongtitude(110.206230);
 
 		} else if (msgText.contains("jogja") || msgText.contains("yogya") || msgText.contains("bantu")) {
 
 			coronaBotLocationModel.setTitle("RSUP dr. Sardjito");
 			coronaBotLocationModel.setAddress("Jl. Kesehatan No.1, Yogyakarta. Telp: (0274) 631190");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.768223);
+			coronaBotLocationModel.setLongtitude(110.373399);
 
 		} else if (msgText.contains("sby") || msgText.contains("surabaya")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Soetomo");
 			coronaBotLocationModel.setAddress("Jl. Mayjen Prof. Dr. Moestopo No.6 – 8, Surabaya. Telp: (031) 5501078");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.267735);
+			coronaBotLocationModel.setLongtitude(112.758574);
 
 		} else if (msgText.contains("madiun")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Soedono Madiun");
 			coronaBotLocationModel.setAddress("Jl. Dr. Sutomo No.59, Madiun. Telp: (0351) 454657");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.625979);
+			coronaBotLocationModel.setLongtitude(111.524033);
 
 		} else if (msgText.contains("malang")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Saiful Anwar");
 			coronaBotLocationModel.setAddress("Jl. Jaksa Agung Suprapto No.2, Malang. Telp: (0341) 362101");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.972164);
+			coronaBotLocationModel.setLongtitude(112.631481);
 
 		} else if (msgText.contains("jember")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Soebandi Jember");
 			coronaBotLocationModel.setAddress("Jl. Dr. Soebandi No.124, Jember. Telp: 0823 0159 8557");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.151637);
+			coronaBotLocationModel.setLongtitude(113.715021);
 
 		} else if (msgText.contains("pare")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kabupaten Kediri Pare");
 			coronaBotLocationModel.setAddress("Jl. Pahlawan Kusuma Bangsa No.1, Pare. Telp: (0354) 391718");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.759539);
+			coronaBotLocationModel.setLongtitude(112.176056);
 
 		} else if (msgText.contains("tuban")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. R. Koesma Tuban");
 			coronaBotLocationModel.setAddress("Jl. Dr. Wahidin Sudirohusodo No.800, Tuban. Telp: (0356) 321010");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-6.898556);
+			coronaBotLocationModel.setLongtitude(112.046487);
 
 		} else if (msgText.contains("banyuwangi") || msgText.contains("bayuwangi")) {
 
 			coronaBotLocationModel.setTitle("RSUD Blambangan");
 			coronaBotLocationModel.setAddress("Jl. Letkol Istiqlah No.49, Banyuwangi. Telp: (0333) 421118");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.208111);
+			coronaBotLocationModel.setLongtitude(114.365918);
 
 		} else if (msgText.contains("bojonegoro")) {
 
 			coronaBotLocationModel.setTitle("RSUD Dr. R. Sosodoro Djatikoesoemo");
 			coronaBotLocationModel.setAddress("Jl. Dr. Wahidin No.36, Bojonegoro. Telp: (0353) 881193");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.162194);
+			coronaBotLocationModel.setLongtitude(111.897409);
 
 		} else if (msgText.contains("tulungagung") || msgText.contains("tulung agung")
 				|| msgText.contains("tulung-agung")) {
@@ -323,72 +323,72 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setTitle("RSUD Dr. Iskak Tulungagung");
 			coronaBotLocationModel
 					.setAddress("Jl. Dr. Wahidin Sudiro Husodo, Kabupaten Tulungagung. Telp: (0355) 322609");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.054691);
+			coronaBotLocationModel.setLongtitude(111.918069);
 
 		} else if (msgText.contains("denpasar") || msgText.contains("bali")) {
 
 			coronaBotLocationModel.setTitle("RSUP Sanglah");
 			coronaBotLocationModel.setAddress("Jl. Diponegoro, Denpasar, Bali. Telp: (0361) 227912");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.675481);
+			coronaBotLocationModel.setLongtitude(115.213128);
 
 		} else if (msgText.contains("sidoarjo")) {
 
 			coronaBotLocationModel.setTitle("RSUD Sidoarjo");
 			coronaBotLocationModel.setAddress("Jl. Mojopahit No.667, Kabupaten Sidoarjo. Telp: (031) 8961649");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-7.465157);
+			coronaBotLocationModel.setLongtitude(112.716339);
 
 		} else if (msgText.contains("gianyar")) {
 
 			coronaBotLocationModel.setTitle("RSUD Sanjiwani Gianyar");
 			coronaBotLocationModel.setAddress("Jl. Ciung Wanara-Gianyar No.2, Gianyar. Telp: (0361) 943020");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.536966);
+			coronaBotLocationModel.setLongtitude(115.322510);
 
 		} else if (msgText.contains("tabanan")) {
 
 			coronaBotLocationModel.setTitle("RSUD Tabanan");
 			coronaBotLocationModel.setAddress("Jl. Pahlawan No.14, Tabanan. Telp: (0361) 811027");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.538835);
+			coronaBotLocationModel.setLongtitude(115.132178);
 
 		} else if (msgText.contains("buleleng")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kabupaten Buleleng");
 			coronaBotLocationModel.setAddress("Jl. Ngurah Rai No.30, Astina, Buleleng. Telp: (0362) 22046");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.119521);
+			coronaBotLocationModel.setLongtitude(115.092446);
 
 		} else if (msgText.contains("mataram") || msgText.contains("ntb")) {
 
 			coronaBotLocationModel.setTitle("RSUD NTB");
 			coronaBotLocationModel.setAddress("Jl. Prabu Rangkasari, Dasan Cermen, Mataram. Telp: (0370) 7502424");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.607136);
+			coronaBotLocationModel.setLongtitude(116.133053);
 
 		} else if (msgText.contains("bima")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kota Bima");
 			coronaBotLocationModel.setAddress("Jl. Langsat No.1, Raba, Bima. Telp: (0374) 43142");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.449839);
+			coronaBotLocationModel.setLongtitude(118.732908);
 
 		} else if (msgText.contains("selong")) {
 
 			coronaBotLocationModel.setTitle("RSUD Dr. R. Sudjono");
 			coronaBotLocationModel.setAddress("Jl. Prof. M. Yamin SH No.55, Selong. Telp: (0376) 21118");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.650417);
+			coronaBotLocationModel.setLongtitude(116.528307);
 
 		} else if (msgText.contains("sumbawa")) {
 
 			coronaBotLocationModel.setTitle("RSUD H. L. Manambai Abdul Kadir");
 			coronaBotLocationModel
 					.setAddress("Jl. Lintas Sumbawa-Bima Km 5, Seketeng, Kabupaten Sumbawa. Telp: (0371) 2628078");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.531318);
+			coronaBotLocationModel.setLongtitude(117.447733);
 
 		} else if (msgText.contains("kupang")) {
 
@@ -402,202 +402,202 @@ public class CoronaBotLocationMapping {
 			coronaBotLocationModel.setTitle("RSU dr. TC. Hillers Maumere");
 			coronaBotLocationModel
 					.setAddress("Jl. Wairklau, No. 1, Kota Baru, Alok Timur, Kabupaten Sikka. (0382) 21314");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.622142);
+			coronaBotLocationModel.setLongtitude(122.204264);
 
 		} else if (msgText.contains("bajo")) {
 
 			coronaBotLocationModel.setTitle("RSUD Komodo Labuan Bajo");
 			coronaBotLocationModel.setAddress("Jl. Trans Ruteng - Labuan Bajo, Desa Golo Bilas, Komodo.");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-8.540888);
+			coronaBotLocationModel.setLongtitude(119.896219);
 
 		} else if (msgText.contains("pontianak") || msgText.contains("ponti anak") || msgText.contains("ponti-anak")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Soedarso Pontianak");
 			coronaBotLocationModel.setAddress("Jl. Dr. Soedarso No.1, Pontianak. Telp: (0561) 737701");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-0.061255);
+			coronaBotLocationModel.setLongtitude(109.364573);
 
 		} else if (msgText.contains("singkawang")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Abdul Azis Singkawang");
 			coronaBotLocationModel.setAddress("Jl. Dr. Soetomo No.28, Singkawang. Telp: (0562) 631748");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(0.895699);
+			coronaBotLocationModel.setLongtitude(108.972653);
 
 		} else if (msgText.contains("sintang")) {
 
 			coronaBotLocationModel.setTitle("RSUD Ade Mohamad Djoen Sintang");
 			coronaBotLocationModel.setAddress("Jl. Pattimura No.1, Sintang. Telp: (0565) 22022");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(0.079411);
+			coronaBotLocationModel.setLongtitude(111.495957);
 
 		} else if (msgText.contains("ketapang")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Agoesdjam Ketapang");
 			coronaBotLocationModel
 					.setAddress("Jl. DI Panjaitan No.51, Sampit, Kabupaten Ketapang. Telp: (0534) 3037239");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-1.832403);
+			coronaBotLocationModel.setLongtitude(109.967497);
 
 		} else if (msgText.contains("palangkaraya") || msgText.contains("palangka raya")
 				|| msgText.contains("palangka-raya")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Doris Sylvanus Palangkaraya");
 			coronaBotLocationModel.setAddress("Jl. Tambun Bungai No.4, Palangka Raya. Telp: (0536) 3221717");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-2.210333);
+			coronaBotLocationModel.setLongtitude(113.922506);
 
 		} else if (msgText.contains("kotawaringin")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Murjani Sampit");
 			coronaBotLocationModel.setAddress("Jl. H. Muhammad Arsyad No.65, Kotawaringin Timur. Telp: (0531) 21010");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-2.542519);
+			coronaBotLocationModel.setLongtitude(112.949033);
 
 		} else if (msgText.contains("banjarmasin")) {
 
 			coronaBotLocationModel.setTitle("RSUD Ulin Banjarmasin");
 			coronaBotLocationModel.setAddress("Jl. Ahmad Yani No.43, Banjarmasin. Telp: (0511) 3252229");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-3.322863);
+			coronaBotLocationModel.setLongtitude(114.601059);
 
 		} else if (msgText.contains("palaihari")) {
 
 			coronaBotLocationModel.setTitle("RSUD H. Boejasin Pelaihari");
 			coronaBotLocationModel.setAddress("Jl. A. Syahrani, Pelaihari. Telp: (0512) 21082");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-3.799190);
+			coronaBotLocationModel.setLongtitude(114.777989);
 
 		} else if (msgText.contains("samarinda")) {
 
 			coronaBotLocationModel.setTitle("RSUD Abdul Wahab Sjahrani");
 			coronaBotLocationModel.setAddress("Jl. Palang Merah No.1, Samarinda. Telp: (0541) 738118");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-0.478838);
+			coronaBotLocationModel.setLongtitude(117.144244);
 
 		} else if (msgText.contains("balikpapan") || msgText.contains("balik papan")
 				|| msgText.contains("balik-papan")) {
 
 			coronaBotLocationModel.setTitle("RSUD dr. Kanujoso Djatiwibowo");
 			coronaBotLocationModel.setAddress("Jl. MT Haryono No.656, Balikpapan. Telp: (0542) 873901");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-1.225172);
+			coronaBotLocationModel.setLongtitude(116.868178);
 
 		} else if (msgText.contains("bontang")) {
 
 			coronaBotLocationModel.setTitle("RSU Taman Husada Bontang");
 			coronaBotLocationModel.setAddress("Jl. Letjen S. Parman No.1, Bontang. Telp: (0548) 22111");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(0.142816);
+			coronaBotLocationModel.setLongtitude(117.447852);
 
 		} else if (msgText.contains("kutai") || msgText.contains("kartanegara")) {
 
 			coronaBotLocationModel.setTitle("RSUD Aji Muhammad Parikesit");
 			coronaBotLocationModel
 					.setAddress("Jl. Ratu Agung No.1, Tlk. Dalam, Kutai Kartanegara. Telp: (0541) 661015");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-0.438749);
+			coronaBotLocationModel.setLongtitude(117.012997);
 
 		} else if (msgText.contains("tarakan")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kota Tarakan");
 			coronaBotLocationModel.setAddress("Jl. Pulau Irian No.1, Kp. Satu Skip, Tarakan. Telp: (0551) 21166");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(3.318088);
+			coronaBotLocationModel.setLongtitude(117.605132);
 
 		} else if (msgText.contains("gorontalo")) {
 
 			coronaBotLocationModel.setTitle("RSUD Prof. dr. H. Aloei Saboe");
 			coronaBotLocationModel.setAddress("Jl. S. Batutihe No.7, Gorontalo. Telp: (0435) 821019");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(0.556748);
+			coronaBotLocationModel.setLongtitude(123.083961);
 
 		} else if (msgText.contains("manado")) {
 
 			coronaBotLocationModel.setTitle("RSUP Prof. dr. R. D Kandou");
 			coronaBotLocationModel.setAddress("Jl. Raya Tanawangko No.56, Manado. Telp: (0431) 8383058");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(1.453649);
+			coronaBotLocationModel.setLongtitude(124.808188);
 
 		} else if (msgText.contains("minahasa")) {
 
 			coronaBotLocationModel.setTitle("RSU Ratatotok Buyat");
 			coronaBotLocationModel
 					.setAddress("jl. J. W. Lasut Ratatotok II, Ratatotok,  Minahasa. Telp: (0431) 3177610");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(0.869655);
+			coronaBotLocationModel.setLongtitude(124.699681);
 
 		} else if (msgText.contains("mamuju")) {
 
 			coronaBotLocationModel.setTitle("RSUD Provinsi Sulawesi Barat");
 			coronaBotLocationModel.setAddress("Jl. RE Martadinata, Simboro, Kabupaten Mamuju. Telp: 0823 9621 2345");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-2.690016);
+			coronaBotLocationModel.setLongtitude(118.862637);
 
 		} else if (msgText.contains("palu")) {
 
 			coronaBotLocationModel.setTitle("RSUD Undata Palu");
 			coronaBotLocationModel.setAddress("Jl. Trans Sulawesi Tondo, Palu. Telp: (0451) 4908020");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-0.857683);
+			coronaBotLocationModel.setLongtitude(119.884036);
 
 		} else if (msgText.contains("luwuk")) {
 
 			coronaBotLocationModel.setTitle("RSUD Banggai Luwuk");
 			coronaBotLocationModel.setAddress("Jl. lmam Bonjol No.14, Luwuk. Telp: (0461) 21820");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-0.927899);
+			coronaBotLocationModel.setLongtitude(122.823782);
 
 		} else if (msgText.contains("makasar")) {
 
 			coronaBotLocationModel.setTitle("RSUP dr. Wahidin Sudirohusodo");
 			coronaBotLocationModel.setAddress("Jl. Perintis Kemerdekaan Km.11, Makassar. Telp: (0411) 510675");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-5.134684);
+			coronaBotLocationModel.setLongtitude(119.493165);
 
 		} else if (msgText.contains("toraja")) {
 
 			coronaBotLocationModel.setTitle("RSU Lakipadada Toraja");
 			coronaBotLocationModel.setAddress("Jl. Pongtiku No. 486, Kabupaten Tana Toraja. (0423) 22264");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-3.072995);
+			coronaBotLocationModel.setLongtitude(119.867468);
 
 		} else if (msgText.contains("sinjai")) {
 
 			coronaBotLocationModel.setTitle("RSUD Kabupaten Sinjai");
 			coronaBotLocationModel.setAddress("Jl. Jend. Sudirman No.47, Sinjai. Telp: (0482) 21132");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-5.128312);
+			coronaBotLocationModel.setLongtitude(120.249149);
 
 		} else if (msgText.contains("watubangga")) {
 
 			coronaBotLocationModel.setTitle("RS Bahtera Mas Kendari");
 			coronaBotLocationModel.setAddress("Jl. Kapten Piere Tendean, Watubangga, Kendari. Telp: (0401) 3195611");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-4.034676);
+			coronaBotLocationModel.setLongtitude(122.491544);
 
 		} else if (msgText.contains("maluku")) {
 
 			coronaBotLocationModel.setTitle("RSUP dr. J. Leimena");
 			coronaBotLocationModel.setAddress("Rumah Tiga, Tlk. Ambon, Ambon.");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-3.661359);
+			coronaBotLocationModel.setLongtitude(128.186573);
 
 		} else if (msgText.contains("papua") || msgText.contains("jayapura")) {
 
 			coronaBotLocationModel.setTitle("RSU Jayapura");
 			coronaBotLocationModel.setAddress("Jl. Kesehatan No.1, Jayapura. Telp: (0967) 533616");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-2.534875);
+			coronaBotLocationModel.setLongtitude(140.710415);
 
 		} else if (msgText.contains("sorong")) {
 
 			coronaBotLocationModel.setTitle("RSUD Sorong");
 			coronaBotLocationModel.setAddress("Kp. Baru, Sorong. Telp: (0951) 321850");
-			coronaBotLocationModel.setLatitude(5.563991);
-			coronaBotLocationModel.setLongtitude(95.337631);
+			coronaBotLocationModel.setLatitude(-0.869592);
+			coronaBotLocationModel.setLongtitude(131.246833);
 
 		} else {
 
