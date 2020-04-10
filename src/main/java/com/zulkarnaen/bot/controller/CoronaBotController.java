@@ -80,7 +80,7 @@ public class CoronaBotController {
 	@RequestMapping(value = "/flex", method = RequestMethod.GET)
 	public void getflex() {
 
-		showEventSummaryCorona("none");
+		handleHowToWashHandFlex("none");
 
 	}
 
@@ -180,7 +180,7 @@ public class CoronaBotController {
 		} else if (content instanceof FileMessageContent) {
 			handleFileMessage(replyToken, (FileMessageContent) content, source);
 		} else {
-			greetingMessageCoronaDefault(replyToken, source, null);
+			greetingMessageFlex(replyToken, sender);
 		}
 	}
 
@@ -310,10 +310,10 @@ public class CoronaBotController {
 		} else if (msgText.contains("donasi")) {
 			handleDonasiTemplate(replyToken);
 		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
-			handlecoronaVirusExplanation(replyToken);
+			handlecoronaVirusExplanationFlex(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
-			handleHowToWashHand(replyToken);
+			handleHowToWashHandFlex(replyToken);
 		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
@@ -339,10 +339,10 @@ public class CoronaBotController {
 		} else if (msgText.contains("donasi")) {
 			handleDonasiTemplate(replyToken);
 		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
-			handlecoronaVirusExplanation(replyToken);
+			handlecoronaVirusExplanationFlex(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
-			handleHowToWashHand(replyToken);
+			handleHowToWashHandFlex(replyToken);
 		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
@@ -367,10 +367,10 @@ public class CoronaBotController {
 		} else if (msgText.contains("donasi")) {
 			handleDonasiTemplate(replyToken);
 		} else if (msgText.contains("apa itu corona") || msgText.contains("corona") || msgText.contains("covid")) {
-			handlecoronaVirusExplanation(replyToken);
+			handlecoronaVirusExplanationFlex(replyToken);
 		} else if (msgText.contains("pencegah") || msgText.contains("basmi") || msgText.contains("bunuh")
 				|| msgText.contains("tangan") || msgText.contains("masker") || msgText.contains("isolasi")) {
-			showEventSummaryCorona(replyToken);
+			handleHowToWashHandFlex(replyToken);
 		} else if (msgText.contains("pencipta") || msgText.contains("pembuatmu") || msgText.contains("creator")) {
 			handleCreator(replyToken);
 		} else if (msgText.contains("dicoding")) {
@@ -381,6 +381,31 @@ public class CoronaBotController {
 			handleCallCenter(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
+		}
+	}
+
+	/* Handle Greeting flex_template */
+	private void greetingMessageFlex(String replyToken, UserProfileResponse sender) {
+		List<Message> messageList = new ArrayList<>();
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String encoding = StandardCharsets.UTF_8.name();
+			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_Greeting.json"),
+					encoding);
+
+			flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(sender.getDisplayName()));
+
+			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+			ReplyMessage replyMessage = new ReplyMessage(replyToken,
+					new FlexMessage("Apa itu Covid-19", flexContainer));
+			botService.reply(replyMessage);
+		} catch (IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
 		}
 	}
 
@@ -439,7 +464,29 @@ public class CoronaBotController {
 
 	}
 
-	/* Handle Virus Explanation */
+	/* Handle cara cuci tangan flex_template */
+	private void handlecoronaVirusExplanationFlex(String replyToken) {
+		List<Message> messageList = new ArrayList<>();
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String flexTemplate = IOUtils.toString(classLoader.getResourceAsStream("flex_corona_explanation.json"));
+
+			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+			ReplyMessage replyMessage = new ReplyMessage(replyToken,
+					new FlexMessage("Apa itu Covid-19", flexContainer));
+			botService.reply(replyMessage);
+		} catch (IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
+		}
+	}
+
+	/* Handle Virus Explanation (digantikan Flex) */
+	@SuppressWarnings("unused")
 	private void handlecoronaVirusExplanation(String replyToken) {
 		String urlCorona = "https://bit.ly/3dX6riJ";
 		String thumbnailImageUrl = "https://bit.ly/39HVXjO";
@@ -454,7 +501,30 @@ public class CoronaBotController {
 
 	}
 
-	/* Handle cara cuci tangan */
+	/* Handle cara cuci tangan flex_template */
+	private void handleHowToWashHandFlex(String replyToken) {
+		List<Message> messageList = new ArrayList<>();
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String flexTemplate = IOUtils
+					.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json"));
+
+			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+			ReplyMessage replyMessage = new ReplyMessage(replyToken,
+					new FlexMessage("Pencegahan Corona", flexContainer));
+			botService.reply(replyMessage);
+		} catch (IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
+		}
+	}
+
+	/* Handle cara cuci tangan (digantikan flex) */
+	@SuppressWarnings("unused")
 	private void handleHowToWashHand(String replyToken) {
 		String urlCorona = "https://bit.ly/2Xezg45";
 		String thumbnailImageUrl = "https://bit.ly/3aP3K0B";
@@ -640,28 +710,6 @@ public class CoronaBotController {
 			coronaBotGoogleArticles = objectMapper.readValue(jsonResponse, CoronaBotGoogleArticles.class);
 		} catch (InterruptedException | ExecutionException | IOException e) {
 			messageList.add(new TextMessage("Ada Kesalahan dalam mengambil data ke sumber terkait"));
-			messageList.add(new TextMessage(
-					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
-			botService.reply(replyToken, messageList);
-		}
-	}
-
-	/* Handle Hasil Semua dari flex_template */
-	private void showEventSummaryCorona(String replyToken) {
-		List<Message> messageList = new ArrayList<>();
-		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-			String flexTemplate = IOUtils
-					.toString(classLoader.getResourceAsStream("flex_corona_explanationCegah.json"));
-
-			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
-			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
-
-			ReplyMessage replyMessage = new ReplyMessage(replyToken,
-					new FlexMessage("Dicoding Academy", flexContainer));
-			botService.reply(replyMessage);
-		} catch (IOException e) {
-			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
 			messageList.add(new TextMessage(
 					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
 			botService.reply(replyToken, messageList);
