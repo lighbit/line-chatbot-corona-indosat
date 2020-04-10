@@ -215,7 +215,7 @@ public class CoronaBotController {
 
 		List<Message> messageList = new ArrayList<>();
 		long sizeInMb = content.getFileSize();
-		long cek = sizeInMb / 1024;
+		long cek = sizeInMb / (1024 * 1024);
 		String penjelasan;
 
 		if (cek == 0) {
