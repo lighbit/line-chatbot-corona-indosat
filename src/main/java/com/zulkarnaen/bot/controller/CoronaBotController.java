@@ -204,7 +204,7 @@ public class CoronaBotController {
 			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
-		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
 			handleGejalalogic(replyToken, msgText);
@@ -383,7 +383,7 @@ public class CoronaBotController {
 			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
-		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
 			handleGejalalogic(replyToken, msgText);
@@ -420,7 +420,7 @@ public class CoronaBotController {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
 			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
-		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
 			handleGejalalogic(replyToken, msgText);
@@ -456,7 +456,7 @@ public class CoronaBotController {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
 			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
-		} else if (msgText.contains("cek gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
+		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
 			handleGejalalogic(replyToken, msgText);
