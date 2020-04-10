@@ -6,7 +6,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -17,7 +17,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -33,7 +33,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -47,7 +47,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -70,7 +70,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -81,7 +81,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -92,7 +92,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -108,7 +108,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -122,7 +122,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -145,7 +145,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -156,7 +156,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -167,7 +167,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -183,7 +183,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -197,7 +197,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -220,7 +220,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -231,7 +231,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -242,7 +242,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -258,7 +258,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -272,7 +272,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -295,7 +295,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -306,7 +306,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -317,7 +317,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -333,7 +333,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -347,7 +347,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -370,7 +370,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -381,7 +381,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -392,7 +392,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -408,7 +408,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -422,7 +422,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -445,7 +445,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -456,7 +456,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -467,7 +467,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -483,7 +483,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -497,7 +497,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -520,7 +520,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -531,7 +531,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -542,7 +542,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -558,7 +558,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -572,7 +572,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -595,7 +595,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
@@ -606,7 +606,7 @@
 			"size": "micro",
 			"hero": {
 				"type": "image",
-				"url": "%s",
+				"url": "%1$s",
 				"size": "full",
 				"aspectMode": "cover",
 				"aspectRatio": "320:213"
@@ -617,7 +617,7 @@
 				"contents": [
 					{
 						"type": "text",
-						"text": "%s",
+						"text": "%2$s",
 						"weight": "bold",
 						"size": "sm",
 						"wrap": true
@@ -633,7 +633,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%3$s",
 										"wrap": true,
 										"color": "#8c8c8c",
 										"size": "xs",
@@ -647,7 +647,7 @@
 								"contents": [
 									{
 										"type": "text",
-										"text": "%s",
+										"text": "%4$s",
 										"color": "#8c8c8c",
 										"size": "xs",
 										"flex": 5,
@@ -670,7 +670,7 @@
 						"action": {
 							"type": "uri",
 							"label": "baca selengkapnya..",
-							"uri": "%s"
+							"uri": "%5$s"
 						}
 					}
 				]
