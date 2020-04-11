@@ -181,7 +181,7 @@ public class CoronaBotController {
 		String msgText = data.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken);
+			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, data);
@@ -361,7 +361,7 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken);
+			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -399,7 +399,7 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken);
+			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -436,7 +436,7 @@ public class CoronaBotController {
 	private void handleOneOnOneChats(String replyToken, String textMessage) {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken);
+			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -859,11 +859,6 @@ public class CoronaBotController {
 		botService.reply(replyToken,
 				new LocationMessage(coronaBotLocationModel.getTitle(), coronaBotLocationModel.getAddress(),
 						coronaBotLocationModel.getLatitude(), coronaBotLocationModel.getLongtitude()));
-	}
-
-	/* Show list Carousel Events */
-	private void showCarouselEvents(String replyToken) {
-		showCarouselEvents(replyToken, null);
 	}
 
 	/* Show Carousel Events */
