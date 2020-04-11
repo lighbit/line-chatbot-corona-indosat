@@ -504,7 +504,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/3b2zY8O";
 			title = "Test 2";
-			description = "Apakah Anda mengalami Nyeri dada yang parah?";
+			description = "\nApakah Anda mengalami Nyeri dada yang parah?";
 			ya = "98780ya2";
 			tidak = "98780tidak2";
 
@@ -514,7 +514,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/3b2zY8O";
 			title = "Test 2";
-			description = "Apakah Anda mengalami Nyeri dada yang parah?";
+			description = "\nApakah Anda mengalami Nyeri dada yang parah?";
 			ya = "98780ya2";
 			tidak = "98780tidak2";
 
@@ -524,7 +524,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2y9TAZN";
 			title = "Test 3";
-			description = "Apakah Anda mengalami Demam Tinggi?";
+			description = "\nApakah Anda mengalami Demam Tinggi?";
 			ya = "98780ya3";
 			tidak = "98780tidak3";
 
@@ -534,7 +534,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2y9TAZN";
 			title = "Test 3";
-			description = "Apakah Anda mengalami Demam Tinggi?";
+			description = "\nApakah Anda mengalami Demam Tinggi?";
 			ya = "98780ya3";
 			tidak = "98780tidak3";
 
@@ -544,7 +544,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/34oxv62";
 			title = "Test 4";
-			description = "Apakah Anda mengalami Sakit Tenggorokan?";
+			description = "\nApakah Anda mengalami Sakit Tenggorokan?";
 			ya = "98780ya4";
 			tidak = "98780tidak4";
 
@@ -554,7 +554,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/34oxv62";
 			title = "Test 4";
-			description = "Apakah Anda mengalami Sakit Tenggorokan?";
+			description = "\nApakah Anda mengalami Sakit Tenggorokan?";
 			ya = "98780ya4";
 			tidak = "98780tidak4";
 
@@ -564,7 +564,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2wtGqGG";
 			title = "Test 5";
-			description = "Apakah Anda mengalami Batuk tak kunjung henti?";
+			description = "\nApakah Anda mengalami Batuk tak kunjung henti?";
 			ya = "98780hasil";
 			tidak = "98780hasil";
 
@@ -574,7 +574,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2wtGqGG";
 			title = "Test 5";
-			description = "Apakah Anda mengalami Batuk tak kunjung henti?";
+			description = "\nApakah Anda mengalami Batuk tak kunjung henti?";
 			ya = "98780hasil";
 			tidak = "98780hasil";
 
@@ -584,9 +584,9 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/3bb3QQt";
 			title = "Hasilmu!";
-			description = "Jika kamu pilih Ya 1 - 2 Kamu tidak perlu ke dokter karantina dirimu sendiri minimal 14 hari untuk jaga-jaga\nJika kamu pilih ya 2 - 5 disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal";
-			ya = "98780---98780";
-			tidak = "98780---98780";
+			description = "\nJika kamu pilih Ya 1 - 2, Kamu tidak perlu ke dokter karantina dirimu sendiri minimal 14 hari untuk jaga-jaga.\nJika kamu pilih ya 2 - 5, disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik : lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal.\n\nMau cek Lokasi Rumah sakit?";
+			ya = "lokasi";
+			tidak = "dashboard";
 
 			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
 
@@ -594,7 +594,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2UXuKVX";
 			title = "Test 1";
-			description = "Apakah Anda mengalami Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)";
+			description = "\nApakah Anda mengalami Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)";
 			ya = "98780ya1";
 			tidak = "98780tidak1";
 
