@@ -562,7 +562,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2VmCiAy";
 			title = "Test 4";
-			description = "\nApakah kamu pernah berpergian ke luar provinsi dalam kurun waktu minggu terakhir?";
+			description = "\nApakah kamu pernah berpergian ke luar provinsi dalam kurun waktu 2 minggu terakhir?";
 			ya = "98780ya4";
 			tidak = "98780tidak4";
 
@@ -572,7 +572,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2VmCiAy";
 			title = "Test 4";
-			description = "\nApakah kamu pernah berpergian ke luar provinsi dalam kurun waktu minggu terakhir?";
+			description = "\nApakah kamu pernah berpergian ke luar provinsi dalam kurun waktu 2 minggu terakhir?";
 			ya = "98780ya4";
 			tidak = "98780tidak4";
 
