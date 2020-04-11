@@ -204,10 +204,10 @@ public class CoronaBotController {
 			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
-		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
-				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
-				|| msgText.equals("98780hasil")) {
+		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
+				|| msgText.equals("98780tidak1") || msgText.equals("98780ya2") || msgText.equals("98780tidak2")
+				|| msgText.equals("98780ya3") || msgText.equals("98780tidak3") || msgText.equals("98780ya4")
+				|| msgText.equals("98780tidak4") || msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else if (msgText.equals("psbb")) {
 			handlePSBB(replyToken);
@@ -386,10 +386,10 @@ public class CoronaBotController {
 			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
-		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
-				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
-				|| msgText.equals("98780hasil")) {
+		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
+				|| msgText.equals("98780tidak1") || msgText.equals("98780ya2") || msgText.equals("98780tidak2")
+				|| msgText.equals("98780ya3") || msgText.equals("98780tidak3") || msgText.equals("98780ya4")
+				|| msgText.equals("98780tidak4") || msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else if (msgText.equals("psbb")) {
 			handlePSBB(replyToken);
@@ -426,10 +426,10 @@ public class CoronaBotController {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
 			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
-		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
-				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
-				|| msgText.equals("98780hasil")) {
+		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
+				|| msgText.equals("98780tidak1") || msgText.equals("98780ya2") || msgText.equals("98780tidak2")
+				|| msgText.equals("98780ya3") || msgText.equals("98780tidak3") || msgText.equals("98780ya4")
+				|| msgText.equals("98780tidak4") || msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else if (msgText.equals("psbb")) {
 			handlePSBB(replyToken);
@@ -465,10 +465,10 @@ public class CoronaBotController {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
 			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
-		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
-				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
-				|| msgText.equals("98780hasil")) {
+		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
+				|| msgText.equals("98780tidak1") || msgText.equals("98780ya2") || msgText.equals("98780tidak2")
+				|| msgText.equals("98780ya3") || msgText.equals("98780tidak3") || msgText.equals("98780ya4")
+				|| msgText.equals("98780tidak4") || msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else if (msgText.equals("psbb")) {
 			handlePSBB(replyToken);
@@ -508,7 +508,17 @@ public class CoronaBotController {
 		msgText = msgText.toLowerCase();
 		String urlImage, title, description, ya = null, tidak;
 
-		if (msgText.contains("98780ya1")) {
+		if (msgText.contains("98780mulai")) {
+
+			urlImage = "https://bit.ly/2UXuKVX";
+			title = "Test 1";
+			description = "\nApakah Anda mengalami Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)";
+			ya = "98780ya1";
+			tidak = "98780tidak1";
+
+			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+
+		} else if (msgText.contains("98780ya1")) {
 
 			urlImage = "https://bit.ly/3b2zY8O";
 			title = "Test 2";
@@ -600,13 +610,12 @@ public class CoronaBotController {
 
 		} else {
 
-			urlImage = "https://bit.ly/2UXuKVX";
-			title = "Test 1";
-			description = "\nApakah Anda mengalami Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)";
-			ya = "98780ya1";
-			tidak = "98780tidak1";
+			urlImage = "https://bit.ly/2JXz6Gw";
+			title = "Sebelum Test";
+			description = "Mari cek tingkat kesehatanmu untuk melawan COVID-19 (Virus Corona)";
+			ya = "98780mulai";
 
-			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
+			handleGejalaFlexMulai(replyToken, sender, urlImage, title, description, ya);
 
 		}
 
@@ -625,6 +634,33 @@ public class CoronaBotController {
 			flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(urlImage),
 					coronaBotTemplate.escape(title), coronaBotTemplate.escape(description),
 					coronaBotTemplate.escape(ya), coronaBotTemplate.escape(tidak));
+
+			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
+			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
+
+			ReplyMessage replyMessage = new ReplyMessage(replyToken, new FlexMessage("TEST COVID-19", flexContainer));
+			botService.reply(replyMessage);
+		} catch (IOException e) {
+			messageList.add(new TextMessage("Ada Kesalahan dalam menyiapkan data :("));
+			messageList.add(new TextMessage(
+					"Mohon untuk kontak developer di email -> sekaizulka.sz@gmail.com terimakasih banyak sudah membantu!"));
+			botService.reply(replyToken, messageList);
+		}
+	}
+
+	/* Handle Gejala flex_template */
+	private void handleGejalaFlexMulai(String replyToken, UserProfileResponse sender, String urlImage, String title,
+			String description, String ya) {
+		List<Message> messageList = new ArrayList<>();
+		try {
+			ClassLoader classLoader = getClass().getClassLoader();
+			String encoding = StandardCharsets.UTF_8.name();
+			String flexTemplate = IOUtils
+					.toString(classLoader.getResourceAsStream("flex_corona_base_gejala_mulai.json"), encoding);
+
+			flexTemplate = String.format(flexTemplate, coronaBotTemplate.escape(urlImage),
+					coronaBotTemplate.escape(title), coronaBotTemplate.escape(description),
+					coronaBotTemplate.escape(ya));
 
 			ObjectMapper objectMapper = ModelObjectMapper.createNewObjectMapper();
 			FlexContainer flexContainer = objectMapper.readValue(flexTemplate, FlexContainer.class);
