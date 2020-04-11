@@ -680,23 +680,23 @@ public class CoronaBotController {
 
 		if (msgText.contains("assala") || msgText.contains("asala") || msgText.contains("mikum")) {
 			greetingMessageCoronaDefault(replyToken, source, "Waalaikumsalam " + sender.getDisplayName()
-					+ ", untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ ", Vira mau kasih info. untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan. Untuk cek semua fitur klik 'cek fitur' atau ketik 'menu' ataupun 'dashboard'");
 		} else if (msgText.equals("hai") || msgText.equals("hallo") || msgText.equals("hei")
 				|| msgText.equals("halo")) {
 			greetingMessageCoronaDefault(replyToken, source, msgText + " " + sender.getDisplayName()
-					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, Vira mau kasih info. untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan. Untuk cek semua fitur klik 'cek fitur' atau ketik 'menu' ataupun 'dashboard'");
 		} else if (msgText.contains("pagi")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Pagi " + sender.getDisplayName()
-					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, Vira mau kasih info. untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan. Untuk cek semua fitur klik 'cek fitur' atau ketik 'menu' ataupun 'dashboard'");
 		} else if (msgText.contains("siang")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Siang " + sender.getDisplayName()
-					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, Vira mau kasih info. untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan. Untuk cek semua fitur klik 'cek fitur' atau ketik 'menu' ataupun 'dashboard'");
 		} else if (msgText.contains("malam")) {
 			greetingMessageCoronaDefault(replyToken, source, "Selamat Malam " + sender.getDisplayName()
-					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, Vira mau kasih info. untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan. Untuk cek semua fitur klik 'cek fitur' atau ketik 'menu' ataupun 'dashboard'");
 		} else {
 			greetingMessageCoronaDefault(replyToken, source, "Hai " + sender.getDisplayName()
-					+ "!, untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan");
+					+ "!, Vira mau kasih info. untuk melihat Kondisi COVID-19 di Indonesia bisa ketik: Kondisi, Status ataupun Perkembangan. Untuk cek semua fitur klik 'cek fitur' atau ketik 'menu' ataupun 'dashboard'");
 		}
 
 	}
