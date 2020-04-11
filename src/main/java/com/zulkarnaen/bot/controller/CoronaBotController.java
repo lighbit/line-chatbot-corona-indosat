@@ -181,7 +181,7 @@ public class CoronaBotController {
 		String msgText = data.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, data);
@@ -201,7 +201,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
@@ -361,7 +361,7 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -381,7 +381,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
@@ -399,7 +399,7 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -421,7 +421,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
@@ -436,7 +436,7 @@ public class CoronaBotController {
 	private void handleOneOnOneChats(String replyToken, String textMessage) {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Data didapat dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -458,7 +458,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
