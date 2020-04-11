@@ -181,7 +181,7 @@ public class CoronaBotController {
 		String msgText = data.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari \nSumber: www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, data);
@@ -201,7 +201,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari \nSumber: www.newsapi.org");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
@@ -363,7 +363,7 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari \nSumber: www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -383,7 +383,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("call") || msgText.contains("nomer") || msgText.contains("nomor")) {
 			handleCallCenter(replyToken);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari \nSumber: www.newsapi.org");
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
@@ -403,7 +403,7 @@ public class CoronaBotController {
 		String msgText = textMessage.toLowerCase();
 
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari \nSumber: www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -425,7 +425,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari \nSumber: www.newsapi.org");
 		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
 				|| msgText.equals("98780tidak1") || msgText.equals("98780ya2") || msgText.equals("98780tidak2")
 				|| msgText.equals("98780ya3") || msgText.equals("98780tidak3") || msgText.equals("98780ya4")
@@ -442,7 +442,7 @@ public class CoronaBotController {
 	private void handleOneOnOneChats(String replyToken, String textMessage) {
 		String msgText = textMessage.toLowerCase();
 		if (msgText.contains("perkembangan") || msgText.contains("status") || msgText.contains("kondisi")) {
-			showCarouselEvents(replyToken, "Vira dapat informasi ini dari www.corona-api.com");
+			showCarouselEvents(replyToken, "Vira dapat informasi ini dari \nSumber: www.corona-api.com");
 		} else if (msgText.contains("meninggal :") || msgText.contains("terkonfirmasi :")
 				|| msgText.contains("sembuh :")) {
 			showEventSummaryDeclaration(replyToken, textMessage);
@@ -464,7 +464,7 @@ public class CoronaBotController {
 		} else if (msgText.contains("dashboard") || msgText.contains("menu") || msgText.contains("utama")) {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("news") || msgText.contains("berita") || msgText.contains("terbaru")) {
-			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari www.newsapi.org");
+			carouselEventsNewsTemplate(replyToken, "Vira dapat informasi ini dari \nSumber: www.newsapi.org");
 		} else if (msgText.contains("gejala") || msgText.contains("98780mulai") || msgText.equals("98780ya1")
 				|| msgText.equals("98780tidak1") || msgText.equals("98780ya2") || msgText.equals("98780tidak2")
 				|| msgText.equals("98780ya3") || msgText.equals("98780tidak3") || msgText.equals("98780ya4")
@@ -602,7 +602,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/3bb3QQt";
 			title = "Hasilmu!";
-			description = "\nJika kamu jawab Ya 1 - 2, Kamu tidak perlu ke dokter. Isolasikan dirimu sendiri minimal 14 hari untuk jaga-jaga agar orang yang kamu kasihi tetap sehat bersama mu.\n\nJika kamu pilih ya 2 - 5, disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik : lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal.\n\nMau cek Lokasi Rumah sakit?";
+			description = "\nJika kamu jawab Ya 1 sampai 2 pertanyaan, Kamu tidak perlu ke dokter. Isolasikan dirimu sendiri minimal 14 hari untuk jaga-jaga agar orang yang kamu kasihi tetap sehat bersama mu.\n\nJika kamu pilih ya 2 sampai 5 pertanyaan, disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik : lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal.\n\nMau cek Lokasi Rumah sakit?";
 			ya = "lokasi";
 			tidak = "dashboard";
 
