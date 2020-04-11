@@ -23,7 +23,8 @@
 			},
 			{
 				"type": "text",
-				"text": "%3$s"
+				"text": "%3$s",
+				"wrap": true
 			}
 		]
 	},

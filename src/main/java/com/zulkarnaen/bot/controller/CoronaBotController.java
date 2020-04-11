@@ -206,7 +206,8 @@ public class CoronaBotController {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
+				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
@@ -385,7 +386,8 @@ public class CoronaBotController {
 			greetingMessageFlex(replyToken, sender);
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
+				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
@@ -422,7 +424,8 @@ public class CoronaBotController {
 			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
+				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
@@ -458,7 +461,8 @@ public class CoronaBotController {
 			carouselEventsNewsTemplate(replyToken, "Ini dia update berita terbaru hari ini seputar COVID-19");
 		} else if (msgText.contains("gejala") || msgText.equals("98780ya1") || msgText.equals("98780tidak1")
 				|| msgText.equals("98780ya2") || msgText.equals("98780tidak2") || msgText.equals("98780ya3")
-				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")) {
+				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
+				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
@@ -506,7 +510,7 @@ public class CoronaBotController {
 
 			handleGejalaFlex(replyToken, sender, urlImage, title, description, ya, tidak);
 
-		} else if (msgText.contains("98780tidak2")) {
+		} else if (msgText.contains("98780tidak1")) {
 
 			urlImage = "https://bit.ly/3b2zY8O";
 			title = "Test 2";
