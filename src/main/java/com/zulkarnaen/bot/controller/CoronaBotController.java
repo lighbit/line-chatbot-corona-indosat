@@ -510,9 +510,9 @@ public class CoronaBotController {
 
 		if (msgText.contains("98780mulai")) {
 
-			urlImage = "https://bit.ly/2UXuKVX";
+			urlImage = "https://bit.ly/2y9TAZN";
 			title = "Test 1";
-			description = "\nApakah Anda mengalami Kesulitan bernafas yang parah (Bernafas dengan sangat cepat atau berbicara dalam satu kata)";
+			description = "\nApakah kamu saat ini mengalami Demam diatas 38 derajat?";
 			ya = "98780ya1";
 			tidak = "98780tidak1";
 
@@ -520,9 +520,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780ya1")) {
 
-			urlImage = "https://bit.ly/3b2zY8O";
+			urlImage = "https://bit.ly/2wtGqGG";
 			title = "Test 2";
-			description = "\nApakah Anda mengalami Nyeri dada yang parah?";
+			description = "\nApakah kamu saat ini mengalami batuk, pilek, sakit tenggorokan?";
 			ya = "98780ya2";
 			tidak = "98780tidak2";
 
@@ -530,9 +530,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780tidak1")) {
 
-			urlImage = "https://bit.ly/3b2zY8O";
+			urlImage = "https://bit.ly/2wtGqGG";
 			title = "Test 2";
-			description = "\nApakah Anda mengalami Nyeri dada yang parah?";
+			description = "\nApakah kamu saat ini mengalami batuk, pilek, sakit tenggorokan?";
 			ya = "98780ya2";
 			tidak = "98780tidak2";
 
@@ -540,9 +540,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780ya2")) {
 
-			urlImage = "https://bit.ly/2y9TAZN";
+			urlImage = "https://bit.ly/2xniULT";
 			title = "Test 3";
-			description = "\nApakah Anda mengalami Demam Tinggi?";
+			description = "\nApakah kamu pernah berpergian ke luar negeri dalam kurun waktu 2 minggu terakhir?";
 			ya = "98780ya3";
 			tidak = "98780tidak3";
 
@@ -550,9 +550,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780tidak2")) {
 
-			urlImage = "https://bit.ly/2y9TAZN";
+			urlImage = "https://bit.ly/2xniULT";
 			title = "Test 3";
-			description = "\nApakah Anda mengalami Demam Tinggi?";
+			description = "\nApakah kamu pernah berpergian ke luar negeri dalam kurun waktu 2 minggu terakhir?";
 			ya = "98780ya3";
 			tidak = "98780tidak3";
 
@@ -560,9 +560,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780ya3")) {
 
-			urlImage = "https://bit.ly/34oxv62";
+			urlImage = "https://bit.ly/2VmCiAy";
 			title = "Test 4";
-			description = "\nApakah Anda mengalami Sakit Tenggorokan?";
+			description = "\nApakah kamu pernah berpergian ke luar provinsi dalam kurun waktu minggu terakhir?";
 			ya = "98780ya4";
 			tidak = "98780tidak4";
 
@@ -570,9 +570,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780tidak3")) {
 
-			urlImage = "https://bit.ly/34oxv62";
+			urlImage = "https://bit.ly/2VmCiAy";
 			title = "Test 4";
-			description = "\nApakah Anda mengalami Sakit Tenggorokan?";
+			description = "\nApakah kamu pernah berpergian ke luar provinsi dalam kurun waktu minggu terakhir?";
 			ya = "98780ya4";
 			tidak = "98780tidak4";
 
@@ -580,9 +580,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780ya4")) {
 
-			urlImage = "https://bit.ly/2wtGqGG";
+			urlImage = "https://bit.ly/2ViuFLz";
 			title = "Test 5";
-			description = "\nApakah Anda mengalami Batuk tak kunjung henti?";
+			description = "\nApakah kamu pernah berinteraksi/bertemu dengan orang yang terkena COVID-19 (Virus Corona)?";
 			ya = "98780hasil";
 			tidak = "98780hasil";
 
@@ -590,9 +590,9 @@ public class CoronaBotController {
 
 		} else if (msgText.contains("98780tidak4")) {
 
-			urlImage = "https://bit.ly/2wtGqGG";
+			urlImage = "https://bit.ly/2ViuFLz";
 			title = "Test 5";
-			description = "\nApakah Anda mengalami Batuk tak kunjung henti?";
+			description = "\nApakah kamu pernah berinteraksi/bertemu dengan orang yang terkena COVID-19 (Virus Corona)?";
 			ya = "98780hasil";
 			tidak = "98780hasil";
 
@@ -602,7 +602,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/3bb3QQt";
 			title = "Hasilmu!";
-			description = "\nJika kamu pilih Ya 1 - 2, Kamu tidak perlu ke dokter karantina dirimu sendiri minimal 14 hari untuk jaga-jaga.\nJika kamu pilih ya 2 - 5, disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik : lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal.\n\nMau cek Lokasi Rumah sakit?";
+			description = "\nJika kamu jawab Ya 1 - 2, Kamu tidak perlu ke dokter. Isolasikan dirimu sendiri minimal 14 hari untuk jaga-jaga agar orang yang kamu kasihi tetap sehat bersama mu.\n\nJika kamu pilih ya 2 - 5, disarankan kamu cek ke dokter dengan cara cari rumah sakit dekat sini, atau ketik : lokasi untuk cari lokasi rumah sakit terdekat tempat kamu berasal.\n\nMau cek Lokasi Rumah sakit?";
 			ya = "lokasi";
 			tidak = "dashboard";
 
@@ -612,7 +612,7 @@ public class CoronaBotController {
 
 			urlImage = "https://bit.ly/2JXz6Gw";
 			title = "Sebelum Test";
-			description = "Mari cek tingkat kesehatanmu untuk melawan COVID-19 (Virus Corona)";
+			description = "\nMari cek tingkat kesehatanmu untuk melawan COVID-19 (Virus Corona)";
 			ya = "98780mulai";
 
 			handleGejalaFlexMulai(replyToken, sender, urlImage, title, description, ya);
