@@ -66,6 +66,14 @@
 				"type": "button",
 				"action": {
 					"type": "postback",
+					"label": "Apa itu PSBB?",
+					"data": "psbb"
+				}
+			},
+			{
+				"type": "button",
+				"action": {
+					"type": "postback",
 					"label": "Lihat Perkembangan",
 					"data": "Lihat Perkembangan"
 				},

@@ -209,6 +209,8 @@ public class CoronaBotController {
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
 				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
+		} else if (msgText.equals("psbb")) {
+			handlePSBB(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -389,6 +391,8 @@ public class CoronaBotController {
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
 				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
+		} else if (msgText.equals("psbb")) {
+			handlePSBB(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new GroupSource(groupId, sender.getUserId()));
 		}
@@ -427,6 +431,8 @@ public class CoronaBotController {
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
 				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
+		} else if (msgText.equals("psbb")) {
+			handlePSBB(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new RoomSource(roomId, sender.getUserId()));
 		}
@@ -464,6 +470,8 @@ public class CoronaBotController {
 				|| msgText.equals("98780tidak3") || msgText.equals("98780ya4") || msgText.equals("98780tidak4")
 				|| msgText.equals("98780hasil")) {
 			handleGejalalogic(replyToken, msgText);
+		} else if (msgText.equals("psbb")) {
+			handlePSBB(replyToken);
 		} else {
 			HandleSalam(msgText, replyToken, new UserSource(sender.getUserId()));
 		}
@@ -668,6 +676,21 @@ public class CoronaBotController {
 		messages.add(new TextMessage(salam));
 
 		botService.reply(replyToken, messages);
+
+	}
+
+	/* Handle PSBB nya */
+	private void handlePSBB(String replyToken) {
+		String urlCorona = "https://bit.ly/3a0LqAv";
+		String thumbnailImageUrl = "https://bit.ly/2y9fH2Q";
+		String title = "Apa itu PSBB?";
+		String text = "PSBB (Pembatasan Sosial Berskala Besar) Baca Selengkapnya..";
+
+		ButtonsTemplate buttonsTemplate = new ButtonsTemplate(thumbnailImageUrl, title, text,
+				Arrays.asList(new URIAction("Baca Selengkapnya..", urlCorona)));
+
+		TemplateMessage templateMessage = new TemplateMessage("PSBB", buttonsTemplate);
+		botService.reply(replyToken, templateMessage);
 
 	}
 
