@@ -64,6 +64,7 @@
 			},
 			{
 				"type": "button",
+				"style": "primary",
 				"action": {
 					"type": "postback",
 					"label": "Apa itu PSBB?",
